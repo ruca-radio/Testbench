@@ -1,0 +1,2264 @@
+/* filepath: /home/rucaradio/framework/public/css/styles.css */
+/* 4-Column ChatGPT-like Layout for AI Inference Platform */
+
+/* Overall Theme: Dark mode with blue accents */
+
+/* =================================== */
+/*         Reset and Base Styles       */
+/* =================================== */
+* { /* Apply box-sizing to all elements for easier padding/border calculations */
+    box-sizing: border-box;
+}
+
+body, html { /* Base body and html styles */
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent main scrollbar */
+}
+
+/* =================================== */
+/*         Main Layout Structure       */
+/* =================================== */
+
+/* 4-Column App Container */
+.app-container { /* Flex container for the main layout columns */
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Column 1: Workspace & Conversations (25%) */
+.workspace-sidebar { /* Styles for the left sidebar */
+    width: 25%;
+    min-width: 250px;
+    background-color: #1f1f1f; /* Slightly lighter dark background */
+    border-right: 1px solid #333333; /* Separator border */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Hide overflow content */
+}
+
+/* Workspace Header */
+.workspace-header { /* Header within the workspace sidebar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px; /* Consistent padding */
+    border-bottom: 1px solid #333333; /* Separator */
+    background: #2a2a2a; /* Header background */
+}
+
+.workspace-header h2 { /* Title in workspace header */
+    margin: 0;
+    font-size: 1.1em;
+    color: #e0e0e0;
+}
+
+/* Workspace Selector */
+.workspace-selector { /* Container for workspace dropdown */
+    padding: 10px 15px; /* Consistent padding */
+    border-bottom: 1px solid #333333; /* Separator */
+}
+
+.workspace-selector select { /* Styles for the workspace dropdown */
+    width: 100%;
+    padding: 8px;
+    background: #2e2e2e;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-size: 0.9em;
+    outline: none; /* Remove default outline */
+}
+
+.workspace-selector select:focus { /* Focus state for dropdown */
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2); /* Add focus ring */
+}
+
+/* Conversations Section */
+.conversations-section { /* Container for the conversations list */
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Section Header (used in sidebars) */
+.section-header { /* Generic header for sections in sidebars */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px; /* Consistent padding */
+    border-bottom: 1px solid #333333; /* Separator */
+    background: #2a2a2a; /* Header background */
+}
+
+.section-header h3 { /* Title in section headers */
+    margin: 0;
+    font-size: 0.9em;
+    color: #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Section Header Hover and Focus Styles */
+.section-header:hover { /* Hover state */
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.section-header:focus-visible { /* Use focus-visible */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+    box-shadow: 0 1px 4px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+/* Conversation List */
+.conversation-list { /* Container for individual conversation items */
+    flex: 1;
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px; /* Consistent padding */
+}
+
+/* Conversation Item */
+.conversation-item { /* Styles for each conversation entry */
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s, border-color 0.2s; /* Smooth transitions */
+    border-left: 3px solid transparent; /* Left border for active state */
+    outline: none; /* Remove default outline */
+}
+
+.conversation-item:hover { /* Hover state */
+    background: #333333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.conversation-item:focus { /* Focus state */
+    border-color: #0a84ff; /* Add focus indicator */
+    background: #333333; /* Keep hover background on focus */
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+.conversation-item.active { /* Active (selected) state */
+    background: #0a84ff;
+    color: white;
+    border-left-color: #ffffff;
+}
+
+/* Columns 2+3: Main Chat Area (50%) */
+.chat-main { /* Styles for the main chat area */
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    background-color: #121212; /* Main background */
+    overflow: hidden;
+}
+
+/* Model Selection Bar */
+.model-bar { /* Bar above chat messages for model selection */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Consistent padding */
+    background: #1f1f1f; /* Background color */
+    border-bottom: 1px solid #333333; /* Separator */
+    min-height: 50px;
+}
+
+.model-selector select { /* Styles for the model dropdown */
+    background: #2e2e2e;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    color: #e0e0e0;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    min-width: 200px;
+    outline: none; /* Remove default outline */
+}
+
+.model-selector select:hover { /* Hover state */
+    border-color: #444444;
+}
+
+.model-selector select:focus { /* Focus state */
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2); /* Add focus ring */
+}
+
+.chat-actions { /* Container for action buttons in model bar */
+    display: flex;
+    gap: 10px;
+}
+
+/* Chat Messages Area */
+.chat-messages { /* Container for chat message bubbles */
+    flex: 1;
+    padding: 20px; /* Consistent padding */
+    overflow-y: auto; /* Enable vertical scrolling */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between messages */
+}
+
+/* Individual Message */
+.message { /* Container for a single message */
+    display: flex;
+    gap: 12px;
+    max-width: 100%;
+    animation: fadeIn 0.3s ease; /* Fade-in animation */
+}
+
+.message.user { /* User message alignment */
+    justify-content: flex-end;
+}
+
+.message.assistant { /* Assistant message alignment */
+    justify-content: flex-start;
+}
+
+/* Message Content Bubble */
+.message-content, .message .content { /* Styles for the message bubble */
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.message.user .message-content, .message.user .content { /* User message bubble styles */
+    background: #0a84ff; /* Blue background */
+    color: white;
+    margin-left: auto; /* Push to the right */
+}
+
+.message.assistant .message-content, .message.assistant .content { /* Assistant message bubble styles */
+    background: #1f1f1f; /* Dark background */
+    color: #e0e0e0;
+    border: 1px solid #333333;
+}
+
+/* Code formatting within messages */
+.message .content pre { /* Styles for code blocks */
+    background: #0d1117;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 8px 0;
+    overflow-x: auto; /* Enable horizontal scrolling for long lines */
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.85em;
+}
+
+.message .content code { /* Styles for inline code */
+    background: #0d1117;
+    color: #f8f8f2;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.85em;
+}
+
+.message .content pre code { /* Override inline code styles within pre */
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+/* Chat Input Area */
+.chat-input-container { /* Container for the chat input */
+    padding: 20px; /* Consistent padding */
+    background: #1f1f1f; /* Background color */
+    border-top: 1px solid #333333; /* Separator */
+}
+
+.chat-input-wrapper { /* Flex container for input and send button */
+    display: flex;
+    gap: 10px;
+    align-items: flex-end; /* Align items to the bottom */
+}
+
+.chat-input { /* Styles for the chat textarea */
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #333333;
+    border-radius: 20px;
+    background: #121212;
+    color: #e0e0e0;
+    font-size: 14px;
+    outline: none;
+    resize: none; /* Disable textarea resizing by user */
+    max-height: 120px;
+    font-family: inherit;
+}
+
+.chat-input:hover { /* Hover state */
+    border-color: #444444;
+}
+
+.chat-input:focus { /* Focus state */
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2); /* Add focus ring */
+}
+
+.send-button { /* Styles for the send button */
+    padding: 12px;
+    background: #0a84ff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    transition: all 0.2s; /* Smooth transitions */
+    outline: none; /* Remove default outline */
+}
+
+.send-button:hover:not(:disabled) { /* Hover state for send button */
+    background: #0056cc;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Add subtle shadow */
+}
+
+.send-button:focus-visible { /* Focus-visible state for accessibility */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+    box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3); /* Add subtle shadow on focus */
+}
+
+.send-button:disabled { /* Disabled state for send button */
+    background: #333333;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Column 4: Configuration & Agents (25%) */
+.config-sidebar { /* Styles for the right sidebar */
+    width: 25%;
+    min-width: 280px;
+    background-color: #1f1f1f; /* Slightly lighter dark background */
+    border-left: 1px solid #333333; /* Separator border */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Hide overflow content */
+}
+
+/* Configuration Sections */
+.config-section { /* Container for individual config sections */
+    border-bottom: 1px solid #333333;
+}
+
+.config-section:last-child { /* Remove bottom border for the last section */
+    border-bottom: none;
+    flex: 1;
+    overflow-y: auto; /* Enable scrolling for the last section */
+}
+
+.config-section .section-header { /* Header within config sections */
+    background: #2a2a2a;
+    padding: 12px 15px; /* Consistent padding */
+}
+
+.config-section .section-header h3 { /* Title in config section headers */
+    font-size: 0.9em;
+    margin: 0;
+}
+
+/* Config Buttons */
+.config-button { /* Styles for buttons within config sections */
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.config-button:hover { /* Hover state */
+    background: #333333;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.config-button:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+    box-shadow: 0 1px 4px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+/* Agent List (in Config Sidebar) */
+.agent-list { /* Container for agent items in config sidebar */
+    padding: 10px; /* Consistent padding */
+}
+
+.agent-item { /* Styles for each agent entry */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #2e2e2e;
+    border-radius: 6px;
+    border-left: 3px solid transparent; /* Left border for status/type */
+    transition: all 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.agent-item:hover { /* Hover state */
+    background: #3e3e3e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.agent-item:focus { /* Focus state */
+    border-color: #0a84ff; /* Add focus indicator */
+    background: #3e3e3e; /* Keep hover background on focus */
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+.agent-item.orchestrator { /* Specific style for orchestrator agent */
+    border-left-color: #0a84ff;
+}
+
+.agent-info { /* Container for agent name and status */
+    flex: 1;
+}
+
+.agent-name { /* Agent name text */
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-size: 0.9em;
+}
+
+.agent-status { /* Agent status text */
+    font-size: 0.8em;
+    color: #999999;
+}
+
+.agent-status.active { /* Active agent status color */
+    color: #28a745;
+}
+
+.agent-actions { /* Container for agent action buttons */
+    display: flex;
+    gap: 5px;
+}
+
+/* Icon Buttons */
+.btn-icon { /* Styles for small icon buttons */
+    background: #333333;
+    border: none;
+    border-radius: 4px;
+    padding: 6px;
+    cursor: pointer;
+    color: #e0e0e0;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none; /* Remove default outline */
+}
+
+.btn-icon:hover { /* Hover state */
+    background: #444444;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.btn-icon:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+    box-shadow: 0 1px 4px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+/* MCP List (in Config Sidebar) */
+.mcp-list { /* Container for MCP items */
+    padding: 10px; /* Consistent padding */
+}
+
+.mcp-item { /* Styles for each MCP entry */
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #2e2e2e;
+    border-radius: 6px;
+    font-size: 0.9em;
+    border: 1px solid transparent; /* Add border for consistency */
+    transition: all 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.mcp-item:hover { /* Hover state */
+    background: #3e3e3e;
+    border-color: #444444; /* Add border color on hover */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.mcp-item:focus { /* Focus state */
+    border-color: #0a84ff; /* Add focus indicator */
+    background: #3e3e3e; /* Keep hover background on focus */
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+/* =================================== */
+/*           General Components        */
+/* =================================== */
+
+/* Button Styles */
+.btn { /* Base styles for buttons */
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.2s; /* Smooth transitions */
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: inherit;
+    outline: none; /* Remove default outline */
+}
+
+.btn:hover { /* Hover state */
+    opacity: 0.9;
+    transform: translateY(-1px); /* Slight lift effect */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+}
+
+.btn:focus-visible { /* Focus-visible state for accessibility */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+.btn:active { /* Active state for buttons */
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); /* Reduce shadow on active */
+}
+
+.btn.primary { /* Primary button style */
+    background: #0a84ff;
+    color: white;
+}
+
+.btn.secondary { /* Secondary button style */
+    background: #6c757d;
+    color: white;
+}
+
+.btn.small { /* Small button size */
+    padding: 4px 8px;
+    font-size: 0.8em;
+}
+
+.btn svg { /* Icon size within buttons */
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+}
+
+/* Model Settings (Quick Config) */
+.model-settings { /* Container for quick model settings */
+    border-top: 1px solid #333333;
+}
+
+.model-settings-header { /* Header for the model settings section */
+    padding: 12px 15px; /* Consistent padding */
+    background: #2a2a2a;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: #e0e0e0;
+    transition: background-color 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.model-settings-header:hover { /* Hover state */
+    background: #333333;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.model-settings-header:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+    box-shadow: 0 1px 4px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+.model-settings-content { /* Collapsible content area */
+    padding: 15px; /* Consistent padding */
+    display: none;
+}
+
+.model-settings-content.expanded { /* State when content is expanded */
+    display: block;
+}
+
+.settings-group { /* Container for a group of settings */
+    margin-bottom: 15px;
+}
+
+.settings-group label { /* Label for settings inputs */
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.85em;
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+.settings-group input[type="range"] { /* Styles for range inputs */
+    width: 100%;
+    margin-bottom: 5px;
+    outline: none; /* Remove default outline */
+}
+
+.settings-group input[type="range"]:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+}
+
+.settings-group span { /* Styles for range value display */
+    font-size: 0.8em;
+    color: #0a84ff;
+    font-weight: 600;
+}
+
+.collapse-icon { /* Icon for collapsing/expanding */
+    transition: transform 0.2s;
+    font-size: 0.8em;
+}
+
+.collapse-icon.expanded { /* Rotate icon when expanded */
+    transform: rotate(90deg);
+}
+
+/* =================================== */
+/*             Animations              */
+/* =================================== */
+@keyframes fadeIn { /* Fade-in animation for messages */
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin { /* Spin animation for loading indicators */
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* =================================== */
+/*           Loading States            */
+/* =================================== */
+.loading-indicator { /* General loading spinner */
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.typing-indicator { /* Container for typing dots (deprecated?) */
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+}
+
+.typing-dot { /* Individual typing dot (deprecated?) */
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #666666;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { /* Animation delay for first dot */
+    animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) { /* Animation delay for second dot */
+    animation-delay: -0.16s;
+}
+
+@keyframes typingAnimation { /* Animation for typing dots */
+    0%, 80%, 100% {
+        opacity: 0.3;
+    }
+    40% {
+        opacity: 1;
+    }
+}
+
+/* Enhanced Typing Indicator */
+.typing-dots { /* Container for enhanced typing dots */
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    align-items: center;
+}
+
+.typing-dots span { /* Individual enhanced typing dot */
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #666666;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(1) { /* Animation delay for first dot */
+    animation-delay: -0.32s;
+}
+
+.typing-dots span:nth-child(2) { /* Animation delay for second dot */
+    animation-delay: -0.16s;
+}
+
+.typing-dots span:nth-child(3) { /* Animation delay for third dot */
+    animation-delay: 0s;
+}
+
+/* =================================== */
+/*             Modal Styles            */
+/* =================================== */
+
+/* General Modal Overlay */
+.modal { /* Overlay for modals */
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+    -webkit-backdrop-filter: blur(4px); /* Backdrop blur effect */
+    backdrop-filter: blur(4px);
+}
+
+/* Modal Content Container */
+.modal-content { /* Container for modal content */
+    background-color: #1f1f1f;
+    margin: 2% auto; /* Center the modal */
+    padding: 20px; /* Consistent padding */
+    border: 1px solid #333333;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh; /* Limit height to viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    color: #e0e0e0;
+    position: relative;
+}
+
+/* Close Button (Generic) */
+.close { /* Generic close button style */
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    outline: none; /* Remove default outline */
+}
+
+.close:hover { /* Hover state */
+    color: #ffffff;
+}
+
+.close:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+}
+
+/* =================================== */
+/*           Form Elements             */
+/* =================================== */
+.form-group { /* Container for form input groups */
+    margin-bottom: 15px;
+}
+
+.form-group label { /* Label for form inputs */
+    display: block;
+    margin-bottom: 5px;
+    color: #e0e0e0;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea { /* Styles for form input fields */
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    background: #121212;
+    color: #e0e0e0;
+    font-size: 0.9em;
+    font-family: inherit;
+    outline: none; /* Remove default outline */
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover { /* Hover state for form inputs */
+    border-color: #444444;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { /* Focus state for form inputs */
+    outline: none; /* Remove default outline */
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2);
+}
+
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible { /* Focus-visible state for accessibility */
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2);
+}
+
+/* =================================== */
+/*          Responsive Design          */
+/* =================================== */
+@media (max-width: 1200px) { /* Adjust layout for medium screens */
+    .workspace-sidebar {
+        width: 30%;
+        min-width: 220px;
+    }
+
+    .chat-main {
+        width: 45%;
+    }
+
+    .config-sidebar {
+        width: 25%;
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 768px) { /* Adjust layout for small screens */
+    .app-container {
+        flex-direction: column;
+    }
+
+    .workspace-sidebar,
+    .chat-main,
+    .config-sidebar { /* Stack columns vertically */
+        width: 100%;
+        min-width: unset;
+    }
+
+    .workspace-sidebar {
+        max-height: 30vh;
+        order: 1;
+    }
+
+    .chat-main {
+        order: 2;
+        flex: 1;
+    }
+
+    .config-sidebar {
+        max-height: 40vh;
+        order: 3;
+    }
+
+    .message-content, .message .content { /* Adjust message bubble width */
+        max-width: 90%;
+    }
+}
+
+/* =================================== */
+/*          Utility Styles             */
+/* =================================== */
+
+/* Scrollbar Styling */
+::-webkit-scrollbar { /* Styles for Webkit browsers */
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track { /* Scrollbar track */
+    background: #1f1f1f;
+}
+
+::-webkit-scrollbar-thumb { /* Scrollbar thumb */
+    background: #333333;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover { /* Scrollbar thumb hover state */
+    background: #555555;
+}
+
+/* Drag and Drop Future Preparation */
+.widget { /* Base widget styles for drag and drop */
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.widget.dragging { /* Styles when a widget is being dragged */
+    opacity: 0.7;
+    transform: rotate(5deg);
+}
+
+.drop-zone { /* Styles for drag and drop zones */
+    border: 2px dashed transparent;
+    transition: border-color 0.2s;
+}
+
+.drop-zone.active { /* Styles when a drag is over the drop zone */
+    border-color: #0a84ff;
+    background: rgba(10, 132, 255, 0.1);
+}
+
+/* Focus management for accessibility */
+.sr-only { /* Visually hidden element for screen readers */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) { /* Adjustments for high contrast mode */
+    .message.assistant .content {
+        border-width: 2px;
+    }
+
+    .conversation-item.active {
+        border-left-width: 5px;
+    }
+
+    .agent-item.orchestrator {
+        border-left-width: 5px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) { /* Disable animations for users who prefer reduced motion */
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =================================== */
+/*     Missing UI Component Styles     */
+/* =================================== */
+
+/* Notification System */
+.notification-container { /* Container for notifications */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none; /* Allow clicks to pass through container */
+}
+
+.notification { /* Individual notification style */
+    background: #2a2a2a;
+    color: #e0e0e0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 4px solid #0a84ff; /* Color indicator */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%); /* Start off-screen */
+    transition: transform 0.3s ease; /* Slide-in animation */
+    pointer-events: auto; /* Enable clicks on the notification itself */
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.notification.show { /* State when notification is visible */
+    transform: translateX(0);
+}
+
+.notification.success { /* Success notification color */
+    border-left-color: #28a745;
+}
+
+.notification.error { /* Error notification color */
+    border-left-color: #dc3545;
+}
+
+.notification.warning { /* Warning notification color */
+    border-left-color: #ffc107;
+}
+
+.notification.info { /* Info notification color */
+    border-left-color: #17a2b8;
+}
+
+.notification-content { /* Flex container for notification content and close button */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-close { /* Close button for notifications */
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0;
+    margin-left: 10px;
+    outline: none; /* Remove default outline */
+}
+
+.notification-close:hover { /* Hover state */
+    color: #ffffff;
+}
+
+.notification-close:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+}
+
+/* Confirm Dialog */
+.confirm-dialog-overlay { /* Overlay for confirm dialog */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    -webkit-backdrop-filter: blur(4px); /* Backdrop blur effect */
+    backdrop-filter: blur(4px);
+}
+
+.confirm-dialog { /* Container for confirm dialog content */
+    background: #1f1f1f;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 24px; /* Consistent padding */
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.confirm-dialog-content p { /* Text within confirm dialog */
+    margin: 0 0 20px 0;
+    color: #e0e0e0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.confirm-dialog-actions { /* Container for confirm dialog buttons */
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Loading Spinner */
+.loading-spinner { /* Container for loading spinner */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner.small .spinner { /* Small spinner size */
+    width: 16px;
+    height: 16px;
+}
+
+.loading-spinner.medium .spinner { /* Medium spinner size */
+    width: 24px;
+    height: 24px;
+}
+
+.loading-spinner.large .spinner { /* Large spinner size */
+    width: 32px;
+    height: 32px;
+}
+
+.spinner { /* Spinner animation */
+    width: 24px;
+    height: 24px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Enhanced Modal Styles */
+.modal.settings-modal .modal-content { /* Specific styles for settings modal */
+    max-width: 1400px;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header { /* Header within enhanced modals */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-items: center;
+    padding: 20px 24px; /* Consistent padding */
+    border-bottom: 1px solid #333333;
+}
+
+.modal-header h2 { /* Title in modal header */
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+}
+
+.modal-close { /* Close button within enhanced modals */
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    border-radius: 4px;
+    transition: all 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.modal-close:hover { /* Hover state */
+    color: #ffffff;
+    background: #333333;
+}
+
+.modal-close:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+}
+
+.modal-tabs { /* Container for modal tabs */
+    display: flex;
+    background: #2a2a2a;
+    border-bottom: 1px solid #333333;
+    padding: 0 24px; /* Consistent padding */
+    overflow-x: auto; /* Enable horizontal scrolling for tabs */
+}
+
+.tab-button { /* Styles for modal tab buttons */
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent; /* Underline effect */
+    transition: all 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.tab-button:hover { /* Hover state */
+    color: #e0e0e0;
+    background: #333333;
+    border-bottom-color: #e0e0e0; /* Highlight border on hover */
+}
+
+.tab-button:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+    border-bottom-color: #0a84ff; /* Highlight border on focus */
+}
+
+.tab-button.active { /* Active tab state */
+    color: #0a84ff;
+    border-bottom-color: #0a84ff;
+}
+
+.modal-body { /* Main content area of the modal */
+    flex: 1;
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 24px; /* Consistent padding */
+    position: relative;
+}
+
+.tab-content { /* Container for tab content */
+    display: none;
+}
+
+.tab-content.active { /* Active tab content state */
+    display: block;
+}
+
+.modal-footer { /* Footer area of the modal */
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 24px; /* Consistent padding */
+    border-top: 1px solid #333333;
+    background: #2a2a2a;
+}
+
+/* Settings Sections (within Modals) */
+.settings-section { /* Container for a group of settings within modals */
+    margin-bottom: 32px;
+    padding-bottom: 24px; /* Consistent padding */
+    border-bottom: 1px solid #333333;
+}
+
+.settings-section:last-child { /* Remove bottom border for the last section */
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.settings-section h4 { /* Section title */
+    margin: 0 0 16px 0;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+}
+
+.settings-group { /* Container for a group of related settings inputs */
+    margin-bottom: 16px;
+}
+
+.settings-row { /* Grid layout for settings within a row */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Provider Sections (within Settings Modal) */
+.provider-section { /* Container for AI provider settings */
+    margin-bottom: 32px;
+    padding: 20px; /* Consistent padding */
+    background: #262626;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+/* Inference box showing model introspection in AI Services tab */
+.inference-box { /* Enhanced inference box */
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 280px;
+    min-height: 100px;
+    max-height: 400px;
+    border: 1px solid #0a84ff;
+    background: #1f1f1f;
+    color: #e0e0e0;
+    padding: 16px;
+    overflow-y: auto;
+    border-radius: 8px;
+    z-index: 10;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+}
+
+.inference-box h5 { /* Model name in inference box */
+    margin: 0 0 12px 0;
+    color: #0a84ff;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 8px;
+}
+
+.inference-box p { /* Text in inference box */
+    margin: 0 0 8px 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.inference-box strong { /* Bold text in inference box */
+    color: #e0e0e0;
+}
+
+.provider-section h4 { /* Provider section header */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #333333;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+}
+
+.api-key-warning { /* Warning text for API keys */
+    font-size: 0.8rem;
+    color: #ffc107;
+    margin-top: 4px;
+}
+
+/* Model Lists (within Provider Sections) */
+.model-list { /* Container for the list of models */
+    margin-top: 16px;
+}
+
+.model-grid { /* Grid layout for models */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.model-item { /* Individual model item */
+    padding: 8px 12px; /* Consistent padding */
+    background: #333333;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #e0e0e0;
+}
+
+.provider-section .model-grid { /* Model grid within provider settings */
+    max-height: 300px;
+    overflow-y: auto; /* Enable scrolling */
+    border: 1px solid #333333;
+    border-radius: 6px;
+    padding: 10px; /* Consistent padding */
+    background-color: #262626;
+    margin-top: 10px;
+}
+
+.provider-section .model-item { /* Model item styles */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px; /* Consistent padding */
+    margin-bottom: 6px;
+    background-color: #2e2e2e;
+    border-radius: 4px;
+    border: 1px solid #333333;
+    outline: none; /* Remove default outline */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.provider-section .model-item:last-child { /* Remove bottom margin for the last item */
+    margin-bottom: 0;
+}
+
+.provider-section .model-item:hover { /* Enhanced hover effect */
+    background-color: #3e3e3e;
+    border-color: #0a84ff;
+    transform: translateY(-1px);
+}
+
+.provider-section .model-item:active { /* Click effect */
+    transform: translateY(0);
+}
+
+.provider-section .model-info h6 { /* Model name */
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #e0e0e0;
+}
+
+.provider-section .model-id { /* Model ID */
+    font-size: 0.8rem;
+    color: #aaaaaa;
+    font-family: 'Courier New', monospace;
+}
+
+.provider-section .model-controls { /* Container for model control elements */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Switch/Toggle Styling for Model Controls */
+.switch { /* Container for the toggle switch */
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input { /* Hide the default checkbox */
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider { /* The slider track */
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #404040;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.slider:before { /* The slider thumb */
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider { /* Slider background when checked */
+    background-color: #28a745;
+}
+
+input:checked + .slider:before { /* Slider thumb position when checked */
+    transform: translateX(26px);
+}
+
+/* Enhanced Pulse Animation */
+@keyframes pulse { /* Pulse animation for status indicators */
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Tool Configuration Styles */
+.input-hint { /* Hint text below input fields */
+    font-size: 0.8rem;
+    color: #aaaaaa;
+    margin-top: 4px;
+}
+
+.input-hint a { /* Link within hint text */
+    color: #0a84ff;
+    text-decoration: none;
+}
+
+.input-hint a:hover { /* Hover state for hint link */
+    text-decoration: underline;
+}
+
+/* Search Engine Configuration Panels */
+#google-config,
+#google-cx-config,
+#bing-config { /* Specific styles for search engine config sections */
+    margin-top: 10px;
+    padding: 10px; /* Consistent padding */
+    background-color: #262626;
+    border-radius: 6px;
+    border: 1px solid #333333;
+}
+
+/* Loading and No-models states */
+.no-models { /* Styles for message when no models are found */
+    color: #aaaaaa;
+    font-style: italic;
+    text-align: center;
+    padding: 20px; /* Consistent padding */
+}
+
+.loading { /* Styles for loading message */
+    color: #17a2b8;
+    font-style: italic;
+    text-align: center;
+    padding: 20px; /* Consistent padding */
+}
+
+/* Enhanced Actions Section */
+.actions { /* Container for action buttons */
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #333333;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Tool Category Styling */
+.tool-category { /* Badge for tool category */
+    background: #333333;
+    color: #e0e0e0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+/* Tool Info Styling */
+.tool-info h5 { /* Tool name */
+    margin: 0 0 4px 0;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+}
+
+.tool-info p { /* Tool description */
+    margin: 0 0 8px 0;
+    color: #aaaaaa;
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+
+/* Knowledge Base and MCP Item Info */
+.kb-info h5,
+.mcp-info h5 { /* Title for KB and MCP items */
+    margin: 0 0 4px 0;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+}
+
+.kb-info p,
+.mcp-info p { /* Description for KB and MCP items */
+    margin: 0 0 8px 0;
+    color: #aaaaaa;
+    font-size: 0.85rem;
+}
+
+.kb-meta,
+.mcp-url { /* Meta info for KB and MCP items */
+    font-size: 0.8rem;
+    color: #888888;
+    font-family: 'Courier New', monospace;
+}
+
+/* Knowledge Base and MCP Actions */
+.kb-actions,
+.mcp-controls { /* Container for action buttons */
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Enhanced button hover states */
+.btn:hover:not(:disabled) { /* Hover state for buttons (excluding disabled) */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active { /* Active state for buttons */
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* =================================== */
+/*       TestBench Agent Styles        */
+/* =================================== */
+
+/* TestBench Tab Content */
+.tab-description { /* Description text for TestBench tab */
+    color: #aaaaaa;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* TestBench Chat Interface */
+.testbench-chat-section { /* Container for the TestBench chat */
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333333;
+}
+
+.testbench-chat-container { /* Container for chat messages and input */
+    background: #262626;
+    border-radius: 8px;
+    border: 1px solid #333333;
+    overflow: hidden;
+}
+
+.testbench-chat-messages { /* Message area */
+    max-height: 300px;
+    overflow-y: auto; /* Enable scrolling */
+    padding: 16px; /* Consistent padding */
+    background: #1f1f1f;
+}
+
+.testbench-welcome-message { /* Initial welcome message style */
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.testbench-message { /* Individual message container */
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+}
+
+.testbench-message.user-message { /* User message alignment */
+    justify-content: flex-end;
+}
+
+.testbench-message.user-message .message-content { /* User message bubble */
+    background: #0a84ff;
+    color: white;
+    margin-left: auto;
+}
+
+.agent-avatar { /* Agent avatar styling */
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #0a84ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.testbench-message .message-content { /* Message bubble */
+    background: #2e2e2e;
+    border-radius: 12px;
+    padding: 12px 16px; /* Consistent padding */
+    max-width: 80%;
+    border: 1px solid #333333;
+}
+
+.testbench-message .user-content { /* User message content (redundant with .user-message .message-content?) */
+    background: #0a84ff;
+    color: white;
+    margin-left: auto;
+}
+
+.testbench-chat-input-container { /* Chat input area */
+    padding: 16px; /* Consistent padding */
+    background: #2a2a2a;
+    border-top: 1px solid #333333;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.testbench-chat-input-container input { /* Chat input field */
+    flex: 1;
+    padding: 10px 14px; /* Consistent padding */
+    border: 1px solid #333333;
+    border-radius: 20px;
+    background: #1f1f1f;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.testbench-chat-input-container input:hover { /* Hover state */
+    border-color: #444444;
+}
+
+.testbench-chat-input-container input:focus { /* Focus state */
+    border-color: #0a84ff;
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2); /* Add focus ring */
+}
+
+/* System Capabilities Grid */
+.testbench-capabilities { /* Container for capabilities section */
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333333;
+}
+
+.capability-grid { /* Grid for capability items */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.capability-item { /* Individual capability item */
+    background: #2e2e2e;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 16px; /* Consistent padding */
+    text-align: center;
+    transition: all 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.capability-item:hover { /* Hover state */
+    background: #3e3e3e;
+    border-color: #0a84ff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.capability-item:focus { /* Focus state */
+    border-color: #0a84ff; /* Add focus indicator */
+    background: #3e3e3e; /* Keep hover background on focus */
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+.capability-icon { /* Icon within capability item */
+    font-size: 2rem;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.capability-item h5 { /* Capability title */
+    margin: 0 0 8px 0;
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+.capability-item p { /* Capability description */
+    margin: 0 0 12px 0;
+    color: #aaaaaa;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* Configuration Templates */
+.testbench-templates { /* Container for templates section */
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333333;
+}
+
+.template-list { /* List of templates */
+    margin-top: 16px;
+}
+
+.template-item { /* Individual template item */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2e2e2e;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 16px; /* Consistent padding */
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.template-item:hover { /* Hover state */
+    background: #3e3e3e;
+    border-color: #444444;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.template-item:focus { /* Focus state */
+    border-color: #0a84ff; /* Add focus indicator */
+    background: #3e3e3e; /* Keep hover background on focus */
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+.template-info h5 { /* Template title */
+    margin: 0 0 4px 0;
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+.template-info p { /* Template description */
+    margin: 0;
+    color: #aaaaaa;
+    font-size: 0.85rem;
+}
+
+.template-actions { /* Container for template action buttons */
+    display: flex;
+    gap: 8px;
+}
+
+/* Backup & Restore */
+.testbench-backup { /* Container for backup section */
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333333;
+}
+
+.backup-controls { /* Container for backup controls */
+    background: #2e2e2e;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 16px; /* Consistent padding */
+    margin-top: 16px;
+}
+
+.backup-actions { /* Container for backup action buttons */
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.backup-info { /* Backup information text */
+    font-size: 0.85rem;
+    color: #aaaaaa;
+}
+
+.backup-info p { /* Paragraphs within backup info */
+    margin: 0 0 4px 0;
+}
+
+.backup-info span { /* Highlighted text within backup info */
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+/* System Status Grid */
+.testbench-status { /* Container for system status section */
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333333;
+}
+
+.status-grid { /* Grid for status items */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.status-item { /* Individual status item */
+    background: #2e2e2e;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 16px; /* Consistent padding */
+    text-align: center;
+    transition: all 0.2s;
+    outline: none; /* Remove default outline */
+}
+
+.status-item:hover { /* Hover state */
+    background: #3e3e3e;
+    border-color: #444444;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.status-item:focus { /* Focus state */
+    border-color: #0a84ff; /* Add focus indicator */
+    background: #3e3e3e; /* Keep hover background on focus */
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.2); /* Add subtle shadow on focus */
+}
+
+.status-icon { /* Icon within status item */
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.status-icon.healthy { /* Healthy status icon color */
+    color: #28a745;
+}
+
+.status-icon.warning { /* Warning status icon color */
+    color: #ffc107;
+}
+
+.status-icon.error { /* Error status icon color */
+    color: #dc3545;
+}
+
+.status-icon.loading { /* Loading status icon color and animation */
+    color: #17a2b8;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.status-info h5 { /* Status item title */
+    margin: 0 0 4px 0;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.status-info p { /* Status item description */
+    margin: 0;
+    color: #aaaaaa;
+    font-size: 0.8rem;
+}
+
+/* Danger Zone for TestBench */
+.testbench-status + .danger-zone { /* Adjust margin when danger zone follows status */
+    margin-top: 0;
+}
+
+.danger-actions { /* Container for danger zone action buttons */
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.danger-warning { /* Warning text in danger zone */
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 12px;
+    font-style: italic;
+}
+
+/* =================================== */
+/*         Widget System Styles        */
+/* =================================== */
+
+/* Widget Toolbar */
+.widget-toolbar { /* Toolbar for widget edit mode */
+    background: #2a2a2a;
+    border-bottom: 1px solid #333333;
+    padding: 12px 20px; /* Consistent padding */
+    display: none; /* Hidden by default until widget system is activated */
+}
+
+.widget-toolbar-content { /* Content within the widget toolbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.widget-toolbar h4 { /* Title in widget toolbar */
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.widget-controls { /* Container for widget control buttons */
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Widget Areas */
+.widget-area { /* Container for widgets */
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.widget-area.drag-over { /* Styles when dragging over a widget area */
+    background: rgba(10, 132, 255, 0.1);
+    border: 2px dashed #0a84ff;
+}
+
+/* Widget Containers */
+.widget-container { /* Container for an individual widget */
+    background: #2e2e2e;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+    outline: none; /* Remove default outline */
+}
+
+.widget-container:hover { /* Hover state */
+    border-color: #444444;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+}
+
+.widget-container:focus-within { /* Add focus indicator when interactive elements inside are focused */
+    border-color: #0a84ff;
+    box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3); /* Enhance shadow on focus */
+}
+
+.widget-container.dragging { /* Styles when a widget is being dragged */
+    opacity: 0.7;
+    transform: rotate(2deg);
+    z-index: 1000;
+}
+
+.widget-container.minimized .widget-body { /* Hide body when widget is minimized */
+    display: none;
+}
+
+/* Widget Header */
+.widget-header { /* Header of a widget */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px; /* Consistent padding */
+    background: #333333;
+    border-bottom: 1px solid #444444;
+    cursor: move; /* Indicates draggable */
+}
+
+.widget-title { /* Title area in widget header */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.widget-icon { /* Icon in widget header */
+    font-size: 1rem;
+}
+
+.widget-name { /* Name of the widget */
+    font-size: 0.9rem;
+}
+
+.widget-controls { /* Container for widget control buttons */
+    display: none; /* Hidden by default, shown in edit mode */
+    gap: 4px;
+}
+
+.widget-btn { /* Styles for widget control buttons */
+    background: #404040;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 6px; /* Consistent padding */
+    cursor: pointer;
+    color: #e0e0e0;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    line-height: 1;
+    outline: none; /* Remove default outline */
+}
+
+.widget-btn:hover { /* Hover state */
+    background: #555555;
+}
+
+.widget-btn:focus-visible { /* Focus-visible state */
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+}
+
+.widget-btn.minimize { /* Minimize button style */
+    font-family: monospace;
+}
+
+.widget-btn.remove { /* Remove button style */
+    color: #dc3545;
+}
+
+.widget-btn.remove:hover { /* Hover state for remove button */
+    background: #dc3545;
+    color: white;
+}
+
+/* Widget Body */
+.widget-body { /* Content area of a widget */
+    padding: 12px; /* Consistent padding */
+    color: #e0e0e0;
+}
+
+/* Widget Drop Zones */
+.widget-drop-zone { /* Area where widgets can be dropped */
+    border: 2px dashed #333333;
+    border-radius: 8px;
+    padding: 20px; /* Consistent padding */
+    text-align: center;
+    color: #666666;
+    font-style: italic;
+    margin: 8px;
+    transition: all 0.3s;
+    display: none; /* Hidden by default */
+}
+
+.widget-drop-zone:hover,
+.widget-drop-zone.drag-over { /* Hover/drag-over state */
+    border-color: #0a84ff;
+    background: rgba(10, 132, 255, 0.1);
+    color: #0a84ff;
+}
+
+/* Widget Edit Mode */
+body.widget-edit-mode .widget-toolbar { /* Show toolbar in edit mode */
+    display: block;
+}
+
+body.widget-edit-mode .widget-controls { /* Show controls in edit mode */
+    display: flex;
+}
+
+body.widget-edit-mode .widget-drop-zone { /* Show drop zones in edit mode */
+    display: block;
+}
+
+body.widget-edit-mode .widget-container { /* Change cursor in edit mode */
+    cursor: move;
+}
+
+/* Widget Content Styles */
+.placeholder-widget { /* Styles for placeholder content */
+    text-align: center;
+    padding: 20px; /* Consistent padding */
+    color: #aaaaaa;
+}
+
+.placeholder-widget h4 { /* Title in placeholder */
+    margin: 0 0 8px 0;
+    color: #e0e0e0;
+}
+
+.placeholder-widget p { /* Text in placeholder */
+    margin: 0;
+    font-style: italic;
+}
+
+.existing-content { /* Container for existing content within a widget */
+    margin-top: 12px;
+}
+
+/* Model Introduction Scroll in AI Services Tab */
+.model-intro-scroll { /* Container for scrolling introduction text */
+    background: #262626;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    padding: 8px 0;
+    margin-bottom: 20px;
+    overflow: hidden;
+    font-style: italic;
+    color: #aaaaaa;
+    font-size: 0.9rem;
+}
+
+.model-intro-scroll marquee { /* Scrolling text element */
+    color: #aaaaaa;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Connection Status Indicators */
+.connection-status { /* Container for connection status */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-unknown { /* Unknown connection status */
+    color: #888888;
+}
+
+.status-testing { /* Testing connection status */
+    color: #ffc107;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.status-connected { /* Connected status */
+    color: #28a745;
+}
+
+.status-error { /* Error status */
+    color: #dc3545;
+}
+
+/* =================================== */
+/*      Drag and Drop Styles          */
+/* =================================== */
+.drag-highlight {
+    background-color: rgba(66, 153, 225, 0.1) !important;
+    border: 2px dashed #4299e1 !important;
+    transition: all 0.3s ease;
+}
+
+.chat-messages.drag-highlight {
+    opacity: 0.9;
+}
+
+#message-input.drag-highlight {
+    background-color: rgba(66, 153, 225, 0.2) !important;
+    border-color: #4299e1 !important;
+}
+
+/* =================================== */
+/*   AI Services Vertical Tabs         */
+/* =================================== */
+.ai-services-container {
+    display: flex;
+    gap: 20px;
+    height: calc(100% - 120px);
+    margin-top: 20px;
+}
+
+.provider-tabs-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 180px;
+    padding-right: 20px;
+    border-right: 1px solid #333;
+}
+
+.provider-tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #ccc;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.provider-tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #444;
+}
+
+.provider-tab-btn.active {
+    background: rgba(66, 153, 225, 0.15);
+    border-color: #4299e1;
+    color: #4299e1;
+}
+
+.provider-icon {
+    font-size: 18px;
+}
+
+.provider-content-area {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.provider-content {
+    display: none;
+}
+
+.provider-content.active {
+    display: block;
+}
+
+.provider-content h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+}

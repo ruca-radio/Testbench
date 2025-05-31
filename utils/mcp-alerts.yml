@@ -1,0 +1,138 @@
+# Prometheus alerting rules for MCP Server monitoring
+# Place this file in your Prometheus configuration directory and reference it in prometheus.yml
+
+groups:
+- name: mcp_server_alerts
+  rules:
+  # Availability alerts
+  - alert: MCPServerDown
+    expr: up{job="mcp-servers"} == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "MCP Server down ({{ $labels.instance }})"
+      description: "MCP Server has been down for more than 2 minutes.\n  Instance: {{ $labels.instance }}\n  Job: {{ $labels.job }}"
+
+  - alert: MCPServerEndpointDown
+    expr: probe_success{job="blackbox"} == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "MCP Server endpoint down ({{ $labels.instance }})"
+      description: "MCP Server endpoint is not responding.\n  Endpoint: {{ $labels.instance }}\n  Job: {{ $labels.job }}"
+
+  # Performance alerts
+  - alert: MCPServerHighResponseTime
+    expr: http_request_duration_seconds{job="mcp-servers", handler="/status"} > 0.5
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Server high response time ({{ $labels.instance }})"
+      description: "MCP Server response time is above 500ms for more than 5 minutes.\n  Instance: {{ $labels.instance }}\n  Value: {{ $value }}s"
+
+  - alert: MCPServerHighErrorRate
+    expr: rate(http_requests_total{job="mcp-servers", status=~"5.."}[5m]) / rate(http_requests_total{job="mcp-servers"}[5m]) > 0.05
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Server high error rate ({{ $labels.instance }})"
+      description: "MCP Server error rate is above 5% for more than 5 minutes.\n  Instance: {{ $labels.instance }}\n  Value: {{ $value | humanizePercentage }}"
+
+  # Resource usage alerts
+  - alert: MCPServerHighCPUUsage
+    expr: rate(process_cpu_seconds_total{job="mcp-servers"}[5m]) * 100 > 70
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Server high CPU usage ({{ $labels.instance }})"
+      description: "MCP Server CPU usage is above 70% for more than 10 minutes.\n  Instance: {{ $labels.instance }}\n  Value: {{ $value | humanizePercentage }}"
+
+  - alert: MCPServerHighMemoryUsage
+    expr: process_resident_memory_bytes{job="mcp-servers"} / node_memory_MemTotal_bytes{job="node"} * 100 > 80
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Server high memory usage ({{ $labels.instance }})"
+      description: "MCP Server memory usage is above 80% for more than 10 minutes.\n  Instance: {{ $labels.instance }}\n  Value: {{ $value | humanizePercentage }}"
+
+  # Tool execution alerts
+  - alert: MCPToolHighErrorRate
+    expr: rate(mcp_tool_executions_total{job="mcp-servers", status="error"}[5m]) / rate(mcp_tool_executions_total{job="mcp-servers"}[5m]) > 0.05
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Tool high error rate ({{ $labels.instance }}, {{ $labels.tool_name }})"
+      description: "MCP Tool error rate is above 5% for more than 5 minutes.\n  Instance: {{ $labels.instance }}\n  Tool: {{ $labels.tool_name }}\n  Value: {{ $value | humanizePercentage }}"
+
+  - alert: MCPToolHighExecutionTime
+    expr: mcp_tool_execution_duration_seconds{job="mcp-servers", quantile="0.95"} > 1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Tool high execution time ({{ $labels.instance }}, {{ $labels.tool_name }})"
+      description: "MCP Tool P95 execution time is above 1 second for more than 5 minutes.\n  Instance: {{ $labels.instance }}\n  Tool: {{ $labels.tool_name }}\n  Value: {{ $value }}s"
+
+  # Resource access alerts
+  - alert: MCPResourceHighErrorRate
+    expr: rate(mcp_resource_access_total{job="mcp-servers", status="error"}[5m]) / rate(mcp_resource_access_total{job="mcp-servers"}[5m]) > 0.05
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Resource high error rate ({{ $labels.instance }})"
+      description: "MCP Resource access error rate is above 5% for more than 5 minutes.\n  Instance: {{ $labels.instance }}\n  Value: {{ $value | humanizePercentage }}"
+
+  - alert: MCPResourceHighAccessTime
+    expr: mcp_resource_access_duration_seconds{job="mcp-servers", quantile="0.95"} > 0.5
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Resource high access time ({{ $labels.instance }})"
+      description: "MCP Resource P95 access time is above 500ms for more than 5 minutes.\n  Instance: {{ $labels.instance }}\n  Value: {{ $value }}s"
+
+  # Security alerts
+  - alert: MCPServerAuthenticationFailures
+    expr: rate(mcp_authentication_failures_total{job="mcp-servers"}[5m]) > 0.1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Server authentication failures ({{ $labels.instance }})"
+      description: "MCP Server is experiencing authentication failures.\n  Instance: {{ $labels.instance }}\n  Value: {{ $value }} failures/s"
+
+  - alert: MCPServerRateLimitViolations
+    expr: rate(mcp_rate_limit_violations_total{job="mcp-servers"}[5m]) > 0.1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Server rate limit violations ({{ $labels.instance }})"
+      description: "MCP Server is experiencing rate limit violations.\n  Instance: {{ $labels.instance }}\n  Value: {{ $value }} violations/s"
+
+  # Chat platform integration alerts
+  - alert: MCPChatIntegrationErrors
+    expr: rate(mcp_chat_integration_errors_total{job="mcp-chat-platform"}[5m]) > 0.1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Chat integration errors"
+      description: "Chat platform is experiencing MCP integration errors.\n  Value: {{ $value }} errors/s"
+
+  - alert: MCPChatHighLatency
+    expr: mcp_chat_integration_duration_seconds{job="mcp-chat-platform", quantile="0.95"} > 1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "MCP Chat integration high latency"
+      description: "Chat platform MCP integration P95 latency is above 1 second for more than 5 minutes.\n  Value: {{ $value }}s"

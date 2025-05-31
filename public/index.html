@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Inference Platform - Multi-Agent Collaboration</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="theme-dark">
+    <!-- Widget System Toolbar (Hidden by default) -->
+    <div class="widget-toolbar" id="widget-toolbar">
+        <div class="widget-toolbar-content">
+            <h4>
+                <span class="widget-icon">🧩</span>
+                Widget System
+            </h4>
+            <div class="widget-controls">
+                <button id="add-widget-btn" class="btn primary small">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 5a1 1 0 0 0-1 1v3H8a1 1 0 1 0 0 2h3v3a1 1 0 1 0 2 0v-3h3a1 1 0 1 0 0-2h-3V8a1 1 0 0 0-1-1z"/>
+                    </svg>
+                    Add Widget
+                </button>
+                <button id="save-layout-btn" class="btn secondary small">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3M19,19H5V5H16.17L19,7.83V19Z"/>
+                    </svg>
+                    Save Layout
+                </button>
+                <button id="load-layout-btn" class="btn secondary small">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                    Load Layout
+                </button>
+                <button id="reset-layout-btn" class="btn secondary small">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M18,11H13L14.5,9.5C13.14,8.04 11.13,8.04 9.77,9.5C8.41,10.96 8.41,13.04 9.77,14.5C11.13,15.96 13.14,15.96 14.5,14.5L16.06,16.06C13.5,18.68 9.27,18.68 6.71,16.06C4.16,13.5 4.16,9.27 6.71,6.71C9.27,4.16 13.5,4.16 16.06,6.71L18,5V11Z"/>
+                    </svg>
+                    Reset
+                </button>
+                <button id="exit-widget-mode-btn" class="btn danger small">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                    </svg>
+                    Exit Widget Mode
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4-Column ChatGPT-like Layout -->
+    <div class="app-container">
+        <!-- Column 1: Workspace & Conversations (25%) -->
+        <aside class="workspace-sidebar widget-area" data-widget-area="sidebar-left">
+            <!-- Widget Drop Zone -->
+            <div class="widget-drop-zone" data-widget-area="sidebar-left">
+                <p>Drop widgets here</p>
+            </div>
+
+            <div class="workspace-header">
+                <h2>Workspaces</h2>
+                <button id="new-workspace" class="btn secondary small" title="Create new workspace">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 5a1 1 0 0 0-1 1v3H8a1 1 0 1 0 0 2h3v3a1 1 0 1 0 2 0v-3h3a1 1 0 1 0 0-2h-3V8a1 1 0 0 0-1-1z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="workspace-selector">
+                <select id="workspace-select" onchange="switchWorkspace(this.value)" aria-label="Select workspace">
+                    <option value="default">Default Workspace</option>
+                </select>
+            </div>
+
+            <div class="conversations-section">
+                <div class="section-header">
+                    <h3>Conversations</h3>
+                    <button id="new-chat" class="btn secondary small" title="Start new conversation">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 5a1 1 0 0 0-1 1v3H8a1 1 0 1 0 0 2h3v3a1 1 0 1 0 2 0v-3h3a1 1 0 1 0 0-2h-3V8a1 1 0 0 0-1-1z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="conversation-list" class="conversation-list">
+                    <!-- Conversations will be populated dynamically -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Columns 2+3: Main Chat Area (50%) -->
+        <main class="chat-main widget-area" data-widget-area="main-center">
+            <!-- Widget Drop Zone -->
+            <div class="widget-drop-zone" data-widget-area="main-center">
+                <p>Drop widgets here</p>
+            </div>
+
+            <!-- Model Selection Bar -->
+            <div class="model-bar">
+                <div class="model-selector">
+                    <select id="model-select" onchange="switchModel(this.value)" aria-label="Select AI model">
+                        <option value="">Loading models...</option>
+                    </select>
+                </div>
+                <div class="chat-actions">
+                    <button id="clear-chat" class="btn secondary small" title="Clear current conversation">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="chat-messages">
+                <!-- Messages will be populated dynamically -->
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea
+                        id="message-input"
+                        class="chat-input"
+                        placeholder="Type your message here..."
+                        rows="1"
+                        aria-label="Message input"
+                    ></textarea>
+                    <button
+                        id="send-button"
+                        class="send-button"
+                        aria-label="Send message"
+                        title="Send message (Enter)"
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Column 4: Configuration & Agents (25%) -->
+        <aside class="config-sidebar widget-area" data-widget-area="sidebar-right">
+            <!-- Widget Drop Zone -->
+            <div class="widget-drop-zone" data-widget-area="sidebar-right">
+                <p>Drop widgets here</p>
+            </div>
+
+            <!-- Settings -->
+            <div class="config-section">
+                <div class="section-header">
+                    <h3>Settings</h3>
+                    <button class="config-button" aria-label="Open Settings Modal" onclick="openSettingsModal()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1c0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Agent Management -->
+            <div class="config-section">
+                <div class="section-header">
+                    <h3>Agents</h3>
+                    <button id="add-agent" class="btn primary small" onclick="openAgentManager()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 5a1 1 0 0 0-1 1v3H8a1 1 0 1 0 0 2h3v3a1 1 0 1 0 2 0v-3h3a1 1 0 1 0 0-2h-3V8a1 1 0 0 0-1-1z"/>
+                        </svg>
+                        Add Agent
+                    </button>
+                </div>
+
+                <div class="agent-list" id="agent-list">
+                    <div class="agent-item orchestrator">
+                        <div class="agent-info">
+                            <div class="agent-name">Orchestrator</div>
+                            <div class="agent-status active">GPT-4o</div>
+                        </div>
+                        <div class="agent-actions">
+                            <button class="btn-icon" title="Configure agent">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- More agents will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- MCP Servers -->
+            <div class="config-section">
+                <div class="section-header">
+                    <h3>MCP Servers</h3>
+                    <button id="add-mcp" class="btn secondary small" onclick="openMCPManager()" title="Add MCP Server">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 5a1 1 0 0 0-1 1v3H8a1 1 0 1 0 0 2h3v3a1 1 0 1 0 2 0v-3h3a1 1 0 1 0 0-2h-3V8a1 1 0 0 0-1-1z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="mcp-list" id="mcp-list">
+                    <!-- MCP servers will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Quick Configuration -->
+            <div class="config-section">
+                <div class="model-settings">
+                    <div class="model-settings-header" role="button" tabindex="0" aria-expanded="false"
+                        onclick="toggleModelSettings()" onkeypress="if(event.key === 'Enter') toggleModelSettings();">
+                        <span>Quick Config</span>
+                        <span class="collapse-icon">▶</span>
+                    </div>
+                    <div class="model-settings-content" id="model-settings-content" hidden>
+                        <div class="settings-group">
+                            <label for="quick-model-select">Quick Model:</label>
+                            <select id="quick-model-select" onchange="updateQuickSettings()">
+                                <option value="">Loading models...</option>
+                            </select>
+                        </div>
+
+                        <div class="settings-group">
+                            <label for="quick-agent-select">Quick Agent:</label>
+                            <select id="quick-agent-select" onchange="loadQuickAgent()">
+                                <option value="default">Default Assistant</option>
+                            </select>
+                        </div>
+
+                        <div class="settings-group">
+                            <label for="quick-temperature">Temperature:</label>
+                            <input type="range" id="quick-temperature" min="0" max="2" step="0.1" value="1"
+                                   aria-valuemin="0" aria-valuemax="2" aria-valuenow="1" onchange="updateQuickSettings()">
+                            <span id="quick-temperature-value">1.0</span>
+                        </div>
+
+                        <div class="settings-group">
+                            <label for="quick-max-tokens">Max Tokens:</label>
+                            <input type="range" id="quick-max-tokens" min="256" max="8192" step="256" value="2048"
+                                   onchange="updateQuickSettings()">
+                            <span id="quick-max-tokens-value">2048</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Loading Scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/chat.js"></script>
+    <script src="/js/quick-config.js"></script>
+    <script src="/js/ai-services.js"></script>
+    <script src="/js/agent-manager.js"></script>
+    <script src="/js/workspace-manager.js"></script>
+    <script src="/js/knowledge-manager.js"></script>
+    <script src="/js/tool-manager.js"></script>
+    <script src="/js/global-settings.js"></script>
+    <script src="/js/mcp-manager.js"></script>
+    <script src="/js/mcp-context-selector.js"></script>
+    <script src="/js/settings-modal.js"></script>
+
+    <!-- TestBench Agent Scripts -->
+    <script src="/js/testbench-manager.js"></script>
+
+    <!-- Widget System Scripts -->
+    <script src="/js/widget-system.js"></script>
+    <script src="/js/widgets/chat-widget.js"></script>
+    <script src="/js/widgets/agent-status-widget.js"></script>
+    <script src="/js/widgets/system-monitor-widget.js"></script>
+    <script src="/js/widgets/quick-config-widget.js"></script>
+    <script src="/js/widgets/conversation-history-widget.js"></script>
+
+    <!-- Main Application (Load Last) -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

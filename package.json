@@ -1,0 +1,33 @@
+{
+  "name": "TestBench",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Patrick DeLuca",
+  "license": "MIT",
+  "description": "TestBench: a fully configurable, multi-model, multi-provider AI inference platform.",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "better-sqlite3": "^11.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.6.1",
+    "multer": "^2.0.0",
+    "node-fetch": "^2.7.0",
+    "openai": "^4.103.0",
+    "redis": "^5.1.1",
+    "socket.io": "^4.8.1",
+    "sqlite3": "^5.1.7",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.1.1"
+  }
+}

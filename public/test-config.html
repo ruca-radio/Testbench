@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Config Test</title>
+</head>
+<body>
+    <h1>Configuration Test</h1>
+    <div id="results"></div>
+    <script>
+        // Test localStorage
+        const results = document.getElementById('results');
+        
+        // Check aiConfig
+        const aiConfig = localStorage.getItem('aiConfig');
+        results.innerHTML += '<p>aiConfig: ' + (aiConfig ? 'Found' : 'Not found') + '</p>';
+        if (aiConfig) {
+            results.innerHTML += '<pre>' + aiConfig + '</pre>';
+        }
+        
+        // Check agentConfigs
+        const agentConfigs = localStorage.getItem('agentConfigs');
+        results.innerHTML += '<p>agentConfigs: ' + (agentConfigs ? 'Found' : 'Not found') + '</p>';
+        if (agentConfigs) {
+            results.innerHTML += '<pre>' + agentConfigs + '</pre>';
+        }
+        
+        // Check settings
+        const settings = localStorage.getItem('settings');
+        results.innerHTML += '<p>settings: ' + (settings ? 'Found' : 'Not found') + '</p>';
+        if (settings) {
+            results.innerHTML += '<pre>' + settings + '</pre>';
+        }
+    </script>
+</body>
+</html>

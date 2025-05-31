@@ -1,0 +1,68 @@
+# Prometheus configuration for MCP Server monitoring
+# Place this file in your Prometheus configuration directory and include it in your main prometheus.yml
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Alerting rules for MCP servers
+rule_files:
+  - "mcp-alerts.yml"
+
+scrape_configs:
+  # MCP Server endpoints
+  - job_name: 'mcp-servers'
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    static_configs:
+      - targets: ['localhost:3001', 'localhost:3002']  # Replace with actual MCP server addresses
+        labels:
+          environment: 'production'
+    
+    # Basic authentication if required
+    # basic_auth:
+    #   username: 'prometheus'
+    #   password: 'password'
+    
+    # TLS configuration if required
+    # tls_config:
+    #   ca_file: '/path/to/ca.crt'
+    #   cert_file: '/path/to/client.crt'
+    #   key_file: '/path/to/client.key'
+    #   insecure_skip_verify: false
+
+  # MCP Chat Platform
+  - job_name: 'mcp-chat-platform'
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    static_configs:
+      - targets: ['localhost:3000']  # Replace with actual chat platform address
+        labels:
+          environment: 'production'
+
+  # Node Exporter for host metrics
+  - job_name: 'node'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['localhost:9100']  # Node exporter address
+        labels:
+          environment: 'production'
+
+  # Blackbox exporter for endpoint probing
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # Use the http_2xx module
+    static_configs:
+      - targets:
+        - http://localhost:3001/status  # MCP server 1 status endpoint
+        - http://localhost:3002/status  # MCP server 2 status endpoint
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: localhost:9115  # Blackbox exporter address
