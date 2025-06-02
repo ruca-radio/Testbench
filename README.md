@@ -80,8 +80,8 @@ This platform provides a flexible and powerful environment for AI interaction, s
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd framework
+git clone [<repository-url>](https://github.com/patrickdeluca/Testbench)
+cd Testbench
 ```
 
 2. Install dependencies:
