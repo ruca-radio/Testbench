@@ -62,3 +62,11 @@
 2025-05-31 05:03:50,068 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
 2025-05-31 05:03:50,071 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
 2025-05-31 05:03:50,071 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-05-31 18:31:06,952 - INFO - __main__ - Logging to file: ./logs/conport.log
+2025-05-31 18:31:06,952 - INFO - __main__ - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: ${workspaceFolder}
+2025-05-31 18:31:06,952 - WARNING - __main__ - MAIN.PY: WARNING - Workspace ID was literally '${workspaceFolder}'. This variable was not expanded by the client IDE. Falling back to current working directory as workspace_id: /home/rucaradio/framework. Ensure CWD in MCP config ('/home/rucaradio/framework') is the correct project workspace.
+2025-05-31 18:31:06,952 - INFO - __main__ - STDIO mode: Using effective_workspace_id '/home/rucaradio/framework'. Database directory will be created on first actual DB use.
+2025-05-31 18:31:06,955 - INFO - __main__ - ConPort FastMCP server lifespan starting.
+2025-05-31 18:31:06,959 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-05-31 18:31:06,962 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-05-31 18:31:06,964 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest

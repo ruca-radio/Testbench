@@ -135,6 +135,12 @@ class ChatApp {
 
         if (!message) return;
 
+        // Validate model is selected
+        if (!this.settings.model) {
+            Utils.showError('Please select a model first');
+            return;
+        }
+
         // Clear input
         messageInput.value = '';
 
@@ -157,6 +163,15 @@ class ChatApp {
                 { role: 'user', content: message }
             ];
 
+            // Get provider from model for correct config
+            const provider = this.getProviderFromModel(this.settings.model);
+            const config = {};
+            
+            // Add provider-specific configuration
+            if (provider) {
+                config[provider] = {}; // Will be filled from saved settings on backend
+            }
+
             const response = await fetch('/chat', {
                 method: 'POST',
                 headers: {
@@ -164,9 +179,9 @@ class ChatApp {
                 },
                 body: JSON.stringify({
                     messages: messages,
-                    model: this.settings.model || 'gpt-4o', // Fallback to default model
-                    config: {},
-                    temperature: this.settings.temperature,
+                    model: this.settings.model,
+                    config: config,
+                    temperature: this.settings.temperature || 1.0,
                     maxTokens: 4000,
                     topP: 1.0,
                     frequencyPenalty: 0,
@@ -201,6 +216,17 @@ class ChatApp {
                 `;
             }
         }
+    }
+
+    getProviderFromModel(model) {
+        if (!model) return null;
+        if (model.startsWith('claude-') || model.startsWith('anthropic/')) return 'anthropic';
+        if (model.startsWith('gpt-') || model.startsWith('o1-') || model.startsWith('openai/')) return 'openai';
+        if (model.includes('/')) return 'openrouter';
+        // Check if it's a known ollama model
+        const ollamaModels = ['llama', 'mistral', 'phi', 'gemma', 'qwen', 'deepseek'];
+        if (ollamaModels.some(m => model.toLowerCase().includes(m))) return 'ollama';
+        return 'openai'; // Default fallback
     }
 
     newChat() {
@@ -423,3 +449,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Export for use in other modules
 window.ChatApp = ChatApp;
+
+// Global functions for UI interactions
+window.newWorkspace = function() {
+    if (window.WorkspaceManager) {
+        WorkspaceManager.createWorkspace();
+    } else {
+        Utils.showInfo('Opening workspace creator...');
+        SettingsModal.open('workspaces');
+    }
+};
+
+window.newConversation = function() {
+    if (window.app) {
+        window.app.newChat();
+    }
+};
+
+// Make sure new workspace button works
+document.addEventListener('DOMContentLoaded', () => {
+    const newWorkspaceBtn = document.getElementById('new-workspace');
+    if (newWorkspaceBtn) {
+        newWorkspaceBtn.addEventListener('click', () => {
+            window.newWorkspace();
+        });
+    }
+    
+    const newChatBtn = document.getElementById('new-chat');
+    if (newChatBtn && !newChatBtn.hasAttribute('data-initialized')) {
+        newChatBtn.setAttribute('data-initialized', 'true');
+        newChatBtn.addEventListener('click', () => {
+            window.newConversation();
+        });
+    }
+});

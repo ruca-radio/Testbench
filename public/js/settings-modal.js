@@ -569,7 +569,8 @@ class SettingsModal {
             <h3>Tool Manager</h3>
 
             <div class="tools-toolbar">
-                <button class="btn primary" onclick="ToolManager.addTool()">+ Add Custom Tool</button>
+                <button class="btn primary" onclick="SettingsModal.openToolBuilder()">🤖 AI Tool Builder</button>
+                <button class="btn secondary" onclick="ToolManager.addTool()">+ Add Custom Tool</button>
                 <button class="btn secondary" onclick="ToolManager.importTool()">Import Tool</button>
                 <button class="btn secondary" onclick="ToolManager.managePlugins()">Manage Plugins</button>
             </div>
@@ -1069,6 +1070,64 @@ class SettingsModal {
     static async testConnections() {
         // This is for backwards compatibility
         await this.testAllConnections();
+    }
+
+    static async openToolBuilder() {
+        // Initialize Tool Builder if not already done
+        if (!window.ToolBuilder) {
+            // Load the tool builder script dynamically
+            const script = document.createElement('script');
+            script.src = '/js/tool-builder.js';
+            document.head.appendChild(script);
+            
+            // Wait for script to load
+            await new Promise((resolve) => {
+                script.onload = resolve;
+            });
+        }
+
+        // Initialize Tool Builder
+        await ToolBuilder.init();
+
+        // Create and show the tool builder modal
+        const modalHTML = `
+        <div id="tool-builder-modal" class="modal tool-builder-modal" style="display: flex;">
+            <div class="modal-content large-modal">
+                <div class="modal-header">
+                    <h2>AI Tool Builder</h2>
+                    <button class="modal-close" onclick="SettingsModal.closeToolBuilder()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    ${ToolBuilder.createToolBuilderUI()}
+                </div>
+            </div>
+        </div>
+        `;
+
+        // Remove existing modal if any
+        const existingModal = document.getElementById('tool-builder-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+
+        // Add new modal
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+        // Update saved tools list
+        if (window.toolBuilder) {
+            ToolBuilder.updateSavedToolsList();
+        }
+    }
+
+    static closeToolBuilder() {
+        const modal = document.getElementById('tool-builder-modal');
+        if (modal) {
+            modal.remove();
+        }
+        // Reload tools in the main tool manager
+        if (window.ToolManager) {
+            ToolManager.loadTools();
+        }
     }
 }
 

@@ -48,6 +48,7 @@ class CollaborationEngine extends EventEmitter {
         super();
         this.messageBroker = new MessageBroker();
         this.connectedAgents = new Map();
+        this.activeConversations = new Map();
         this.webSocketServer = null;
     }
 
@@ -111,6 +112,40 @@ class CollaborationEngine extends EventEmitter {
                 console.log(`Agent client disconnected: ${socket.id}`);
             });
         });
+    }
+
+    /**
+     * Check if Redis is configured
+     * @returns {boolean} Whether Redis is configured
+     */
+    isRedisConfigured() {
+        // For now, we're using memory-only fallback
+        return false;
+    }
+
+    /**
+     * Test Redis connection
+     * @returns {Promise<boolean>} Whether Redis is available
+     */
+    async testRedisConnection() {
+        // Memory-only implementation for now
+        return false;
+    }
+
+    /**
+     * Get collaboration metrics
+     * @returns {Object} Current metrics
+     */
+    getMetrics() {
+        return {
+            activeConversations: this.activeConversations ? this.activeConversations.size : 0,
+            queuedMessages: 0,
+            queuedTasks: 0,
+            connectedAgents: this.connectedAgents.size,
+            messageBroker: {
+                subscribers: this.messageBroker.subscribers.size
+            }
+        };
     }
 }
 

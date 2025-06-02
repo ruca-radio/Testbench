@@ -50,10 +50,64 @@ class AgentManager {
         agentGrid.innerHTML = agentHTML;
     }
 
+    static async updateAgentList(agents) {
+        this.agents = agents || [];
+        this.renderAgentGrid();
+    }
+
     static createAgent() {
         this.currentEditingAgent = null;
         this.showAgentEditor('Create New Agent');
         this.clearAgentForm();
+    }
+
+    static showAgentEditor(title) {
+        const editor = document.getElementById('agent-editor');
+        const editorTitle = document.getElementById('agent-editor-title');
+        
+        if (editor) {
+            editor.style.display = 'block';
+            if (editorTitle) {
+                editorTitle.textContent = title;
+            }
+        }
+    }
+
+    static hideAgentEditor() {
+        const editor = document.getElementById('agent-editor');
+        if (editor) {
+            editor.style.display = 'none';
+        }
+        this.currentEditingAgent = null;
+    }
+
+    static clearAgentForm() {
+        // Clear form fields
+        const nameField = document.getElementById('agent-name');
+        const descField = document.getElementById('agent-description');
+        const providerField = document.getElementById('agent-provider');
+        const modelField = document.getElementById('agent-model');
+        const systemMsgField = document.getElementById('agent-system-message');
+        const tempField = document.getElementById('agent-temperature');
+        const tempValueField = document.getElementById('agent-temperature-value');
+        const maxTokensField = document.getElementById('agent-max-tokens');
+
+        if (nameField) nameField.value = '';
+        if (descField) descField.value = '';
+        if (providerField) providerField.value = '';
+        if (modelField) modelField.innerHTML = '<option value="">Select a provider first</option>';
+        if (systemMsgField) systemMsgField.value = 'You are a helpful AI assistant.';
+        if (tempField) tempField.value = '1';
+        if (tempValueField) tempValueField.textContent = '1.0';
+        if (maxTokensField) maxTokensField.value = '4000';
+
+        // Clear tool checkboxes
+        const toolCheckboxes = document.querySelectorAll('#agent-tools input[type="checkbox"]');
+        toolCheckboxes.forEach(cb => cb.checked = false);
+
+        // Clear MCP checkboxes
+        const mcpCheckboxes = document.querySelectorAll('#agent-mcp-servers input[type="checkbox"]');
+        mcpCheckboxes.forEach(cb => cb.checked = false);
     }
 
     static async editAgent(agentId) {
@@ -359,7 +413,7 @@ class AgentManager {
                 });
             } else {
                 // Create new agent
-                response = await fetch('/api/agents/save', {
+                response = await fetch('/api/agents', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(agentData)

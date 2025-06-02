@@ -1126,7 +1126,7 @@ function saveAgentEnhanced(agent) {
         JSON.stringify(agent.settings),
         agent.role || 'assistant',
         JSON.stringify(agent.capabilities || {}),
-        agent.enabled !== undefined ? agent.enabled : 1
+        agent.enabled !== undefined ? (agent.enabled ? 1 : 0) : 1
     );
 }
 

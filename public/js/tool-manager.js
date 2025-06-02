@@ -28,6 +28,20 @@ class ToolManager {
                     !['web-search', 'code-execution', 'file-analysis', 'calculator', 'image-generation', 'email-sender'].includes(tool.id)
                 );
 
+                // Load custom tools from local storage as well
+                const localTools = JSON.parse(localStorage.getItem('custom_tools') || '[]');
+                localTools.forEach(localTool => {
+                    if (!this.customTools.find(t => t.id === localTool.definition.id)) {
+                        this.customTools.push({
+                            id: localTool.definition.id,
+                            name: localTool.definition.name,
+                            description: localTool.definition.description,
+                            enabled: true,
+                            category: localTool.definition.category
+                        });
+                    }
+                });
+
                 this.updateToolLists();
                 console.log('Tools loaded:', this.tools.length + this.customTools.length);
                 return { builtIn: this.tools, custom: this.customTools };

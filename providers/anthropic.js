@@ -119,14 +119,25 @@ async function executeAnthropicRequest(messages, model, providerConfig, modelPar
         throw createError(errorMsg, response.status);
     }
 
+    // Validate response structure
+    if (!data || typeof data !== 'object') {
+        throw createError('Invalid response format from Anthropic API', 500);
+    }
+
+    // Extract content safely with comprehensive null checks
+    let content = "";
+    if (data.content && Array.isArray(data.content) && data.content.length > 0) {
+        content = data.content[0]?.text || "";
+    }
+
     // Convert Anthropic response back to OpenAI-like format for consistency
     return {
         choices: [{
             message: {
                 role: 'assistant',
-                content: data.content?.[0]?.text || "" // Ensure content and text exist
+                content: content
             },
-            finish_reason: data.stop_reason // e.g., 'end_turn', 'max_tokens'
+            finish_reason: data.stop_reason || 'stop' // e.g., 'end_turn', 'max_tokens'
         }],
         usage: { // Attempt to map usage data if available
             prompt_tokens: data.usage?.input_tokens || 0,

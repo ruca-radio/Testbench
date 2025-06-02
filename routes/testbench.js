@@ -530,6 +530,170 @@ router.post('/api/testbench/features/test/:testId/execute', async (req, res) => 
     }
 });
 
+// ===== TESTBENCH CHAT ENDPOINT =====
+
+// TestBench Agent chat interface
+router.post('/api/testbench/chat', async (req, res) => {
+    const { message, context } = req.body;
+
+    if (!message) {
+        return res.status(400).json({ error: 'Message is required' });
+    }
+
+    try {
+        // Get or create TestBench agent
+        let testbenchAgent = database.getAllAgents().find(a => {
+            try {
+                const enhanced = database.getAgentEnhanced(a.name);
+                return enhanced && enhanced.role === 'testbench' && enhanced.enabled;
+            } catch (e) {
+                return false;
+            }
+        });
+
+        if (!testbenchAgent) {
+            // Create a default TestBench agent
+            const newAgent = {
+                name: 'TestBench-Assistant',
+                provider: 'openai',
+                model: 'gpt-4o',
+                settings: { temperature: 0.7, max_tokens: 4000 },
+                role: 'testbench',
+                capabilities: {
+                    messaging: true,
+                    collaboration: true,
+                    system_access: true,
+                    agent_create: true,
+                    workspace_manage: true,
+                    knowledge_provision: true,
+                    feature_test: true
+                },
+                enabled: true
+            };
+
+            try {
+                console.log('Creating TestBench agent with:', JSON.stringify(newAgent, null, 2));
+                const result = database.saveAgentEnhanced(newAgent);
+                testbenchAgent = database.getAgent('TestBench-Assistant');
+                console.log('Created default TestBench agent');
+            } catch (createError) {
+                console.error('Error creating TestBench agent:', createError);
+                throw createError;
+            }
+        }
+
+        // Build system message for TestBench Agent
+        const systemMessage = `You are a TestBench Agent - a system-level testing and configuration management assistant with advanced capabilities.
+Your role is to help users test system features, create agents, configure workspaces, and manage platform settings.
+
+You have the following capabilities:
+- Create and configure AI agents with specific roles and capabilities
+- Provision workspaces with pre-configured agent teams
+- Set up knowledge bases with sample data
+- Modify system configuration and settings
+- Run automated tests on platform features
+- Monitor system health and performance
+
+When users ask you to perform actions, provide clear explanations of what you're doing and suggest follow-up actions.
+Be helpful, proactive, and suggest best practices for system configuration.`;
+
+        // Import chat handler
+        const { handleOpenAI } = require('../providers/openai');
+        const { handleAnthropic } = require('../providers/anthropic');
+        const { getProviderFromModel } = require('../utils/helpers');
+
+        const messages = [
+            { role: 'system', content: systemMessage },
+            { role: 'user', content: message }
+        ];
+
+        // Get provider configuration
+        const provider = getProviderFromModel(testbenchAgent.model);
+        const providerConfig = database.getProviderSettings(provider) || {};
+
+        // Parse settings if they're a string
+        let agentSettings = testbenchAgent.settings;
+        if (typeof agentSettings === 'string') {
+            try {
+                agentSettings = JSON.parse(agentSettings);
+            } catch (e) {
+                agentSettings = { temperature: 0.7, max_tokens: 4000 };
+            }
+        }
+
+        let completion;
+        switch (provider) {
+            case 'openai':
+                completion = await handleOpenAI(messages, testbenchAgent.model, providerConfig, agentSettings);
+                break;
+            case 'anthropic':
+                completion = await handleAnthropic(messages, testbenchAgent.model, providerConfig, agentSettings);
+                break;
+            default:
+                throw new Error(`Unsupported provider: ${provider}`);
+        }
+
+        const response = completion.choices?.[0]?.message?.content || completion.content || 'I encountered an error processing your request.';
+
+        // Parse potential actions from the response
+        const actions = [];
+        
+        // Simple pattern matching for common actions
+        if (response.toLowerCase().includes('create') && response.toLowerCase().includes('agent')) {
+            actions.push({ type: 'create_agent' });
+        }
+        if (response.toLowerCase().includes('create') && response.toLowerCase().includes('workspace')) {
+            actions.push({ type: 'create_workspace' });
+        }
+        if (response.toLowerCase().includes('run') && response.toLowerCase().includes('test')) {
+            actions.push({ type: 'run_tests' });
+        }
+        if (response.toLowerCase().includes('health') || response.toLowerCase().includes('status')) {
+            actions.push({ type: 'health_check' });
+        }
+
+        // Log the chat interaction
+        try {
+            // Get the agent ID instead of name for audit logging
+            const agentEnhanced = database.getAgentEnhanced(testbenchAgent.name);
+            const agentId = agentEnhanced ? agentEnhanced.id : testbenchAgent.name;
+            
+            database.logTestBenchAction(
+                agentId,
+                'chat_interaction',
+                'chat',
+                'testbench-chat',
+                { message: message.substring(0, 100), context },
+                true,
+                null,
+                req.ip || 'unknown',
+                req.get('User-Agent') || 'unknown'
+            );
+        } catch (logError) {
+            console.error('Error logging TestBench action:', logError);
+            // Continue without logging if there's an error
+        }
+
+        res.json({
+            success: true,
+            response: response,
+            actions: actions,
+            agent: {
+                name: testbenchAgent.name,
+                model: testbenchAgent.model
+            },
+            timestamp: new Date().toISOString()
+        });
+
+    } catch (error) {
+        console.error('Error in TestBench chat:', error.message);
+        res.status(500).json({ 
+            error: 'Failed to process TestBench chat request',
+            details: error.message 
+        });
+    }
+});
+
 // ===== SYSTEM HEALTH & CAPABILITY ASSESSMENT =====
 
 // System health check
@@ -720,6 +884,104 @@ router.post('/api/testbench/tests/run', async (req, res) => {
     } catch (error) {
         console.error('Error running feature tests:', error.message);
         res.status(500).json({ error: 'Failed to run feature tests', details: error.message });
+    }
+});
+
+// Comprehensive health check endpoint
+router.get('/api/testbench/health/comprehensive', async (req, res) => {
+    try {
+        const healthData = {
+            overall_status: 'healthy',
+            healthy_components: 0,
+            total_components: 0,
+            database: 'healthy',
+            collaboration: 'healthy',
+            providers: 'unknown',
+            testbench: 'healthy',
+            components: {}
+        };
+
+        // Check database
+        try {
+            const agentCount = database.getAllAgents().length;
+            const workspaceCount = database.getAllWorkspaces().length;
+            healthData.components.database = {
+                status: 'healthy',
+                agents: agentCount,
+                workspaces: workspaceCount
+            };
+            healthData.healthy_components++;
+        } catch (e) {
+            healthData.components.database = { status: 'error', error: e.message };
+            healthData.database = 'error';
+        }
+        healthData.total_components++;
+
+        // Check collaboration engine
+        try {
+            const conversationCount = database.db.prepare('SELECT COUNT(*) as count FROM agent_conversations').get().count;
+            healthData.components.collaboration = {
+                status: 'healthy',
+                conversations: conversationCount
+            };
+            healthData.healthy_components++;
+        } catch (e) {
+            healthData.components.collaboration = { status: 'error', error: e.message };
+            healthData.collaboration = 'error';
+        }
+        healthData.total_components++;
+
+        // Check providers
+        const providers = ['openai', 'anthropic', 'openrouter', 'ollama'];
+        let connectedProviders = 0;
+        for (const provider of providers) {
+            const hasConfig = !!database.getSetting(provider, provider === 'ollama' ? 'endpoint' : 'api_key');
+            if (hasConfig) connectedProviders++;
+        }
+        healthData.components.providers = {
+            status: connectedProviders > 0 ? 'healthy' : 'warning',
+            connected: connectedProviders,
+            total: providers.length
+        };
+        healthData.providers = connectedProviders > 0 ? 'healthy' : 'warning';
+        if (connectedProviders > 0) healthData.healthy_components++;
+        healthData.total_components++;
+
+        // Check TestBench status
+        const testbenchAgents = database.getAllAgents().filter(a => {
+            try {
+                const enhanced = database.getAgentEnhanced(a.name);
+                return enhanced && enhanced.role === 'testbench';
+            } catch (e) {
+                return false;
+            }
+        });
+        healthData.components.testbench = {
+            status: testbenchAgents.length > 0 ? 'healthy' : 'warning',
+            agents: testbenchAgents.length
+        };
+        healthData.testbench = testbenchAgents.length > 0 ? 'healthy' : 'warning';
+        if (testbenchAgents.length > 0) healthData.healthy_components++;
+        healthData.total_components++;
+
+        // Calculate overall status
+        const healthPercentage = (healthData.healthy_components / healthData.total_components) * 100;
+        if (healthPercentage >= 75) {
+            healthData.overall_status = 'healthy';
+        } else if (healthPercentage >= 50) {
+            healthData.overall_status = 'warning';
+        } else {
+            healthData.overall_status = 'critical';
+        }
+
+        res.json(healthData);
+    } catch (error) {
+        console.error('Error performing comprehensive health check:', error.message);
+        res.status(500).json({
+            overall_status: 'error',
+            error: 'Failed to perform health check',
+            details: error.message
+        });
     }
 });
 

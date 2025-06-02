@@ -560,6 +560,102 @@ router.delete('/api/agents/:id/workspace/:workspaceId', async (req, res) => {
     }
 });
 
+// Execute agent for multi-agent collaboration
+router.post('/api/agents/execute', async (req, res) => {
+    const { agentId, message, context, model, provider } = req.body;
+
+    if (!agentId || !message) {
+        return res.status(400).json({ error: 'Agent ID and message are required' });
+    }
+
+    try {
+        // Get agent details
+        const agent = database.getAgent(agentId);
+        if (!agent) {
+            return res.status(404).json({ error: 'Agent not found' });
+        }
+
+        // Use agent's model/provider or override with provided values
+        const useModel = model || agent.model;
+        const useProvider = provider || agent.provider;
+
+        // Prepare messages with agent's system prompt
+        const messages = [];
+        
+        // Add system message if agent has one
+        if (agent.settings?.system_prompt || agent.systemMessage) {
+            messages.push({
+                role: 'system',
+                content: agent.settings?.system_prompt || agent.systemMessage || 'You are a helpful AI assistant.'
+            });
+        }
+
+        // Add context if provided
+        if (context) {
+            messages.push({
+                role: 'system',
+                content: `Context: ${JSON.stringify(context)}`
+            });
+        }
+
+        // Add the user message
+        messages.push({
+            role: 'user',
+            content: message
+        });
+
+        // Route to appropriate provider
+        const { handleOpenAI } = require('../providers/openai');
+        const { handleAnthropic } = require('../providers/anthropic');
+        const { handleOpenRouter } = require('../providers/openrouter');
+        const { handleOllama } = require('../providers/ollama');
+
+        let completion;
+        const modelParams = {
+            temperature: agent.settings?.temperature || 0.7,
+            max_tokens: agent.settings?.max_tokens || 2000
+        };
+
+        switch (useProvider) {
+            case 'openai':
+                completion = await handleOpenAI(messages, useModel, {}, modelParams);
+                break;
+            case 'anthropic':
+                completion = await handleAnthropic(messages, useModel, {}, modelParams);
+                break;
+            case 'openrouter':
+                completion = await handleOpenRouter(messages, useModel, {}, modelParams);
+                break;
+            case 'ollama':
+                completion = await handleOllama(messages, useModel, {}, modelParams);
+                break;
+            default:
+                return res.status(400).json({ error: 'Unsupported provider' });
+        }
+
+        const responseContent = completion.choices?.[0]?.message?.content || '';
+
+        res.json({
+            success: true,
+            message: responseContent,
+            agent: {
+                id: agent.id,
+                name: agent.name,
+                role: agent.role || 'assistant'
+            },
+            requiresReview: false, // Could be enhanced with content analysis
+            timestamp: new Date().toISOString()
+        });
+
+    } catch (error) {
+        console.error('Error executing agent:', error.message);
+        res.status(500).json({ 
+            error: 'Failed to execute agent', 
+            details: error.message 
+        });
+    }
+});
+
 // ===== TESTBENCH AGENT SYSTEM-LEVEL ENDPOINTS =====
 
 // Create agent with system-level capabilities

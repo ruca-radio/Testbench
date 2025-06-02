@@ -386,7 +386,7 @@ class AIServicesManager {
             const response = await fetch('/api/settings/action/bulk-update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings)
+                body: JSON.stringify({ settings })
             });
 
             if (!response.ok) {

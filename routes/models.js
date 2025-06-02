@@ -124,7 +124,7 @@ router.post('/api/models/action/refresh', async (req, res) => {
                 break;
 
             case 'anthropic':
-                models = await fetchAnthropicModels();
+                models = await fetchAnthropicModels(providerConfig);
                 break;
 
             case 'openrouter':

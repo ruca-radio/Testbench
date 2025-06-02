@@ -227,12 +227,12 @@ window.updateQuickSettings = function () {
 };
 
 window.openAgentManager = function () {
-    SettingsModal.openTab('agents');
+    SettingsModal.open('agents');
 };
 
 // Missing global functions for UI interactions
 window.openMCPManager = function () {
-    SettingsModal.openTab('mcp');
+    SettingsModal.open('mcp');
 };
 
 window.switchWorkspace = function (workspaceId) {

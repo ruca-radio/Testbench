@@ -72,7 +72,7 @@ async function handleOllama(messages, model, providerConfig, modelParams = {}, e
  * Execute Ollama request (internal function for both standard and agent flows)
  */
 async function executeOllamaRequest(messages, model, providerConfig, modelParams = {}, endpointOverride) {
-    let baseURL = endpointOverride || providerConfig.endpoint || process.env.OLLAMA_ENDPOINT || 'http://10.27.27.10:11434';
+    let baseURL = endpointOverride || providerConfig.endpoint || process.env.OLLAMA_ENDPOINT || 'http://localhost:11434';
     // Ensure URL has protocol
     if (!/^https?:\/\//i.test(baseURL)) {
         baseURL = 'http://' + baseURL;
