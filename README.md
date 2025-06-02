@@ -80,7 +80,7 @@ This platform provides a flexible and powerful environment for AI interaction, s
 
 1. Clone the repository:
 ```bash
-git clone [<repository-url>](https://github.com/patrickdeluca/Testbench)
+git clone https://github.com/patrickdeluca/Testbench.git
 cd Testbench
 ```
 
