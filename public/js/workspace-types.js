@@ -27,6 +27,35 @@ class WorkspaceTypes {
             },
             features: ['single-model', 'history', 'quick-config']
         },
+        focus: {
+            id: 'focus',
+            name: 'Focus Mode',
+            description: 'Distraction-free single-model conversations with advanced tools',
+            icon: '🎯',
+            defaultLayout: {
+                widgets: [
+                    {
+                        type: 'focused-chat',
+                        position: { x: 0, y: 0, w: 8, h: 12 },
+                        config: { 
+                            title: 'Focused Chat',
+                            compressionEnabled: true,
+                            branchingEnabled: true,
+                            distractionFree: true
+                        }
+                    },
+                    {
+                        type: 'conversation-tools',
+                        position: { x: 8, y: 0, w: 4, h: 12 },
+                        config: { 
+                            title: 'Conversation Tools',
+                            tools: ['export', 'branch', 'compress', 'analyze']
+                        }
+                    }
+                ]
+            },
+            features: ['distraction-free', 'context-compression', 'conversation-branching', 'export', 'analysis']
+        },
         agentic: {
             id: 'agentic',
             name: 'Agentic',
@@ -150,6 +179,53 @@ class WorkspaceTypes {
                 ]
             },
             features: ['rag', 'document-analysis', 'citation-tracking', 'knowledge-graph']
+        },
+        'agent-swarm': {
+            id: 'agent-swarm',
+            name: 'Agent Swarm',
+            description: 'Autonomous agent coordination for complex task completion',
+            icon: '🤖',
+            defaultLayout: {
+                widgets: [
+                    {
+                        type: 'agent-swarm-control',
+                        position: { x: 0, y: 0, w: 8, h: 6 },
+                        config: { 
+                            title: 'Agent Swarm Control',
+                            maxAgents: 5,
+                            autoSpawn: true,
+                            taskQueue: true
+                        }
+                    },
+                    {
+                        type: 'agent-task-board',
+                        position: { x: 8, y: 0, w: 4, h: 6 },
+                        config: { 
+                            title: 'Task Board',
+                            showProgress: true,
+                            allowReassignment: true
+                        }
+                    },
+                    {
+                        type: 'agent-communication',
+                        position: { x: 0, y: 6, w: 6, h: 6 },
+                        config: { 
+                            title: 'Agent Communication',
+                            filterByAgent: false,
+                            showInternal: true
+                        }
+                    },
+                    {
+                        type: 'swarm-analytics',
+                        position: { x: 6, y: 6, w: 6, h: 6 },
+                        config: { 
+                            title: 'Swarm Analytics',
+                            metrics: ['performance', 'collaboration', 'efficiency']
+                        }
+                    }
+                ]
+            },
+            features: ['agent-spawning', 'task-decomposition', 'autonomous-coordination', 'performance-tracking', 'dynamic-specialization']
         },
         development: {
             id: 'development',

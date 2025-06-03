@@ -211,6 +211,18 @@ function migrateDatabase() {
     const { migrateTestBenchAgent } = require('./migrations/002_testbench_agent');
     migrateTestBenchAgent(db);
 
+    // Run User Authentication migration
+    const { migrateUserAuthentication } = require('./migrations/003_user_authentication');
+    migrateUserAuthentication(db);
+
+    // Run Focus Mode migration
+    const { migrateFocusMode } = require('./migrations/004_focus_mode');
+    migrateFocusMode(db);
+
+    // Run Agent Swarm migration
+    const { migrateAgentSwarm } = require('./migrations/005_agent_swarm');
+    migrateAgentSwarm(db);
+
     // Check if api_key_encrypted column exists in mcp_servers table
     const tableInfo = db.prepare("PRAGMA table_info(mcp_servers)").all();
     const hasEncryptedColumn = tableInfo.some(col => col.name === 'api_key_encrypted');
@@ -313,31 +325,41 @@ function saveAvailableModels(provider, models) {
     transaction(models);
 }
 
-function getAvailableModels(provider, page = 1, pageSize = 20) {
+function getAvailableModels(provider, page = 1, pageSize = 20, search = '') {
     // Validate pagination parameters
     page = Math.max(1, parseInt(page) || 1); // Ensure page is at least 1
     pageSize = Math.max(1, Math.min(100, parseInt(pageSize) || 20)); // Limit page size between 1 and 100
 
     const offset = (page - 1) * pageSize;
 
+    // Build WHERE clause with search support
+    let whereClause = 'WHERE provider = ?';
+    let queryParams = [provider];
+    
+    if (search && search.trim()) {
+        whereClause += ' AND (model_id LIKE ? OR model_name LIKE ?)';
+        const searchPattern = `%${search.trim()}%`;
+        queryParams.push(searchPattern, searchPattern);
+    }
+
     // Get total count for pagination metadata
     const countStmt = db.prepare(`
         SELECT COUNT(*) as total
         FROM available_models
-        WHERE provider = ?
+        ${whereClause}
     `);
-    const { total } = countStmt.get(provider);
+    const { total } = countStmt.get(...queryParams);
 
     // Get paginated results
     const stmt = db.prepare(`
         SELECT model_id, model_name, model_data, last_fetched
         FROM available_models
-        WHERE provider = ?
+        ${whereClause}
         ORDER BY model_name
         LIMIT ? OFFSET ?
     `);
 
-    const models = stmt.all(provider, pageSize, offset).map(row => ({
+    const models = stmt.all(...queryParams, pageSize, offset).map(row => ({
         id: row.model_id,
         name: row.model_name,
         data: JSON.parse(row.model_data),
@@ -348,16 +370,20 @@ function getAvailableModels(provider, page = 1, pageSize = 20) {
     const totalPages = Math.ceil(total / pageSize);
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
+    const startIndex = total > 0 ? offset + 1 : 0;
+    const endIndex = Math.min(offset + pageSize, total);
 
     return {
         models,
         pagination: {
             total,
-            page,
+            currentPage: page,
             pageSize,
             totalPages,
             hasNextPage,
-            hasPrevPage
+            hasPrevPage,
+            startIndex,
+            endIndex
         }
     };
 }
@@ -1735,6 +1761,49 @@ initializeDatabase();
 // Migrate database to latest schema
 migrateDatabase();
 
+// User management functions
+function createUser(user) {
+    const stmt = db.prepare(`
+        INSERT INTO users (username, email, password_hash, role)
+        VALUES (?, ?, ?, ?)
+    `);
+    return stmt.run(user.username, user.email, user.password_hash, user.role || 'user');
+}
+
+function getUserByUsername(username) {
+    const stmt = db.prepare('SELECT * FROM users WHERE username = ?');
+    return stmt.get(username);
+}
+
+function getUserById(id) {
+    const stmt = db.prepare('SELECT * FROM users WHERE id = ?');
+    return stmt.get(id);
+}
+
+function updateUser(id, updates) {
+    const stmt = db.prepare(`
+        UPDATE users
+        SET username = COALESCE(?, username),
+            email = COALESCE(?, email),
+            role = COALESCE(?, role),
+            is_active = COALESCE(?, is_active),
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+    `);
+    return stmt.run(
+        updates.username || null,
+        updates.email || null,
+        updates.role || null,
+        updates.is_active !== undefined ? (updates.is_active ? 1 : 0) : null,
+        id
+    );
+}
+
+function getAllUsers() {
+    const stmt = db.prepare('SELECT id, username, email, role, is_active, created_at, last_login FROM users ORDER BY username');
+    return stmt.all();
+}
+
 module.exports = {
     db,
     getSetting,
@@ -1823,6 +1892,12 @@ module.exports = {
     updateFeatureTest,
     getAllFeatureTests,
     deleteFeatureTest,
+    // User management functions
+    createUser,
+    getUserByUsername,
+    getUserById,
+    updateUser,
+    getAllUsers,
     // Aliases for function name compatibility
     getWorkspaces: getAllWorkspaces,
     getAgentConversations: getWorkspaceConversations,
