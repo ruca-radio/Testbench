@@ -25,6 +25,7 @@ class SettingsModal {
                     <button class="tab-button" data-tab="tools">Tool Manager</button>
                     <button class="tab-button" data-tab="mcp">MCP Servers</button>
                     <button class="tab-button" data-tab="testbench">TestBench</button>
+                    <button class="tab-button" data-tab="users">Users</button>
                 </div>
 
                 <div class="modal-body">
@@ -36,6 +37,7 @@ class SettingsModal {
                     ${this.createToolsTab()}
                     ${this.createMCPTab()}
                     ${this.createTestBenchTab()}
+                    ${this.createUsersTab()}
                 </div>
 
                 <div class="modal-footer">
@@ -53,29 +55,39 @@ class SettingsModal {
     static createAIServicesTab() {
         return `
         <div id="ai-services-tab" class="tab-content active">
-            <h3>AI Service Providers</h3>
-            <p class="tab-description">Configure your AI service providers and manage available models.</p>
-            
+            <div class="ai-services-header">
+                <div class="header-left">
+                    <h3>AI Service Providers</h3>
+                    <p class="tab-description">Configure your AI service providers and manage available models.</p>
+                </div>
+                <!-- Model Description Scrolling Display -->
+                <div id="model-description-display" class="model-description-scroll" style="display: none;">
+                    <div class="description-content">
+                        <span id="description-text"></span>
+                    </div>
+                </div>
+            </div>
+
             <div class="ai-services-container">
                 <div class="provider-tabs-vertical">
                     <button class="provider-tab-btn active" data-provider="openai" onclick="SettingsModal.switchProviderTab('openai')">
-                        <span class="provider-icon">🟢</span>
+                        <img class="provider-logo" src="/images/openai-logo.png" alt="OpenAI">
                         OpenAI
                     </button>
                     <button class="provider-tab-btn" data-provider="anthropic" onclick="SettingsModal.switchProviderTab('anthropic')">
-                        <span class="provider-icon">🔵</span>
+                        <img class="provider-logo" src="/images/anthropic-logo.png" alt="Anthropic">
                         Anthropic
                     </button>
                     <button class="provider-tab-btn" data-provider="google" onclick="SettingsModal.switchProviderTab('google')">
-                        <span class="provider-icon">🌈</span>
+                        <img class="provider-logo" src="/images/google-ai-logo.png" alt="Google AI">
                         Google
                     </button>
                     <button class="provider-tab-btn" data-provider="openrouter" onclick="SettingsModal.switchProviderTab('openrouter')">
-                        <span class="provider-icon">🔀</span>
+                        <img class="provider-logo" src="/images/openrouter-logo.png" alt="OpenRouter">
                         OpenRouter
                     </button>
                     <button class="provider-tab-btn" data-provider="ollama" onclick="SettingsModal.switchProviderTab('ollama')">
-                        <span class="provider-icon">🦙</span>
+                        <img class="provider-logo" src="/images/ollama-logo.png" alt="Ollama">
                         Ollama
                     </button>
                     <button class="provider-tab-btn" data-provider="openai-compat" onclick="SettingsModal.switchProviderTab('openai-compat')">
@@ -83,7 +95,7 @@ class SettingsModal {
                         OpenAI Compat.
                     </button>
                 </div>
-                
+
                 <div class="provider-content-area">
                     <!-- OpenAI Provider -->
                     <div class="provider-content active" id="provider-openai">
@@ -94,10 +106,15 @@ class SettingsModal {
                         </h4>
                         <div class="settings-group">
                             <label for="openai-api-key">API Key:</label>
-                            <input type="text" id="openai-api-key" placeholder="sk-..." autocomplete="off" data-lpignore="true"
-                                   onchange="AIServicesManager.onApiKeyChange('openai')">
-                            <button class="btn small test-btn" id="openai-test-btn" onclick="AIServicesManager.testConnection('openai')">Test Connection</button>
-                            <div class="api-key-warning">Never share your API keys. Keys are stored locally and encrypted.</div>
+                            <div class="api-key-row">
+                                <input type="text" id="openai-api-key" placeholder="sk-..." autocomplete="off" data-lpignore="true"
+                                       onchange="AIServicesManager.onApiKeyChange('openai')">
+                                <input type="text" id="openai-model-search" placeholder="Search models..." 
+                                       onkeyup="AIServicesManager.handleModelSearch('openai', this.value)"
+                                       class="search-input">
+                                <button class="btn small test-btn" id="openai-test-btn" onclick="AIServicesManager.testConnection('openai')">Test Connection</button>
+                            </div>
+                            <div class="api-key-warning">Never share your API keys. Keys are stored securely on the server.</div>
                         </div>
                         <div class="settings-group">
                             <label for="openai-endpoint">Custom Endpoint (optional):</label>
@@ -119,10 +136,15 @@ class SettingsModal {
                         </h4>
                         <div class="settings-group">
                             <label for="anthropic-api-key">API Key:</label>
-                            <input type="text" id="anthropic-api-key" placeholder="sk-ant-..." autocomplete="off" data-lpignore="true"
-                                   onchange="AIServicesManager.onApiKeyChange('anthropic')">
-                            <button class="btn small test-btn" id="anthropic-test-btn" onclick="AIServicesManager.testConnection('anthropic')">Test Connection</button>
-                            <div class="api-key-warning">Never share your API keys. Keys are stored locally and encrypted.</div>
+                            <div class="api-key-row">
+                                <input type="text" id="anthropic-api-key" placeholder="sk-ant-..." autocomplete="off" data-lpignore="true"
+                                       onchange="AIServicesManager.onApiKeyChange('anthropic')">
+                                <input type="text" id="anthropic-model-search" placeholder="Search models..." 
+                                       onkeyup="AIServicesManager.handleModelSearch('anthropic', this.value)"
+                                       class="search-input">
+                                <button class="btn small test-btn" id="anthropic-test-btn" onclick="AIServicesManager.testConnection('anthropic')">Test Connection</button>
+                            </div>
+                            <div class="api-key-warning">Never share your API keys. Keys are stored securely on the server.</div>
                         </div>
                         <div class="model-list" id="anthropic-models">
                             <label>Available Models:</label>
@@ -143,7 +165,7 @@ class SettingsModal {
                             <input type="text" id="google-api-key" placeholder="AIza..." autocomplete="off" data-lpignore="true"
                                    onchange="AIServicesManager.onApiKeyChange('google')">
                             <button class="btn small test-btn" id="google-test-btn" onclick="AIServicesManager.testConnection('google')">Test Connection</button>
-                            <div class="api-key-warning">Never share your API keys. Keys are stored locally and encrypted.</div>
+                            <div class="api-key-warning">Never share your API keys. Keys are stored securely on the server.</div>
                         </div>
                         <div class="settings-group">
                             <label for="google-project-id">Project ID (optional):</label>
@@ -165,10 +187,15 @@ class SettingsModal {
                         </h4>
                         <div class="settings-group">
                             <label for="openrouter-api-key">API Key:</label>
-                            <input type="text" id="openrouter-api-key" placeholder="sk-or-..." autocomplete="off" data-lpignore="true"
-                                   onchange="AIServicesManager.onApiKeyChange('openrouter')">
-                            <button class="btn small test-btn" id="openrouter-test-btn" onclick="AIServicesManager.testConnection('openrouter')">Test Connection</button>
-                            <div class="api-key-warning">Never share your API keys. Keys are stored locally and encrypted.</div>
+                            <div class="api-key-row">
+                                <input type="text" id="openrouter-api-key" placeholder="sk-or-..." autocomplete="off" data-lpignore="true"
+                                       onchange="AIServicesManager.onApiKeyChange('openrouter')">
+                                <input type="text" id="openrouter-model-search" placeholder="Search models..." 
+                                       onkeyup="AIServicesManager.handleModelSearch('openrouter', this.value)"
+                                       class="search-input">
+                                <button class="btn small test-btn" id="openrouter-test-btn" onclick="AIServicesManager.testConnection('openrouter')">Test Connection</button>
+                            </div>
+                            <div class="api-key-warning">Never share your API keys. Keys are stored securely on the server.</div>
                         </div>
                         <div class="model-list" id="openrouter-models">
                             <label>Available Models:</label>
@@ -186,9 +213,14 @@ class SettingsModal {
                         </h4>
                         <div class="settings-group">
                             <label for="ollama-endpoint">Endpoint:</label>
-                            <input type="url" id="ollama-endpoint" placeholder="http://localhost:11434" value="http://localhost:11434"
-                                   onchange="AIServicesManager.onApiKeyChange('ollama')">
-                            <button class="btn small test-btn" id="ollama-test-btn" onclick="AIServicesManager.testConnection('ollama')">Test Connection</button>
+                            <div class="api-key-row">
+                                <input type="url" id="ollama-endpoint" placeholder="http://localhost:11434" value="http://localhost:11434"
+                                       onchange="AIServicesManager.onApiKeyChange('ollama')">
+                                <input type="text" id="ollama-model-search" placeholder="Search models..." 
+                                       onkeyup="AIServicesManager.handleModelSearch('ollama', this.value)"
+                                       class="search-input">
+                                <button class="btn small test-btn" id="ollama-test-btn" onclick="AIServicesManager.testConnection('ollama')">Test Connection</button>
+                            </div>
                         </div>
                         <div class="model-list" id="ollama-models">
                             <label>Available Models:</label>
@@ -425,6 +457,54 @@ class SettingsModal {
                     <label for="memory-retention">Memory Retention (days):</label>
                     <input type="number" id="memory-retention" value="30" min="1" max="365">
                 </div>
+                <div class="settings-group">
+                    <label for="summary-model-provider">Summary Model Provider:</label>
+                    <select id="summary-model-provider" onchange="GlobalSettings.updateSummaryModels()">
+                        <option value="">Auto (use current model)</option>
+                        <option value="openai">OpenAI</option>
+                        <option value="anthropic">Anthropic</option>
+                        <option value="openrouter">OpenRouter</option>
+                        <option value="ollama">Ollama</option>
+                    </select>
+                </div>
+                <div class="settings-group">
+                    <label for="summary-model">Summary Model:</label>
+                    <select id="summary-model">
+                        <option value="">Auto (use current model)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Model Descriptions & Prompts</h4>
+                <div class="settings-group">
+                    <label for="model-description-prompt">Model Description Prompt:</label>
+                    <textarea id="model-description-prompt" rows="3" placeholder="Prompt used to get model descriptions..."
+                    >In 10 words or less, tell me who you are and what you can do.</textarea>
+                    <small class="setting-note">This prompt is sent to models when generating their descriptions</small>
+                </div>
+                <div class="settings-group">
+                    <label for="conversation-title-prompt">Conversation Title Prompt:</label>
+                    <textarea id="conversation-title-prompt" rows="3" placeholder="Prompt used to generate conversation titles..."
+                    >Generate a concise, descriptive title (5-7 words) for this conversation based on the content:</textarea>
+                    <small class="setting-note">This prompt is used to auto-generate conversation titles</small>
+                </div>
+                <div class="settings-group">
+                    <label for="title-model-provider">Title Generation Provider:</label>
+                    <select id="title-model-provider" onchange="GlobalSettings.updateTitleModels()">
+                        <option value="">Auto (use current model)</option>
+                        <option value="openai">OpenAI</option>
+                        <option value="anthropic">Anthropic</option>
+                        <option value="openrouter">OpenRouter</option>
+                        <option value="ollama">Ollama</option>
+                    </select>
+                </div>
+                <div class="settings-group">
+                    <label for="title-model">Title Generation Model:</label>
+                    <select id="title-model">
+                        <option value="">Auto (use current model)</option>
+                    </select>
+                </div>
             </div>
 
             <div class="settings-section">
@@ -444,6 +524,135 @@ class SettingsModal {
                 <div class="settings-group">
                     <label for="send-on-enter">Send message on Enter:</label>
                     <input type="checkbox" id="send-on-enter" checked>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>TestBench Configuration</h4>
+                <div class="settings-group">
+                    <label for="testbench-enabled">Enable TestBench:</label>
+                    <input type="checkbox" id="testbench-enabled">
+                </div>
+                <div class="settings-group">
+                    <label for="testbench-provider">Default TestBench Provider:</label>
+                    <select id="testbench-provider" onchange="GlobalSettings.updateTestBenchModels()">
+                        <option value="">Select Provider</option>
+                        <option value="openai">OpenAI</option>
+                        <option value="anthropic">Anthropic</option>
+                        <option value="openrouter">OpenRouter</option>
+                        <option value="ollama">Ollama</option>
+                    </select>
+                </div>
+                <div class="settings-group">
+                    <label for="testbench-model">Default TestBench Model:</label>
+                    <select id="testbench-model">
+                        <option value="">Select a provider first</option>
+                    </select>
+                </div>
+                <div class="settings-group">
+                    <label for="testbench-parallel-tests">Max Parallel Tests:</label>
+                    <input type="number" id="testbench-parallel-tests" value="3" min="1" max="10">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Persistent Memory Storage</h4>
+                <div class="settings-group">
+                    <label for="memory-storage-type">Storage Type:</label>
+                    <select id="memory-storage-type" onchange="GlobalSettings.updateMemoryStorageOptions()">
+                        <option value="database">Database (SQLite)</option>
+                        <option value="postgresql">PostgreSQL</option>
+                        <option value="mysql">MySQL</option>
+                        <option value="file">File System</option>
+                        <option value="memory">In-Memory (Session Only)</option>
+                    </select>
+                </div>
+                <div class="settings-group" id="memory-storage-options">
+                    <label for="memory-storage-path">Storage Path:</label>
+                    <input type="text" id="memory-storage-path" placeholder="./data/memory" value="./data/memory">
+                    <button class="btn small" onclick="GlobalSettings.testMemoryStorage()">Test Connection</button>
+                </div>
+                <div class="settings-group">
+                    <label for="memory-auto-backup">Auto-backup memory:</label>
+                    <input type="checkbox" id="memory-auto-backup" checked>
+                </div>
+                <div class="settings-group">
+                    <label for="memory-backup-frequency">Backup Frequency (hours):</label>
+                    <input type="number" id="memory-backup-frequency" value="24" min="1" max="168">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>System Security</h4>
+                <div class="settings-group">
+                    <label for="auth-enabled">Enable Authentication:</label>
+                    <input type="checkbox" id="auth-enabled" onchange="GlobalSettings.toggleAuth()">
+                    <small class="setting-note">Requires server restart to take effect</small>
+                </div>
+                <div class="settings-group">
+                    <label for="rate-limiting-enabled">Enable Rate Limiting:</label>
+                    <input type="checkbox" id="rate-limiting-enabled" onchange="GlobalSettings.toggleRateLimiting()">
+                    <small class="setting-note">Automatically disabled when auth is off</small>
+                </div>
+                <div class="settings-group">
+                    <label for="session-timeout">Session Timeout (minutes):</label>
+                    <input type="number" id="session-timeout" value="1440" min="5" max="10080">
+                </div>
+                <div class="settings-group">
+                    <label for="max-login-attempts">Max Login Attempts:</label>
+                    <input type="number" id="max-login-attempts" value="5" min="3" max="20">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Database Provisioning</h4>
+                <div class="database-provisioning">
+                    <div class="provision-item">
+                        <div class="provision-info">
+                            <h5>Knowledge Base Database</h5>
+                            <p>Vector storage for embeddings and knowledge management</p>
+                            <div class="provision-status" id="knowledge-db-status">Status: Not configured</div>
+                        </div>
+                        <div class="provision-actions">
+                            <select id="knowledge-db-type">
+                                <option value="chroma">ChromaDB</option>
+                                <option value="pinecone">Pinecone</option>
+                                <option value="weaviate">Weaviate</option>
+                                <option value="qdrant">Qdrant</option>
+                            </select>
+                            <button class="btn primary" onclick="GlobalSettings.provisionDatabase('knowledge')">Provision</button>
+                        </div>
+                    </div>
+                    <div class="provision-item">
+                        <div class="provision-info">
+                            <h5>Memory Database</h5>
+                            <p>Long-term conversation memory and context storage</p>
+                            <div class="provision-status" id="memory-db-status">Status: SQLite (Default)</div>
+                        </div>
+                        <div class="provision-actions">
+                            <select id="memory-db-type">
+                                <option value="sqlite">SQLite</option>
+                                <option value="postgresql">PostgreSQL</option>
+                                <option value="mysql">MySQL</option>
+                            </select>
+                            <button class="btn primary" onclick="GlobalSettings.provisionDatabase('memory')">Configure</button>
+                        </div>
+                    </div>
+                    <div class="provision-item">
+                        <div class="provision-info">
+                            <h5>Analytics Database</h5>
+                            <p>Usage analytics and performance metrics</p>
+                            <div class="provision-status" id="analytics-db-status">Status: Disabled</div>
+                        </div>
+                        <div class="provision-actions">
+                            <select id="analytics-db-type">
+                                <option value="influxdb">InfluxDB</option>
+                                <option value="postgresql">PostgreSQL</option>
+                                <option value="clickhouse">ClickHouse</option>
+                            </select>
+                            <button class="btn primary" onclick="GlobalSettings.provisionDatabase('analytics')">Setup</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -476,87 +685,201 @@ class SettingsModal {
         return `
         <div id="knowledge-tab" class="tab-content">
             <h3>Knowledge Manager</h3>
+            <p class="tab-description">Manage knowledge bases, embeddings, and document collections.</p>
 
-            <div class="knowledge-toolbar">
-                <button class="btn primary" onclick="KnowledgeManager.addDatabase()">+ Add Knowledge Base</button>
-                <button class="btn secondary" onclick="KnowledgeManager.importData()">Import Data</button>
-                <button class="btn secondary" onclick="KnowledgeManager.exportData()">Export Data</button>
-            </div>
-
-            <div class="knowledge-bases">
-                <h4>Knowledge Bases</h4>
-                <div id="knowledge-base-list" class="knowledge-base-list">
-                    <div class="knowledge-base-item">
-                        <div class="kb-info">
-                            <h5>Personal Documents</h5>
-                            <p>1,234 documents • Vector embeddings enabled</p>
+            <div class="knowledge-layout">
+                <!-- Left Panel: Knowledge Base Selector and File Tree -->
+                <div class="knowledge-left-panel">
+                    <div class="knowledge-bases">
+                        <h4>Knowledge Bases</h4>
+                        <div class="kb-selector">
+                            <select id="active-knowledge-base" onchange="KnowledgeManager.switchKnowledgeBase(this.value)">
+                                <option value="">Select Knowledge Base</option>
+                                <option value="personal">Personal Documents</option>
+                                <option value="projects">Project Documentation</option>
+                                <option value="research">Research Papers</option>
+                            </select>
+                            <button class="btn small primary" onclick="KnowledgeManager.createKnowledgeBase()">+ New</button>
                         </div>
-                        <div class="kb-actions">
-                            <button class="btn small">Edit</button>
-                            <button class="btn small danger">Delete</button>
+                    </div>
+
+                    <!-- File Tree View -->
+                    <div class="file-tree-container">
+                        <div class="file-tree-header">
+                            <h5>Contents</h5>
+                            <div class="file-tree-actions">
+                                <button class="btn tiny" onclick="KnowledgeManager.uploadFiles()" title="Upload Files">📁</button>
+                                <button class="btn tiny" onclick="KnowledgeManager.createFolder()" title="Create Folder">📂</button>
+                                <button class="btn tiny" onclick="KnowledgeManager.refreshFileTree()" title="Refresh">🔄</button>
+                            </div>
+                        </div>
+                        <div class="file-tree" id="knowledge-file-tree">
+                            <div class="file-tree-item folder expanded">
+                                <div class="file-tree-icon">📂</div>
+                                <span class="file-tree-name">Documents</span>
+                                <div class="file-tree-actions">
+                                    <button class="btn tiny" onclick="KnowledgeManager.addToFolder('documents')">+</button>
+                                </div>
+                            </div>
+                            <div class="file-tree-children">
+                                <div class="file-tree-item file">
+                                    <div class="file-tree-icon">📄</div>
+                                    <span class="file-tree-name">project-overview.pdf</span>
+                                    <div class="file-tree-meta">2.3 MB • Indexed</div>
+                                    <div class="file-tree-actions">
+                                        <button class="btn tiny" onclick="KnowledgeManager.editFile('project-overview.pdf')">✏️</button>
+                                        <button class="btn tiny" onclick="KnowledgeManager.deleteFile('project-overview.pdf')">🗑️</button>
+                                    </div>
+                                </div>
+                                <div class="file-tree-item file">
+                                    <div class="file-tree-icon">📝</div>
+                                    <span class="file-tree-name">meeting-notes.md</span>
+                                    <div class="file-tree-meta">45 KB • Processing</div>
+                                    <div class="file-tree-actions">
+                                        <button class="btn tiny" onclick="KnowledgeManager.editFile('meeting-notes.md')">✏️</button>
+                                        <button class="btn tiny" onclick="KnowledgeManager.deleteFile('meeting-notes.md')">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Configuration -->
+                <div class="knowledge-right-panel">
+                    <div class="rag-settings">
+                        <h4>Embedding Configuration</h4>
+                        <div class="settings-group">
+                            <label for="embedding-provider">Embedding Provider:</label>
+                            <select id="embedding-provider" onchange="KnowledgeManager.updateEmbeddingModels()">
+                                <option value="openai">OpenAI</option>
+                                <option value="anthropic">Anthropic</option>
+                                <option value="cohere">Cohere</option>
+                                <option value="huggingface">Hugging Face</option>
+                                <option value="local">Local Models</option>
+                            </select>
+                        </div>
+                        <div class="settings-group">
+                            <label for="embedding-model">Embedding Model:</label>
+                            <select id="embedding-model">
+                                <option value="text-embedding-3-large">text-embedding-3-large (Latest)</option>
+                                <option value="text-embedding-3-small">text-embedding-3-small (Fast)</option>
+                                <option value="text-embedding-ada-002">text-embedding-ada-002 (Legacy)</option>
+                            </select>
+                            <small class="setting-note">OpenAI's latest models offer better performance than Ada v2</small>
+                        </div>
+                        <div class="settings-group">
+                            <label for="embedding-dimensions">Vector Dimensions:</label>
+                            <select id="embedding-dimensions">
+                                <option value="1536">1536 (Standard)</option>
+                                <option value="3072">3072 (High Quality)</option>
+                                <option value="512">512 (Fast)</option>
+                                <option value="256">256 (Compact)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="chunking-settings">
+                        <h4>Document Processing</h4>
+                        <div class="settings-group">
+                            <label for="chunk-size">Chunk Size (tokens):</label>
+                            <input type="number" id="chunk-size" value="1000" min="100" max="4000">
+                        </div>
+                        <div class="settings-group">
+                            <label for="chunk-overlap">Overlap (tokens):</label>
+                            <input type="number" id="chunk-overlap" value="200" min="0" max="1000">
+                        </div>
+                        <div class="settings-group">
+                            <label for="chunk-strategy">Chunking Strategy:</label>
+                            <select id="chunk-strategy">
+                                <option value="token">Token-based</option>
+                                <option value="sentence">Sentence-based</option>
+                                <option value="paragraph">Paragraph-based</option>
+                                <option value="semantic">Semantic Chunking</option>
+                            </select>
+                        </div>
+                        <div class="settings-group">
+                            <label for="similarity-threshold">Similarity Threshold:</label>
+                            <input type="range" id="similarity-threshold" min="0" max="1" step="0.01" value="0.7">
+                            <span id="similarity-threshold-value">0.7</span>
+                        </div>
+                    </div>
+
+                    <div class="vector-store-settings">
+                        <h4>Vector Store</h4>
+                        <div class="settings-group">
+                            <label for="vector-store-type">Database Type:</label>
+                            <select id="vector-store-type" onchange="KnowledgeManager.updateVectorStoreConfig()">
+                                <option value="chroma">ChromaDB (Recommended)</option>
+                                <option value="pinecone">Pinecone</option>
+                                <option value="weaviate">Weaviate</option>
+                                <option value="qdrant">Qdrant</option>
+                                <option value="pgvector">PostgreSQL + pgvector</option>
+                                <option value="local">Local SQLite + Vector</option>
+                            </select>
+                        </div>
+                        <div class="settings-group" id="vector-store-config">
+                            <label for="vector-store-endpoint">Endpoint:</label>
+                            <input type="url" id="vector-store-endpoint" placeholder="http://localhost:8000">
+                            <button class="btn small" onclick="KnowledgeManager.testVectorStore()">Test Connection</button>
+                        </div>
+                        <div class="vector-store-status" id="vector-store-status">
+                            Status: Not configured
+                        </div>
+                    </div>
+
+                    <div class="knowledge-graph">
+                        <h4>Advanced Features</h4>
+                        <div class="settings-group">
+                            <label for="enable-knowledge-graph">Enable Knowledge Graph:</label>
+                            <input type="checkbox" id="enable-knowledge-graph">
+                            <small class="setting-note">Build relationships between documents and entities</small>
+                        </div>
+                        <div class="settings-group">
+                            <label for="enable-auto-tagging">Auto-tagging:</label>
+                            <input type="checkbox" id="enable-auto-tagging" checked>
+                            <small class="setting-note">Automatically extract and assign tags</small>
+                        </div>
+                        <div class="settings-group">
+                            <label for="enable-summary-generation">Generate Summaries:</label>
+                            <input type="checkbox" id="enable-summary-generation" checked>
+                            <small class="setting-note">Create summaries for long documents</small>
+                        </div>
+                    </div>
+
+                    <!-- Knowledge Base Statistics -->
+                    <div class="kb-statistics">
+                        <h4>Statistics</h4>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number" id="kb-documents">0</div>
+                                <div class="stat-label">Documents</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="kb-chunks">0</div>
+                                <div class="stat-label">Chunks</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="kb-vectors">0</div>
+                                <div class="stat-label">Vectors</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="kb-size">0 MB</div>
+                                <div class="stat-label">Total Size</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="rag-settings">
-                <h4>RAG Configuration</h4>
-                <div class="settings-group">
-                    <label for="embedding-model">Embedding Model:</label>
-                    <select id="embedding-model">
-                        <option value="text-embedding-ada-002">OpenAI Ada v2</option>
-                        <option value="text-embedding-3-small">OpenAI v3 Small</option>
-                        <option value="text-embedding-3-large">OpenAI v3 Large</option>
-                        <option value="sentence-transformers">Local Sentence Transformers</option>
-                    </select>
-                </div>
-                <div class="settings-group">
-                    <label for="chunk-size">Chunk Size:</label>
-                    <input type="number" id="chunk-size" value="1000" min="100" max="4000">
-                </div>
-                <div class="settings-group">
-                    <label for="chunk-overlap">Chunk Overlap:</label>
-                    <input type="number" id="chunk-overlap" value="200" min="0" max="1000">
-                </div>
-                <div class="settings-group">
-                    <label for="similarity-threshold">Similarity Threshold:</label>
-                    <input type="range" id="similarity-threshold" min="0" max="1" step="0.01" value="0.7">
-                    <span id="similarity-threshold-value">0.7</span>
-                </div>
-            </div>
-
-            <div class="vector-store-settings">
-                <h4>Vector Store</h4>
-                <div class="settings-group">
-                    <label for="vector-store-type">Store Type:</label>
-                    <select id="vector-store-type">
-                        <option value="chromadb">ChromaDB</option>
-                        <option value="pinecone">Pinecone</option>
-                        <option value="weaviate">Weaviate</option>
-                        <option value="qdrant">Qdrant</option>
-                        <option value="local">Local SQLite + Vector</option>
-                    </select>
-                </div>
-                <div class="settings-group">
-                    <label for="vector-store-endpoint">Endpoint:</label>
-                    <input type="url" id="vector-store-endpoint" placeholder="http://localhost:8000">
-                </div>
-            </div>
-
-            <div class="knowledge-graph">
-                <h4>Knowledge Graph</h4>
-                <div class="settings-group">
-                    <label for="enable-knowledge-graph">Enable Knowledge Graph:</label>
-                    <input type="checkbox" id="enable-knowledge-graph">
-                </div>
-                <div class="settings-group">
-                    <label for="graph-database">Graph Database:</label>
-                    <select id="graph-database">
-                        <option value="neo4j">Neo4j</option>
-                        <option value="arangodb">ArangoDB</option>
-                        <option value="dgraph">Dgraph</option>
-                        <option value="local">Local Graph</option>
-                    </select>
+            <!-- Bulk Operations Panel -->
+            <div class="bulk-operations">
+                <h4>Bulk Operations</h4>
+                <div class="bulk-toolbar">
+                    <button class="btn secondary" onclick="KnowledgeManager.reindexAll()">🔄 Reindex All</button>
+                    <button class="btn secondary" onclick="KnowledgeManager.optimizeVectors()">⚡ Optimize Vectors</button>
+                    <button class="btn secondary" onclick="KnowledgeManager.exportKnowledgeBase()">📤 Export</button>
+                    <button class="btn secondary" onclick="KnowledgeManager.backupKnowledgeBase()">💾 Backup</button>
                 </div>
             </div>
         </div>
@@ -922,6 +1245,156 @@ class SettingsModal {
         console.log('SettingsModal event listeners setup complete');
     }
 
+    static createUsersTab() {
+        return `
+        <div id="users-tab" class="tab-content">
+            <h3>User Management</h3>
+            <p class="tab-description">Manage user accounts, roles, and permissions.</p>
+
+            <div class="user-toolbar">
+                <button class="btn primary" onclick="UserManager.createUser()">+ Add User</button>
+                <button class="btn secondary" onclick="UserManager.importUsers()">Import Users</button>
+                <button class="btn secondary" onclick="UserManager.exportUsers()">Export Users</button>
+                <button class="btn secondary" onclick="UserManager.refreshUserList()">Refresh</button>
+            </div>
+
+            <div class="user-search">
+                <input type="text" id="user-search" placeholder="Search users..." 
+                       onkeyup="UserManager.filterUsers(this.value)">
+            </div>
+
+            <div class="user-list">
+                <div class="user-list-header">
+                    <div class="user-col">Username</div>
+                    <div class="user-col">Email</div>
+                    <div class="user-col">Role</div>
+                    <div class="user-col">Status</div>
+                    <div class="user-col">Last Login</div>
+                    <div class="user-col">Actions</div>
+                </div>
+                <div id="user-list-body" class="user-list-body">
+                    <div class="loading-placeholder">Loading users...</div>
+                </div>
+            </div>
+
+            <!-- User Editor Modal -->
+            <div id="user-editor" class="user-editor" style="display: none;">
+                <div class="user-editor-content">
+                    <h4 id="user-editor-title">Add New User</h4>
+                    
+                    <div class="settings-group">
+                        <label for="user-username">Username:</label>
+                        <input type="text" id="user-username" required>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <label for="user-email">Email:</label>
+                        <input type="email" id="user-email" required>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <label for="user-password">Password:</label>
+                        <input type="password" id="user-password" required>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <label for="user-role">Role:</label>
+                        <select id="user-role">
+                            <option value="user">User</option>
+                            <option value="admin">Administrator</option>
+                            <option value="testbench">TestBench Agent</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <label for="user-permissions">Permissions:</label>
+                        <div class="permission-checkboxes">
+                            <label><input type="checkbox" value="chat"> Chat Access</label>
+                            <label><input type="checkbox" value="agents"> Agent Management</label>
+                            <label><input type="checkbox" value="workspaces"> Workspace Management</label>
+                            <label><input type="checkbox" value="settings"> Settings Access</label>
+                            <label><input type="checkbox" value="knowledge"> Knowledge Base</label>
+                            <label><input type="checkbox" value="tools"> Tool Management</label>
+                            <label><input type="checkbox" value="mcp"> MCP Servers</label>
+                            <label><input type="checkbox" value="testbench"> TestBench Access</label>
+                            <label><input type="checkbox" value="users"> User Management</label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <label for="user-active">Active:</label>
+                        <input type="checkbox" id="user-active" checked>
+                    </div>
+                    
+                    <div class="user-editor-actions">
+                        <button class="btn secondary" onclick="UserManager.cancelUserEdit()">Cancel</button>
+                        <button class="btn primary" onclick="UserManager.saveUser()">Save User</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Statistics -->
+            <div class="user-stats">
+                <h4>User Statistics</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="total-users">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="active-users">0</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="admin-users">0</div>
+                        <div class="stat-label">Administrators</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="online-users">0</div>
+                        <div class="stat-label">Online Now</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Management -->
+            <div class="role-management">
+                <h4>Role Management</h4>
+                <div class="role-list">
+                    <div class="role-item">
+                        <div class="role-info">
+                            <h5>Administrator</h5>
+                            <p>Full system access including user management</p>
+                        </div>
+                        <button class="btn small" onclick="UserManager.editRole('admin')">Edit Permissions</button>
+                    </div>
+                    <div class="role-item">
+                        <div class="role-info">
+                            <h5>TestBench Agent</h5>
+                            <p>Access to TestBench and automated testing features</p>
+                        </div>
+                        <button class="btn small" onclick="UserManager.editRole('testbench')">Edit Permissions</button>
+                    </div>
+                    <div class="role-item">
+                        <div class="role-info">
+                            <h5>User</h5>
+                            <p>Standard user with chat and workspace access</p>
+                        </div>
+                        <button class="btn small" onclick="UserManager.editRole('user')">Edit Permissions</button>
+                    </div>
+                    <div class="role-item">
+                        <div class="role-info">
+                            <h5>Viewer</h5>
+                            <p>Read-only access to conversations and data</p>
+                        </div>
+                        <button class="btn small" onclick="UserManager.editRole('viewer')">Edit Permissions</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+    }
+
     static async loadSavedApiKeys() {
         // Use AIServicesManager for proper backend integration
         if (window.AIServicesManager && typeof AIServicesManager.loadProviderSettings === 'function') {
@@ -938,25 +1411,12 @@ class SettingsModal {
     }
 
     static loadFromLocalStorage() {
-        // Fallback localStorage loading
-        const providers = ['openai', 'anthropic', 'openrouter'];
+        // SECURITY: Removed localStorage for API keys - use server-side storage only
+        console.warn('localStorage loading disabled for security - API keys must be stored server-side');
 
-        providers.forEach(provider => {
-            const savedKey = localStorage.getItem(`${provider}_api_key`);
-            const keyField = document.getElementById(`${provider}-api-key`);
-
-            if (savedKey && keyField) {
-                keyField.value = savedKey;
-                console.log(`Loaded saved API key for ${provider} from localStorage`);
-            }
-        });
-
-        // Load Ollama endpoint
-        const savedOllamaEndpoint = localStorage.getItem('ollama_endpoint');
+        // Only load non-sensitive defaults
         const ollamaField = document.getElementById('ollama-endpoint');
-        if (savedOllamaEndpoint && ollamaField) {
-            ollamaField.value = savedOllamaEndpoint;
-        } else if (ollamaField) {
+        if (ollamaField && !ollamaField.value) {
             ollamaField.value = 'http://localhost:11434';
         }
     }
@@ -1029,21 +1489,11 @@ class SettingsModal {
     }
 
     static saveToLocalStorage() {
-        // Fallback localStorage saving
-        const providers = ['openai', 'anthropic', 'openrouter'];
+        // SECURITY: Removed localStorage for API keys - use server-side storage only
+        console.warn('localStorage saving disabled for security - API keys must be stored server-side');
 
-        providers.forEach(provider => {
-            const keyField = document.getElementById(`${provider}-api-key`);
-            if (keyField && keyField.value.trim()) {
-                localStorage.setItem(`${provider}_api_key`, keyField.value.trim());
-            }
-        });
-
-        // Save Ollama endpoint
-        const ollamaField = document.getElementById('ollama-endpoint');
-        if (ollamaField && ollamaField.value.trim()) {
-            localStorage.setItem('ollama_endpoint', ollamaField.value.trim());
-        }
+        // API keys should only be saved through the backend API
+        // This method is kept for compatibility but does nothing
     }
 
     static async refreshAllModels() {
@@ -1079,7 +1529,7 @@ class SettingsModal {
             const script = document.createElement('script');
             script.src = '/js/tool-builder.js';
             document.head.appendChild(script);
-            
+
             // Wait for script to load
             await new Promise((resolve) => {
                 script.onload = resolve;

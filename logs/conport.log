@@ -70,3 +70,287 @@
 2025-05-31 18:31:06,959 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
 2025-05-31 18:31:06,962 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
 2025-05-31 18:31:06,964 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-06-02 00:21:14,902 - INFO - __main__ - Logging to file: ./logs/conport.log
+2025-06-02 00:21:14,902 - INFO - __main__ - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: ${workspaceFolder}
+2025-06-02 00:21:14,902 - WARNING - __main__ - MAIN.PY: WARNING - Workspace ID was literally '${workspaceFolder}'. This variable was not expanded by the client IDE. Falling back to current working directory as workspace_id: /home/rucaradio/framework. Ensure CWD in MCP config ('/home/rucaradio/framework') is the correct project workspace.
+2025-06-02 00:21:14,902 - INFO - __main__ - STDIO mode: Using effective_workspace_id '/home/rucaradio/framework'. Database directory will be created on first actual DB use.
+2025-06-02 00:21:14,905 - INFO - __main__ - ConPort FastMCP server lifespan starting.
+2025-06-02 00:21:14,911 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-06-02 00:21:14,913 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-06-02 00:21:14,914 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-06-02 00:21:47,195 - INFO - __main__ - Logging to file: ./logs/conport.log
+2025-06-02 00:21:47,195 - INFO - __main__ - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: ${workspaceFolder}
+2025-06-02 00:21:47,195 - WARNING - __main__ - MAIN.PY: WARNING - Workspace ID was literally '${workspaceFolder}'. This variable was not expanded by the client IDE. Falling back to current working directory as workspace_id: /home/rucaradio/framework. Ensure CWD in MCP config ('/home/rucaradio/framework') is the correct project workspace.
+2025-06-02 00:21:47,195 - INFO - __main__ - STDIO mode: Using effective_workspace_id '/home/rucaradio/framework'. Database directory will be created on first actual DB use.
+2025-06-02 00:21:47,198 - INFO - __main__ - ConPort FastMCP server lifespan starting.
+2025-06-02 00:21:47,203 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-06-02 00:21:47,206 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-06-02 00:21:47,207 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-06-02 00:43:35,838 - INFO - __main__ - Logging to file: ./logs/conport.log
+2025-06-02 00:43:35,838 - INFO - __main__ - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: ${workspaceFolder}
+2025-06-02 00:43:35,838 - WARNING - __main__ - MAIN.PY: WARNING - Workspace ID was literally '${workspaceFolder}'. This variable was not expanded by the client IDE. Falling back to current working directory as workspace_id: /home/rucaradio/framework. Ensure CWD in MCP config ('/home/rucaradio/framework') is the correct project workspace.
+2025-06-02 00:43:35,838 - INFO - __main__ - STDIO mode: Using effective_workspace_id '/home/rucaradio/framework'. Database directory will be created on first actual DB use.
+2025-06-02 00:43:35,842 - INFO - __main__ - ConPort FastMCP server lifespan starting.
+2025-06-02 00:43:35,846 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-06-02 00:43:35,849 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-06-02 00:43:35,850 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-06-02 00:44:21,361 - INFO - __main__ - Logging to file: ./logs/conport.log
+2025-06-02 00:44:21,361 - INFO - __main__ - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: ${workspaceFolder}
+2025-06-02 00:44:21,361 - WARNING - __main__ - MAIN.PY: WARNING - Workspace ID was literally '${workspaceFolder}'. This variable was not expanded by the client IDE. Falling back to current working directory as workspace_id: /home/rucaradio/framework. Ensure CWD in MCP config ('/home/rucaradio/framework') is the correct project workspace.
+2025-06-02 00:44:21,361 - INFO - __main__ - STDIO mode: Using effective_workspace_id '/home/rucaradio/framework'. Database directory will be created on first actual DB use.
+2025-06-02 00:44:21,364 - INFO - __main__ - ConPort FastMCP server lifespan starting.
+2025-06-02 00:44:21,368 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-06-02 00:44:21,371 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-06-02 00:44:21,372 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-06-02 02:28:19,854 - INFO - __main__ - Logging to file: ./logs/conport.log
+2025-06-02 02:28:19,854 - INFO - __main__ - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: ${workspaceFolder}
+2025-06-02 02:28:19,854 - WARNING - __main__ - MAIN.PY: WARNING - Workspace ID was literally '${workspaceFolder}'. This variable was not expanded by the client IDE. Falling back to current working directory as workspace_id: /home/rucaradio/framework. Ensure CWD in MCP config ('/home/rucaradio/framework') is the correct project workspace.
+2025-06-02 02:28:19,854 - INFO - __main__ - STDIO mode: Using effective_workspace_id '/home/rucaradio/framework'. Database directory will be created on first actual DB use.
+2025-06-02 02:28:19,858 - INFO - __main__ - ConPort FastMCP server lifespan starting.
+2025-06-02 02:28:19,861 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-06-02 02:28:19,863 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-06-02 02:28:19,864 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-06-02 02:30:18,942 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:30:18,942 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Handling get_conport_schema for workspace /home/rucaradio/framework
+2025-06-02 02:30:30,704 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:30:35,721 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:30:35,721 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Handling get_recent_activity_summary for workspace /home/rucaradio/framework with args: {"workspace_id":"/home/rucaradio/framework","hours_ago":24,"since_timestamp":null,"limit_per_type":5}
+2025-06-02 02:32:28,382 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:32:33,394 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:32:38,491 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:32:38,492 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Handling get_recent_activity_summary for workspace /home/rucaradio/framework with args: {"workspace_id":"/home/rucaradio/framework","hours_ago":24,"since_timestamp":null,"limit_per_type":5}
+2025-06-02 02:33:07,710 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:33:07,741 - INFO - src.context_portal_mcp.core.embedding_service - Loading Sentence Transformer model: all-MiniLM-L6-v2...
+2025-06-02 02:33:07,892 - INFO - sentence_transformers.SentenceTransformer - Use pytorch device_name: cuda:0
+2025-06-02 02:33:07,892 - INFO - sentence_transformers.SentenceTransformer - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-02 02:33:15,301 - INFO - src.context_portal_mcp.core.embedding_service - Sentence Transformer model 'all-MiniLM-L6-v2' loaded successfully.
+2025-06-02 02:33:16,908 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 1: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 02:33:25,284 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:33:25,330 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 2: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 02:33:31,895 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:33:31,934 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 3: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 02:33:43,684 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:33:43,702 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 4: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 02:33:58,994 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:35:26,733 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:35:40,478 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:35:40,498 - INFO - src.context_portal_mcp.db.vector_store_service - Vector store path set to: /home/rucaradio/framework/context_portal/conport_vector_data
+2025-06-02 02:35:40,498 - INFO - src.context_portal_mcp.db.vector_store_service - Initializing ChromaDB client for workspace '/home/rucaradio/framework' at path: /home/rucaradio/framework/context_portal/conport_vector_data
+2025-06-02 02:35:40,676 - INFO - src.context_portal_mcp.db.vector_store_service - Getting or creating ChromaDB collection 'conport_semantic_store' for workspace '/home/rucaradio/framework'.
+2025-06-02 02:35:40,676 - INFO - src.context_portal_mcp.core.embedding_service - Creating Chroma SentenceTransformerEmbeddingFunction for model: all-MiniLM-L6-v2
+2025-06-02 02:35:40,676 - INFO - sentence_transformers.SentenceTransformer - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-06-02 02:35:42,415 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_1'.
+2025-06-02 02:35:42,416 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 1
+2025-06-02 02:36:50,045 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:36:50,084 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_2'.
+2025-06-02 02:36:50,084 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 2
+2025-06-02 02:37:00,560 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:37:00,597 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_3'.
+2025-06-02 02:37:00,597 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 3
+2025-06-02 02:38:17,842 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:38:17,884 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_4'.
+2025-06-02 02:38:17,884 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 4
+2025-06-02 02:39:13,747 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:39:13,766 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 5: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 02:46:21,527 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:46:21,567 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'decision_1'.
+2025-06-02 02:46:21,568 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for decision ID 1
+2025-06-02 02:46:27,912 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-06-02 02:46:50,923 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:46:50,961 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'decision_2'.
+2025-06-02 02:46:50,961 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for decision ID 2
+2025-06-02 02:47:06,562 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:47:06,596 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'decision_3'.
+2025-06-02 02:47:06,596 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for decision ID 3
+2025-06-02 02:47:29,723 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:47:29,741 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 6: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 02:47:45,930 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 02:47:45,938 - WARNING - src.context_portal_mcp.handlers.mcp_handlers - Vector store update skipped for progress entry ID 1 on update. Requires db.get_progress_entry_by_id for accurate re-embedding.
+2025-06-02 06:12:38,473 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:12:38,514 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'decision_4'.
+2025-06-02 06:12:38,514 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for decision ID 4
+2025-06-02 06:12:50,672 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:12:50,688 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Automatically linked progress entry ID 5 to decision ID 4
+2025-06-02 06:12:50,716 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_5'.
+2025-06-02 06:12:50,716 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 5
+2025-06-02 06:18:17,056 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:18:17,095 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_6'.
+2025-06-02 06:18:17,095 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 6
+2025-06-02 06:19:28,761 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:19:28,769 - WARNING - src.context_portal_mcp.handlers.mcp_handlers - Vector store update skipped for progress entry ID 6 on update. Requires db.get_progress_entry_by_id for accurate re-embedding.
+2025-06-02 06:19:36,025 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:19:36,046 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 7: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:19:56,787 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:19:56,801 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Automatically linked progress entry ID 7 to system_pattern ID 7
+2025-06-02 06:19:56,831 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_7'.
+2025-06-02 06:19:56,831 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 7
+2025-06-02 06:21:29,487 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:21:29,529 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_8'.
+2025-06-02 06:21:29,529 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 8
+2025-06-02 06:22:09,810 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:22:09,830 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 8: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:22:37,229 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:22:37,248 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 9: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:23:13,652 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:23:13,705 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 10: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:23:41,557 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:23:41,607 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 11: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:24:07,252 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:24:07,270 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 12: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:24:32,719 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:24:32,740 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 13: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:24:50,254 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:24:50,263 - WARNING - src.context_portal_mcp.handlers.mcp_handlers - Vector store update skipped for progress entry ID 8 on update. Requires db.get_progress_entry_by_id for accurate re-embedding.
+2025-06-02 06:25:22,816 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:25:22,837 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 14: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:26:20,816 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:26:20,833 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 15: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:26:52,956 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:26:52,996 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'decision_5'.
+2025-06-02 06:26:52,996 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for decision ID 5
+2025-06-02 06:27:27,680 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:27:27,688 - WARNING - src.context_portal_mcp.handlers.mcp_handlers - Vector store update skipped for progress entry ID 8 on update. Requires db.get_progress_entry_by_id for accurate re-embedding.
+2025-06-02 06:32:08,992 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:32:09,035 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_9'.
+2025-06-02 06:32:09,035 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 9
+2025-06-02 06:35:02,353 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:35:02,391 - WARNING - src.context_portal_mcp.handlers.mcp_handlers - Vector store update skipped for progress entry ID 9 on update. Requires db.get_progress_entry_by_id for accurate re-embedding.
+2025-06-02 06:38:57,575 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:39:18,333 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:39:18,374 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_10'.
+2025-06-02 06:39:18,374 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 10
+2025-06-02 06:41:07,540 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:41:07,559 - ERROR - src.context_portal_mcp.handlers.mcp_handlers - Failed to generate/store embedding for system pattern ID 16: 'SystemPattern' object has no attribute 'timestamp'
+Traceback (most recent call last):
+  File "/home/rucaradio/context-portal/src/context_portal_mcp/handlers/mcp_handlers.py", line 362, in handle_log_system_pattern
+    "timestamp_created": logged_pattern.timestamp.isoformat(), # Assuming SystemPattern has a timestamp
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rucaradio/context-portal/.venv/lib/python3.11/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemPattern' object has no attribute 'timestamp'
+2025-06-02 06:42:02,180 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:42:02,220 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'decision_6'.
+2025-06-02 06:42:02,221 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for decision ID 6
+2025-06-02 06:43:01,155 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:43:01,193 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_11'.
+2025-06-02 06:43:01,193 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 11
+2025-06-02 06:43:17,573 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:43:17,609 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_12'.
+2025-06-02 06:43:17,609 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 12
+2025-06-02 06:43:57,120 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:43:57,158 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_13'.
+2025-06-02 06:43:57,158 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 13
+2025-06-02 06:44:36,697 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:44:36,735 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'progress_entry_14'.
+2025-06-02 06:44:36,735 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for progress entry ID 14
+2025-06-02 06:44:59,337 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 06:44:59,377 - INFO - src.context_portal_mcp.db.vector_store_service - Successfully upserted embedding for doc_id 'decision_7'.
+2025-06-02 06:44:59,377 - INFO - src.context_portal_mcp.handlers.mcp_handlers - Successfully generated and stored embedding for decision ID 7
+2025-06-02 07:07:05,781 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-06-02 07:07:05,820 - WARNING - src.context_portal_mcp.handlers.mcp_handlers - Vector store update skipped for progress entry ID 10 on update. Requires db.get_progress_entry_by_id for accurate re-embedding.
+2025-06-03 13:32:36,722 - INFO - __main__ - ConPort FastMCP server lifespan shutting down. Closing all DB connections.

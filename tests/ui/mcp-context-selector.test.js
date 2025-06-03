@@ -1,6 +1,6 @@
 /**
  * UI Component Tests for MCP Context Selector
- * 
+ *
  * These tests use Jest's DOM manipulation capabilities to test the UI components
  * for the MCP context selector interface.
  */
@@ -9,22 +9,28 @@
 global.fetch = jest.fn();
 
 // Mock DOM elements and utilities
-document.getElementById = jest.fn();
-document.createElement = jest.fn(() => ({
+const mockElement = {
   addEventListener: jest.fn(),
   appendChild: jest.fn(),
   insertAdjacentHTML: jest.fn(),
   click: jest.fn(),
-  style: {}
-}));
+  style: {},
+  innerHTML: ''
+};
+
+document.getElementById = jest.fn();
+document.createElement = jest.fn(() => ({ ...mockElement }));
 document.querySelector = jest.fn();
 document.querySelectorAll = jest.fn(() => []);
-document.body = {
-  insertAdjacentHTML: jest.fn()
-};
-document.head = {
-  appendChild: jest.fn()
-};
+
+// Properly mock document.body
+Object.defineProperty(document.body, 'insertAdjacentHTML', {
+  value: jest.fn(),
+  writable: true
+});
+
+// Mock document.head.appendChild
+jest.spyOn(document.head, 'appendChild').mockImplementation(() => {});
 
 // Mock Utils
 global.Utils = {
@@ -39,18 +45,18 @@ const MCPContextSelector = require('../../public/js/mcp-context-selector');
 describe('MCP Context Selector UI Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Reset fetch mock
     fetch.mockReset();
-    
+
     // Mock successful fetch response
-    fetch.mockImplementation(() => 
+    fetch.mockImplementation(() =>
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve({ servers: [] })
       })
     );
-    
+
     // Mock DOM elements
     document.getElementById.mockImplementation((id) => {
       if (id === 'mcp-context-selector') {
@@ -64,7 +70,7 @@ describe('MCP Context Selector UI Component', () => {
       }
       return null;
     });
-    
+
     // Initialize MCPContextSelector
     MCPContextSelector.init();
   });
@@ -92,8 +98,8 @@ describe('MCP Context Selector UI Component', () => {
           ]
         }
       ];
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: true,
           json: () => Promise.resolve({ servers: mockServers })
@@ -111,7 +117,7 @@ describe('MCP Context Selector UI Component', () => {
 
     it('should handle errors when loading servers', async () => {
       // Arrange
-      fetch.mockImplementationOnce(() => 
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({ error: 'Failed to load servers' })
@@ -129,7 +135,7 @@ describe('MCP Context Selector UI Component', () => {
 
     it('should handle network errors', async () => {
       // Arrange
-      fetch.mockImplementationOnce(() => 
+      fetch.mockImplementationOnce(() =>
         Promise.reject(new Error('Network error'))
       );
 
@@ -153,8 +159,8 @@ describe('MCP Context Selector UI Component', () => {
           display_name: 'Test Resource'
         }
       ];
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: true,
           json: () => Promise.resolve({ resources: mockResources })
@@ -178,8 +184,8 @@ describe('MCP Context Selector UI Component', () => {
     it('should handle errors when loading resources', async () => {
       // Arrange
       const serverName = 'test-server';
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({ error: 'Failed to load resources' })
@@ -207,7 +213,7 @@ describe('MCP Context Selector UI Component', () => {
       // Arrange
       const selectorElement = { innerHTML: '' };
       document.getElementById.mockReturnValueOnce(selectorElement);
-      
+
       MCPContextSelector.servers = [
         {
           name: 'test-server',
@@ -243,7 +249,7 @@ describe('MCP Context Selector UI Component', () => {
       // Arrange
       const selectorElement = { innerHTML: '' };
       document.getElementById.mockReturnValueOnce(selectorElement);
-      
+
       MCPContextSelector.servers = [];
 
       // Act
@@ -261,7 +267,7 @@ describe('MCP Context Selector UI Component', () => {
       const serverName = 'test-server';
       const resourcesElement = { style: {} };
       const toggleIcon = { classList: { toggle: jest.fn() } };
-      
+
       document.querySelector.mockImplementation((selector) => {
         if (selector === `#${serverName}-resources`) return resourcesElement;
         if (selector === `#${serverName}-toggle i`) return toggleIcon;
@@ -284,7 +290,7 @@ describe('MCP Context Selector UI Component', () => {
       const serverName = 'test-server';
       const resourcesElement = { style: { display: 'block' } };
       const toggleIcon = { classList: { toggle: jest.fn() } };
-      
+
       document.querySelector.mockImplementation((selector) => {
         if (selector === `#${serverName}-resources`) return resourcesElement;
         if (selector === `#${serverName}-toggle i`) return toggleIcon;
@@ -308,9 +314,9 @@ describe('MCP Context Selector UI Component', () => {
       const resourceUri = 'test://resource';
       const resourceName = 'Test Resource';
       const contextListElement = { innerHTML: '' };
-      
+
       document.getElementById.mockReturnValueOnce(contextListElement);
-      
+
       // Act
       MCPContextSelector.addResourceToContext(serverName, resourceUri, resourceName);
 
@@ -327,9 +333,9 @@ describe('MCP Context Selector UI Component', () => {
       const resourceUri = 'test://resource';
       const resourceName = 'Test Resource';
       const contextListElement = { innerHTML: '' };
-      
+
       document.getElementById.mockReturnValueOnce(contextListElement);
-      
+
       // Add the resource once
       MCPContextSelector.selectedContext = [`${serverName}://${resourceUri}`];
 
@@ -348,9 +354,9 @@ describe('MCP Context Selector UI Component', () => {
       // Arrange
       const resourceUri = 'test-server://test-resource';
       const contextListElement = { innerHTML: '' };
-      
+
       document.getElementById.mockReturnValueOnce(contextListElement);
-      
+
       // Add the resource first
       MCPContextSelector.selectedContext = [resourceUri];
 
@@ -368,12 +374,12 @@ describe('MCP Context Selector UI Component', () => {
       // Arrange
       const contextListElement = { innerHTML: '' };
       document.getElementById.mockReturnValueOnce(contextListElement);
-      
+
       MCPContextSelector.selectedContext = [
         'test-server://test-resource',
         'another-server://another-resource'
       ];
-      
+
       MCPContextSelector.servers = [
         {
           name: 'test-server',
@@ -412,7 +418,7 @@ describe('MCP Context Selector UI Component', () => {
       // Arrange
       const contextListElement = { innerHTML: '' };
       document.getElementById.mockReturnValueOnce(contextListElement);
-      
+
       MCPContextSelector.selectedContext = [];
 
       // Act
@@ -447,7 +453,7 @@ describe('MCP Context Selector UI Component', () => {
         'test-server://test-resource',
         'another-server://another-resource'
       ];
-      
+
       const contextListElement = { innerHTML: '' };
       document.getElementById.mockReturnValueOnce(contextListElement);
 
@@ -466,7 +472,7 @@ describe('MCP Context Selector UI Component', () => {
       // Arrange
       const inputElement = { value: 'custom-server://custom-resource' };
       document.getElementById.mockReturnValueOnce(inputElement);
-      
+
       const contextListElement = { innerHTML: '' };
       document.getElementById.mockReturnValueOnce(contextListElement);
 

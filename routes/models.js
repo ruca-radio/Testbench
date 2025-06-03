@@ -175,9 +175,10 @@ router.get('/api/models/list/:provider', async (req, res) => {
     const { provider } = req.params;
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 20;
+    const search = req.query.search || '';
 
     try {
-        const result = database.getAvailableModels(provider, page, pageSize);
+        const result = database.getAvailableModels(provider, page, pageSize, search);
         res.json({
             provider,
             models: result.models,
@@ -249,7 +250,9 @@ router.post('/api/models/test-connection/:provider', async (req, res) => {
     const { config = {} } = req.body;
 
     try {
-        const result = await testProviderConnection(provider, config);
+        // Extract provider-specific config from the nested config object
+        const providerConfig = config[provider] || config;
+        const result = await testProviderConnection(provider, providerConfig);
         res.json({
             provider,
             ...result,
@@ -261,6 +264,7 @@ router.post('/api/models/test-connection/:provider', async (req, res) => {
             provider,
             connected: false,
             error: error.message,
+            message: `Connection test failed: ${error.message}`,
             timestamp: new Date().toISOString()
         });
     }

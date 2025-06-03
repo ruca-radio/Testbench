@@ -1,6 +1,6 @@
 /**
  * UI Component Tests for MCP Server Management Interface
- * 
+ *
  * These tests use Jest's DOM manipulation capabilities to test the UI components
  * for the MCP server management interface.
  */
@@ -9,22 +9,28 @@
 global.fetch = jest.fn();
 
 // Mock DOM elements and utilities
-document.getElementById = jest.fn();
-document.createElement = jest.fn(() => ({
+const mockElement = {
   addEventListener: jest.fn(),
   appendChild: jest.fn(),
   insertAdjacentHTML: jest.fn(),
   click: jest.fn(),
-  style: {}
-}));
+  style: {},
+  innerHTML: ''
+};
+
+document.getElementById = jest.fn();
+document.createElement = jest.fn(() => ({ ...mockElement }));
 document.querySelector = jest.fn();
 document.querySelectorAll = jest.fn(() => []);
-document.body = {
-  insertAdjacentHTML: jest.fn()
-};
-document.head = {
-  appendChild: jest.fn()
-};
+
+// Properly mock document.body
+Object.defineProperty(document.body, 'insertAdjacentHTML', {
+  value: jest.fn(),
+  writable: true
+});
+
+// Mock document.head.appendChild
+jest.spyOn(document.head, 'appendChild').mockImplementation(() => {});
 
 // Mock Utils
 global.Utils = {
@@ -42,18 +48,18 @@ const MCPManager = require('../../public/js/mcp-manager');
 describe('MCP Manager UI Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Reset fetch mock
     fetch.mockReset();
-    
+
     // Mock successful fetch response
-    fetch.mockImplementation(() => 
+    fetch.mockImplementation(() =>
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve({ servers: [] })
       })
     );
-    
+
     // Mock DOM elements
     document.getElementById.mockImplementation((id) => {
       if (id === 'mcp-server-list') {
@@ -85,7 +91,7 @@ describe('MCP Manager UI Component', () => {
       }
       return null;
     });
-    
+
     // Initialize MCPManager
     MCPManager.init();
   });
@@ -110,8 +116,8 @@ describe('MCP Manager UI Component', () => {
           status: 'connected'
         }
       ];
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: true,
           json: () => Promise.resolve({ servers: mockServers })
@@ -129,7 +135,7 @@ describe('MCP Manager UI Component', () => {
 
     it('should handle errors when loading servers', async () => {
       // Arrange
-      fetch.mockImplementationOnce(() => 
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({ error: 'Failed to load servers' })
@@ -147,7 +153,7 @@ describe('MCP Manager UI Component', () => {
 
     it('should handle network errors', async () => {
       // Arrange
-      fetch.mockImplementationOnce(() => 
+      fetch.mockImplementationOnce(() =>
         Promise.reject(new Error('Network error'))
       );
 
@@ -166,7 +172,7 @@ describe('MCP Manager UI Component', () => {
       // Arrange
       const serverListElement = { innerHTML: '' };
       document.getElementById.mockReturnValueOnce(serverListElement);
-      
+
       MCPManager.serverList = [
         {
           name: 'test-server',
@@ -201,7 +207,7 @@ describe('MCP Manager UI Component', () => {
       // Arrange
       const serverListElement = { innerHTML: '' };
       document.getElementById.mockReturnValueOnce(serverListElement);
-      
+
       MCPManager.serverList = [];
 
       // Act
@@ -236,7 +242,7 @@ describe('MCP Manager UI Component', () => {
       const serverTypeInput = { value: '' };
       const endpointInput = { value: '' };
       const apiKeyInput = { value: '' };
-      
+
       document.getElementById.mockImplementation((id) => {
         if (id === 'mcp-server-editor') return editor;
         if (id === 'mcp-editor-title') return editorTitle;
@@ -272,7 +278,7 @@ describe('MCP Manager UI Component', () => {
       const serverTypeInput = { value: '' };
       const endpointInput = { value: '' };
       const apiKeyInput = { value: '' };
-      
+
       document.getElementById.mockImplementation((id) => {
         if (id === 'mcp-server-editor') return editor;
         if (id === 'mcp-editor-title') return editorTitle;
@@ -284,7 +290,7 @@ describe('MCP Manager UI Component', () => {
         if (id === 'mcp-tab') return { insertAdjacentHTML: jest.fn() };
         return null;
       });
-      
+
       MCPManager.serverList = [
         {
           name: 'test-server',
@@ -337,20 +343,20 @@ describe('MCP Manager UI Component', () => {
         apiKey: 'test-key',
         serverType: 'http'
       };
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: true,
-          json: () => Promise.resolve({ 
+          json: () => Promise.resolve({
             message: 'MCP server saved successfully',
             server: { ...serverData, apiKey: '••••••' }
           })
         })
       );
-      
+
       const cancelEditSpy = jest.spyOn(MCPManager, 'cancelEdit');
       const loadServersSpy = jest.spyOn(MCPManager, 'loadServers');
-      
+
       // Mock DOM elements
       document.getElementById.mockImplementation((id) => {
         if (id === 'mcp-server-name') return { value: serverData.name };
@@ -372,7 +378,7 @@ describe('MCP Manager UI Component', () => {
         },
         body: JSON.stringify({ server: serverData })
       });
-      
+
       expect(cancelEditSpy).toHaveBeenCalled();
       expect(loadServersSpy).toHaveBeenCalled();
       expect(Utils.showSuccess).toHaveBeenCalledWith(`MCP server 'Test Server' saved successfully`);
@@ -445,8 +451,8 @@ describe('MCP Manager UI Component', () => {
         if (id === 'mcp-api-key') return { value: 'test-key' };
         return null;
       });
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({ error: 'Server error' })
@@ -480,11 +486,11 @@ describe('MCP Manager UI Component', () => {
     it('should connect to a server successfully', async () => {
       // Arrange
       const serverName = 'test-server';
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: true,
-          json: () => Promise.resolve({ 
+          json: () => Promise.resolve({
             status: {
               connected: true,
               status: 'connected',
@@ -493,7 +499,7 @@ describe('MCP Manager UI Component', () => {
           })
         })
       );
-      
+
       const loadServersSpy = jest.spyOn(MCPManager, 'loadServers');
 
       // Act
@@ -507,7 +513,7 @@ describe('MCP Manager UI Component', () => {
         },
         body: JSON.stringify({ config: {} })
       });
-      
+
       expect(Utils.showSuccess).toHaveBeenCalledWith(`Connected to MCP server '${serverName}'`);
       expect(loadServersSpy).toHaveBeenCalled();
     });
@@ -515,11 +521,11 @@ describe('MCP Manager UI Component', () => {
     it('should handle connection failure', async () => {
       // Arrange
       const serverName = 'test-server';
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: true,
-          json: () => Promise.resolve({ 
+          json: () => Promise.resolve({
             status: {
               connected: false,
               status: 'error',
@@ -528,7 +534,7 @@ describe('MCP Manager UI Component', () => {
           })
         })
       );
-      
+
       const loadServersSpy = jest.spyOn(MCPManager, 'loadServers');
 
       // Act
@@ -542,7 +548,7 @@ describe('MCP Manager UI Component', () => {
         },
         body: JSON.stringify({ config: {} })
       });
-      
+
       expect(Utils.showError).toHaveBeenCalledWith(`Failed to connect to MCP server: Failed to connect`);
       expect(loadServersSpy).toHaveBeenCalled();
     });
@@ -550,8 +556,8 @@ describe('MCP Manager UI Component', () => {
     it('should handle server errors', async () => {
       // Arrange
       const serverName = 'test-server';
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({ error: 'Server error' })
@@ -571,18 +577,18 @@ describe('MCP Manager UI Component', () => {
     it('should remove a server after confirmation', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       global.confirm.mockReturnValueOnce(true);
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: true,
-          json: () => Promise.resolve({ 
+          json: () => Promise.resolve({
             message: `MCP server '${serverName}' removed successfully`
           })
         })
       );
-      
+
       const loadServersSpy = jest.spyOn(MCPManager, 'loadServers');
 
       // Act
@@ -593,7 +599,7 @@ describe('MCP Manager UI Component', () => {
       expect(fetch).toHaveBeenCalledWith(`/api/mcp/servers/${serverName}`, {
         method: 'DELETE'
       });
-      
+
       expect(Utils.showSuccess).toHaveBeenCalledWith(`MCP server '${serverName}' removed successfully`);
       expect(loadServersSpy).toHaveBeenCalled();
     });
@@ -601,7 +607,7 @@ describe('MCP Manager UI Component', () => {
     it('should not remove a server if not confirmed', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       global.confirm.mockReturnValueOnce(false);
 
       // Act
@@ -615,10 +621,10 @@ describe('MCP Manager UI Component', () => {
     it('should handle server errors', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       global.confirm.mockReturnValueOnce(true);
-      
-      fetch.mockImplementationOnce(() => 
+
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({ error: 'Server error' })
@@ -637,10 +643,10 @@ describe('MCP Manager UI Component', () => {
   describe('refreshServers', () => {
     it('should refresh all server statuses', async () => {
       // Arrange
-      fetch.mockImplementationOnce(() => 
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: true,
-          json: () => Promise.resolve({ 
+          json: () => Promise.resolve({
             results: {
               'test-server': {
                 connected: true,
@@ -650,7 +656,7 @@ describe('MCP Manager UI Component', () => {
           })
         })
       );
-      
+
       const loadServersSpy = jest.spyOn(MCPManager, 'loadServers');
 
       // Act
@@ -664,14 +670,14 @@ describe('MCP Manager UI Component', () => {
         },
         body: JSON.stringify({ config: {} })
       });
-      
+
       expect(Utils.showSuccess).toHaveBeenCalledWith('MCP server statuses refreshed');
       expect(loadServersSpy).toHaveBeenCalled();
     });
 
     it('should handle server errors', async () => {
       // Arrange
-      fetch.mockImplementationOnce(() => 
+      fetch.mockImplementationOnce(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({ error: 'Server error' })

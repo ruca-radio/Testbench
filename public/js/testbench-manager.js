@@ -165,6 +165,12 @@ class TestBenchManager {
                 case 'run-tests':
                     await TestBenchManager.runFeatureTests();
                     break;
+                case 'test-agent-tools':
+                    await TestBenchManager.runAgentToolsTests();
+                    break;
+                case 'run-qa-tests':
+                    await TestBenchManager.runQATests();
+                    break;
                 case 'health-check':
                     await TestBenchManager.performHealthCheck();
                     break;
@@ -321,6 +327,115 @@ class TestBenchManager {
                 `✅ Feature tests completed: ${data.passed}/${data.total} passed, ${data.failed} failed. Test report: ${data.report_url || 'Available in logs'}`);
         } else {
             throw new Error(`Failed to run tests: ${response.statusText}`);
+        }
+    }
+
+    static async runAgentToolsTests() {
+        try {
+            Utils.showInfo('Running TestBench agent tools tests...');
+            TestBenchManager.addChatMessage('agent',
+                '🧪 Starting comprehensive TestBench agent tools test suite...');
+
+            // Use the TestBenchToolsTester
+            if (!window.TestBenchToolsTester) {
+                throw new Error('TestBenchToolsTester not available');
+            }
+
+            // Run quick connection test first
+            const quickTestResult = await TestBenchToolsTester.quickConnectionTest();
+
+            if (quickTestResult.overallStatus === 'FAILED') {
+                TestBenchManager.addChatMessage('agent',
+                    `❌ Quick connection test failed. Agent tools may not be properly configured.`);
+                Utils.showError('Agent tools connection test failed');
+                return;
+            }
+
+            // Run comprehensive tests
+            const testReport = await TestBenchToolsTester.runComprehensiveTests();
+
+            // Update chat with results
+            TestBenchManager.addChatMessage('agent',
+                `✅ TestBench agent tools tests completed: ${testReport.summary.passedTests}/${testReport.summary.totalTests} passed (${testReport.summary.successRate})`);
+
+            if (testReport.status === 'SUCCESS') {
+                Utils.showSuccess(`All agent tools tests passed! (${testReport.summary.totalDuration})`);
+            } else {
+                Utils.showError(`Some tests failed: ${testReport.summary.failedTests} failures`);
+                TestBenchManager.addChatMessage('agent',
+                    `❌ Failed tests: ${testReport.results.filter(r => r.status === 'failed').map(r => r.name).join(', ')}`);
+            }
+
+            // Offer to export results
+            TestBenchManager.addChatMessage('agent',
+                '📊 Test results available. Use the export function to download detailed report.');
+
+            return testReport;
+        } catch (error) {
+            console.error('Error running agent tools tests:', error);
+            Utils.showError(`Failed to run agent tools tests: ${error.message}`);
+            TestBenchManager.addChatMessage('agent',
+                `❌ Agent tools test failed: ${error.message}`);
+            throw error;
+        }
+    }
+
+    static async runQATests() {
+        try {
+            Utils.showInfo('Running comprehensive QA test suite...');
+            TestBenchManager.addChatMessage('agent',
+                '🔍 Starting comprehensive QA framework test suite...');
+
+            // Use the QA Framework
+            if (!window.QAFramework) {
+                throw new Error('QA Framework not available');
+            }
+
+            // Run quick health check first
+            const quickCheck = await QAFramework.quickHealthCheck();
+            const healthyCount = quickCheck.filter(c => c.status === 'PASS').length;
+
+            TestBenchManager.addChatMessage('agent',
+                `🏥 Quick health check: ${healthyCount}/${quickCheck.length} systems healthy`);
+
+            if (healthyCount < quickCheck.length) {
+                TestBenchManager.addChatMessage('agent',
+                    '⚠️ Some systems failed quick check. Running comprehensive tests...');
+            }
+
+            // Run comprehensive QA tests
+            const qaReport = await QAFramework.runComprehensiveQA();
+
+            // Update chat with results
+            TestBenchManager.addChatMessage('agent',
+                `✅ QA test suite completed: ${qaReport.summary.passedTests}/${qaReport.summary.totalTests} passed (${qaReport.summary.successRate})`);
+
+            if (qaReport.summary.status === 'PASS') {
+                Utils.showSuccess(`All QA tests passed! (${qaReport.summary.duration})`);
+                TestBenchManager.addChatMessage('agent',
+                    '🎯 All systems are functioning correctly. Platform is ready for use.');
+            } else {
+                Utils.showError(`QA tests failed: ${qaReport.summary.failedTests} failures`);
+                TestBenchManager.addChatMessage('agent',
+                    `❌ Failed components: ${qaReport.failedTests.map(t => t.suite).join(', ')}`);
+
+                // Show recommendations
+                qaReport.recommendations.forEach(rec => {
+                    TestBenchManager.addChatMessage('agent', rec);
+                });
+            }
+
+            // Offer to export results
+            TestBenchManager.addChatMessage('agent',
+                '📊 QA report available. Use the export function to download detailed results.');
+
+            return qaReport;
+        } catch (error) {
+            console.error('Error running QA tests:', error);
+            Utils.showError(`Failed to run QA tests: ${error.message}`);
+            TestBenchManager.addChatMessage('agent',
+                `❌ QA test suite failed: ${error.message}`);
+            throw error;
         }
     }
 

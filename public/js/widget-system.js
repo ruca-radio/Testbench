@@ -148,7 +148,28 @@ class WidgetSystem {
     }
 
     wrapExistingContent(element, areaId) {
+        // Check if element contains the chat interface - if so, preserve it
+        const hasChatInterface = element.querySelector('#chat-messages') ||
+                                element.querySelector('#message-input') ||
+                                element.querySelector('.chat-container') ||
+                                element.querySelector('.model-bar');
+
+        if (hasChatInterface) {
+            console.log(`Preserving chat interface in ${areaId}, skipping widget wrapping`);
+            // Add a flag to indicate this area should be preserved
+            element.setAttribute('data-preserve-content', 'true');
+            return;
+        }
+
         const existingContent = Array.from(element.children);
+
+        // Only wrap content if explicitly enabled via widget mode
+        if (!window.widgetModeEnabled) {
+            console.log(`Widget mode not enabled, preserving existing content in ${areaId}`);
+            element.setAttribute('data-preserve-content', 'true');
+            return;
+        }
+
         element.innerHTML = '';
 
         // Create default widgets based on existing content
@@ -732,10 +753,10 @@ class WidgetSystem {
     }
 }
 
-// Initialize WidgetSystem when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    WidgetSystem.init();
-});
+// Initialize WidgetSystem when DOM is loaded (commented out for opt-in only)
+// document.addEventListener('DOMContentLoaded', () => {
+//     WidgetSystem.init();
+// });
 
 // Export for global access
 window.WidgetSystem = WidgetSystem;

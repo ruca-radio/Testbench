@@ -9,7 +9,10 @@
       "Bash(kill:*)",
       "Bash(true)",
       "Bash(find:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm run test:*)"
     ]
   },
   "enableAllProjectMcpServers": false

@@ -1,0 +1,2903 @@
+
+> TestBench@1.0.0 test
+> jest
+
+  console.error
+    Detailed error: {
+      message: 'Database connection failed with password xyz',
+      status: 500,
+      details: '',
+      stack: 'Error: Database connection failed with password xyz\n' +
+        '    at Object.<anonymous> (/home/rucaradio/framework/tests/unit/utils-security.test.js:267:21)\n' +
+        '    at Promise.then.completed (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:298:28)\n' +
+        '    at new Promise (<anonymous>)\n' +
+        '    at callAsyncCircusFn (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:231:10)\n' +
+        '    at _callCircusTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:316:40)\n' +
+        '    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+        '    at _runTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:252:3)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:126:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at run (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:71:3)\n' +
+        '    at runAndTransformResultsToJestFormat (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n' +
+        '    at jestAdapter (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n' +
+        '    at runTestInternal (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:367:16)\n' +
+        '    at runTest (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:444:34)'
+    }
+
+      282 |
+      283 |   // Log the detailed error for debugging
+    > 284 |   console.error('Detailed error:', {
+          |           ^
+      285 |     message: error.message,
+      286 |     status: status,
+      287 |     details: error.details || '',
+
+      at error (utils/security.js:284:11)
+      at Object.sanitizeErrorMessage (tests/unit/utils-security.test.js:270:25)
+
+  console.error
+    Detailed error: {
+      message: 'Detailed error',
+      status: 400,
+      details: '',
+      stack: 'Error: Detailed error\n' +
+        '    at /home/rucaradio/framework/tests/unit/utils-security.test.js:286:23\n' +
+        '    at Array.forEach (<anonymous>)\n' +
+        '    at Object.forEach (/home/rucaradio/framework/tests/unit/utils-security.test.js:285:17)\n' +
+        '    at Promise.then.completed (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:298:28)\n' +
+        '    at new Promise (<anonymous>)\n' +
+        '    at callAsyncCircusFn (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:231:10)\n' +
+        '    at _callCircusTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:316:40)\n' +
+        '    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+        '    at _runTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:252:3)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:126:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at run (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:71:3)\n' +
+        '    at runAndTransformResultsToJestFormat (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n' +
+        '    at jestAdapter (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n' +
+        '    at runTestInternal (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:367:16)\n' +
+        '    at runTest (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:444:34)'
+    }
+
+      282 |
+      283 |   // Log the detailed error for debugging
+    > 284 |   console.error('Detailed error:', {
+          |           ^
+      285 |     message: error.message,
+      286 |     status: status,
+      287 |     details: error.details || '',
+
+      at error (utils/security.js:284:11)
+      at sanitizeErrorMessage (tests/unit/utils-security.test.js:288:27)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (tests/unit/utils-security.test.js:285:17)
+
+  console.error
+    Detailed error: {
+      message: 'Detailed error',
+      status: 401,
+      details: '',
+      stack: 'Error: Detailed error\n' +
+        '    at /home/rucaradio/framework/tests/unit/utils-security.test.js:286:23\n' +
+        '    at Array.forEach (<anonymous>)\n' +
+        '    at Object.forEach (/home/rucaradio/framework/tests/unit/utils-security.test.js:285:17)\n' +
+        '    at Promise.then.completed (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:298:28)\n' +
+        '    at new Promise (<anonymous>)\n' +
+        '    at callAsyncCircusFn (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:231:10)\n' +
+        '    at _callCircusTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:316:40)\n' +
+        '    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+        '    at _runTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:252:3)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:126:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at run (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:71:3)\n' +
+        '    at runAndTransformResultsToJestFormat (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n' +
+        '    at jestAdapter (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n' +
+        '    at runTestInternal (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:367:16)\n' +
+        '    at runTest (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:444:34)'
+    }
+
+      282 |
+      283 |   // Log the detailed error for debugging
+    > 284 |   console.error('Detailed error:', {
+          |           ^
+      285 |     message: error.message,
+      286 |     status: status,
+      287 |     details: error.details || '',
+
+      at error (utils/security.js:284:11)
+      at sanitizeErrorMessage (tests/unit/utils-security.test.js:288:27)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (tests/unit/utils-security.test.js:285:17)
+
+  console.error
+    Detailed error: {
+      message: 'Detailed error',
+      status: 403,
+      details: '',
+      stack: 'Error: Detailed error\n' +
+        '    at /home/rucaradio/framework/tests/unit/utils-security.test.js:286:23\n' +
+        '    at Array.forEach (<anonymous>)\n' +
+        '    at Object.forEach (/home/rucaradio/framework/tests/unit/utils-security.test.js:285:17)\n' +
+        '    at Promise.then.completed (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:298:28)\n' +
+        '    at new Promise (<anonymous>)\n' +
+        '    at callAsyncCircusFn (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:231:10)\n' +
+        '    at _callCircusTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:316:40)\n' +
+        '    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+        '    at _runTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:252:3)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:126:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at run (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:71:3)\n' +
+        '    at runAndTransformResultsToJestFormat (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n' +
+        '    at jestAdapter (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n' +
+        '    at runTestInternal (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:367:16)\n' +
+        '    at runTest (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:444:34)'
+    }
+
+      282 |
+      283 |   // Log the detailed error for debugging
+    > 284 |   console.error('Detailed error:', {
+          |           ^
+      285 |     message: error.message,
+      286 |     status: status,
+      287 |     details: error.details || '',
+
+      at error (utils/security.js:284:11)
+      at sanitizeErrorMessage (tests/unit/utils-security.test.js:288:27)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (tests/unit/utils-security.test.js:285:17)
+
+  console.error
+    Detailed error: {
+      message: 'Detailed error',
+      status: 404,
+      details: '',
+      stack: 'Error: Detailed error\n' +
+        '    at /home/rucaradio/framework/tests/unit/utils-security.test.js:286:23\n' +
+        '    at Array.forEach (<anonymous>)\n' +
+        '    at Object.forEach (/home/rucaradio/framework/tests/unit/utils-security.test.js:285:17)\n' +
+        '    at Promise.then.completed (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:298:28)\n' +
+        '    at new Promise (<anonymous>)\n' +
+        '    at callAsyncCircusFn (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:231:10)\n' +
+        '    at _callCircusTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:316:40)\n' +
+        '    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+        '    at _runTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:252:3)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:126:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at run (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:71:3)\n' +
+        '    at runAndTransformResultsToJestFormat (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n' +
+        '    at jestAdapter (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n' +
+        '    at runTestInternal (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:367:16)\n' +
+        '    at runTest (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:444:34)'
+    }
+
+      282 |
+      283 |   // Log the detailed error for debugging
+    > 284 |   console.error('Detailed error:', {
+          |           ^
+      285 |     message: error.message,
+      286 |     status: status,
+      287 |     details: error.details || '',
+
+      at error (utils/security.js:284:11)
+      at sanitizeErrorMessage (tests/unit/utils-security.test.js:288:27)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (tests/unit/utils-security.test.js:285:17)
+
+  console.error
+    Detailed error: {
+      message: 'Detailed error',
+      status: 503,
+      details: '',
+      stack: 'Error: Detailed error\n' +
+        '    at /home/rucaradio/framework/tests/unit/utils-security.test.js:286:23\n' +
+        '    at Array.forEach (<anonymous>)\n' +
+        '    at Object.forEach (/home/rucaradio/framework/tests/unit/utils-security.test.js:285:17)\n' +
+        '    at Promise.then.completed (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:298:28)\n' +
+        '    at new Promise (<anonymous>)\n' +
+        '    at callAsyncCircusFn (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:231:10)\n' +
+        '    at _callCircusTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:316:40)\n' +
+        '    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+        '    at _runTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:252:3)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:126:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at run (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:71:3)\n' +
+        '    at runAndTransformResultsToJestFormat (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n' +
+        '    at jestAdapter (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n' +
+        '    at runTestInternal (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:367:16)\n' +
+        '    at runTest (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:444:34)'
+    }
+
+      282 |
+      283 |   // Log the detailed error for debugging
+    > 284 |   console.error('Detailed error:', {
+          |           ^
+      285 |     message: error.message,
+      286 |     status: status,
+      287 |     details: error.details || '',
+
+      at error (utils/security.js:284:11)
+      at sanitizeErrorMessage (tests/unit/utils-security.test.js:288:27)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (tests/unit/utils-security.test.js:285:17)
+
+  console.error
+    Detailed error: {
+      message: 'Some error',
+      status: 999,
+      details: '',
+      stack: 'Error: Some error\n' +
+        '    at Object.<anonymous> (/home/rucaradio/framework/tests/unit/utils-security.test.js:294:21)\n' +
+        '    at Promise.then.completed (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:298:28)\n' +
+        '    at new Promise (<anonymous>)\n' +
+        '    at callAsyncCircusFn (/home/rucaradio/framework/node_modules/jest-circus/build/utils.js:231:10)\n' +
+        '    at _callCircusTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:316:40)\n' +
+        '    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+        '    at _runTest (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:252:3)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:126:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at _runTestsForDescribeBlock (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:121:9)\n' +
+        '    at run (/home/rucaradio/framework/node_modules/jest-circus/build/run.js:71:3)\n' +
+        '    at runAndTransformResultsToJestFormat (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\n' +
+        '    at jestAdapter (/home/rucaradio/framework/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\n' +
+        '    at runTestInternal (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:367:16)\n' +
+        '    at runTest (/home/rucaradio/framework/node_modules/jest-runner/build/runTest.js:444:34)'
+    }
+
+      282 |
+      283 |   // Log the detailed error for debugging
+    > 284 |   console.error('Detailed error:', {
+          |           ^
+      285 |     message: error.message,
+      286 |     status: status,
+      287 |     details: error.details || '',
+
+      at error (utils/security.js:284:11)
+      at Object.sanitizeErrorMessage (tests/unit/utils-security.test.js:296:25)
+
+FAIL unit tests/unit/utils-security.test.js
+  Security Utilities
+    encrypt/decrypt
+      ✓ should encrypt and decrypt data correctly (1 ms)
+      ✓ should handle null inputs
+      ✓ should return null for invalid encrypted format (1 ms)
+    validateApiKey
+      ✕ should validate API key format (1 ms)
+      ✓ should handle missing API key
+    generateApiKey
+      ✓ should generate a 96-character hex string (1 ms)
+      ✓ should generate unique keys
+    validateServerName
+      ✓ should validate server name format
+      ✓ should handle missing server name
+    validateEndpoint
+      ✓ should validate HTTPS endpoints
+      ✓ should allow HTTP for localhost (1 ms)
+      ✓ should handle invalid URLs
+      ✓ should handle missing endpoint
+    validateToolArguments
+      ✓ should validate and sanitize arguments (1 ms)
+      ✓ should remove control characters from strings
+      ✓ should enforce required fields
+      ✓ should validate type constraints (1 ms)
+      ✓ should handle missing arguments
+      ✓ should handle missing schema
+    validateResourceUri
+      ✓ should validate URI format (1 ms)
+      ✓ should reject invalid URI format
+      ✓ should sanitize control characters
+      ✓ should handle missing URI
+    validateContentType
+      ✓ should validate allowed content types
+      ✓ should handle content type with charset
+      ✓ should validate against custom allowed types
+      ✓ should handle missing content type (1 ms)
+    sanitizeErrorMessage
+      ✓ should sanitize error messages with generic messages (16 ms)
+      ✓ should handle different status codes (7 ms)
+      ✓ should handle unknown status codes (2 ms)
+    verifyTls
+      ✓ should enforce TLS verification
+      ✕ should not modify original options (1 ms)
+    isIpAllowed
+      ✓ should allow all IPs when allowlist is empty
+      ✓ should check exact IP matches
+      ✓ should support CIDR notation (1 ms)
+
+  ● Security Utilities › validateApiKey › should validate API key format
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      40 |     it('should validate API key format', () => {
+      41 |       const result1 = validateApiKey('a'.repeat(32));
+    > 42 |       expect(result1.valid).toBe(true);
+         |                             ^
+      43 |
+      44 |       const result2 = validateApiKey('short');
+      45 |       expect(result2.valid).toBe(false);
+
+      at Object.toBe (tests/unit/utils-security.test.js:42:29)
+
+  ● Security Utilities › verifyTls › should not modify original options
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      317 |
+      318 |       const secured = verifyTls(options);
+    > 319 |       expect(options.agent.rejectUnauthorized).toBe(false);
+          |                                                ^
+      320 |       expect(secured.agent.rejectUnauthorized).toBe(true);
+      321 |     });
+      322 |   });
+
+      at Object.toBe (tests/unit/utils-security.test.js:319:48)
+
+FAIL unit tests/unit/providers-mcp.test.js
+  MCP Provider
+    executeMCPTool
+      ✕ should execute a tool successfully (1 ms)
+      ✕ should use environment variables when config is not provided
+      ✕ should throw an error when endpoint is not configured (2 ms)
+      ✕ should throw an error when the server returns an error (1 ms)
+      ✕ should handle fetch errors
+    accessMCPResource
+      ✕ should access a resource successfully
+      ✕ should use environment variables when config is not provided (3 ms)
+      ✕ should throw an error when endpoint is not configured
+      ✕ should throw an error when the server returns an error (1 ms)
+      ✕ should handle fetch errors (1 ms)
+    fetchMCPServers
+      ✕ should return an empty array by default
+    getMCPServerTools
+      ✕ should get server tools successfully (1 ms)
+      ✕ should use environment variables when config is not provided
+      ✕ should throw an error when endpoint is not configured
+      ✕ should throw an error when the server returns an error
+      ✕ should handle fetch errors
+    getMCPServerResources
+      ✕ should get server resources successfully
+      ✕ should use environment variables when config is not provided
+      ✕ should throw an error when endpoint is not configured
+      ✕ should throw an error when the server returns an error
+      ✕ should handle fetch errors
+    checkMCPServerStatus
+      ✕ should check server status successfully when connected
+      ✕ should return unconfigured status when endpoint is not configured
+      ✕ should return error status when the server returns an error
+      ✕ should return unreachable status when fetch fails
+
+  ● MCP Provider › executeMCPTool › should execute a tool successfully
+
+    MCP endpoint not configured for test-server
+
+      10 |     const apiKey = providerConfig.key || process.env[`MCP_${serverName.toUpperCase()}_API_KEY`];
+      11 |
+    > 12 |     if (!endpoint) throw new Error(`MCP endpoint not configured for ${serverName}`);
+         |                          ^
+      13 |
+      14 |     // Add agent context if provided
+      15 |     const payload = agentContext ?
+
+      at executeMCPTool (providers/mcp.js:12:26)
+      at Object.executeMCPTool (tests/unit/providers-mcp.test.js:52:28)
+
+  ● MCP Provider › executeMCPTool › should use environment variables when config is not provided
+
+    TypeError: Converting circular structure to JSON
+        --> starting at object with constructor 'Object'
+        --- property 'main' closes the circle
+        at JSON.stringify (<anonymous>)
+
+      24 |                 ...(apiKey && { 'Authorization': `Bearer ${apiKey}` })
+      25 |             },
+    > 26 |             body: JSON.stringify(payload),
+         |                        ^
+      27 |             timeout: 30000
+      28 |         });
+      29 |
+
+      at stringify (providers/mcp.js:26:24)
+      at Object.executeMCPTool (tests/unit/providers-mcp.test.js:81:28)
+
+  ● MCP Provider › executeMCPTool › should throw an error when endpoint is not configured
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected substring: "MCP server endpoint not configured for unknown-server"
+    Received message:   "MCP endpoint not configured for unknown-server"
+
+          10 |     const apiKey = providerConfig.key || process.env[`MCP_${serverName.toUpperCase()}_API_KEY`];
+          11 |
+        > 12 |     if (!endpoint) throw new Error(`MCP endpoint not configured for ${serverName}`);
+             |                          ^
+          13 |
+          14 |     // Add agent context if provided
+          15 |     const payload = agentContext ?
+
+      at executeMCPTool (providers/mcp.js:12:26)
+      at Object.executeMCPTool (tests/unit/providers-mcp.test.js:105:20)
+      at Object.toThrow (node_modules/expect/build/index.js:218:22)
+      at Object.toThrow (tests/unit/providers-mcp.test.js:107:10)
+
+  ● MCP Provider › executeMCPTool › should throw an error when the server returns an error
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected substring: "Server error"
+    Received message:   "MCP endpoint not configured for test-server"
+
+          10 |     const apiKey = providerConfig.key || process.env[`MCP_${serverName.toUpperCase()}_API_KEY`];
+          11 |
+        > 12 |     if (!endpoint) throw new Error(`MCP endpoint not configured for ${serverName}`);
+             |                          ^
+          13 |
+          14 |     // Add agent context if provided
+          15 |     const payload = agentContext ?
+
+      at executeMCPTool (providers/mcp.js:12:26)
+      at Object.executeMCPTool (tests/unit/providers-mcp.test.js:123:20)
+      at Object.toThrow (node_modules/expect/build/index.js:218:22)
+      at Object.toThrow (tests/unit/providers-mcp.test.js:127:10)
+
+  ● MCP Provider › executeMCPTool › should handle fetch errors
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected substring: "Failed to connect to MCP server test-server: Network error"
+    Received message:   "MCP endpoint not configured for test-server"
+
+          10 |     const apiKey = providerConfig.key || process.env[`MCP_${serverName.toUpperCase()}_API_KEY`];
+          11 |
+        > 12 |     if (!endpoint) throw new Error(`MCP endpoint not configured for ${serverName}`);
+             |                          ^
+          13 |
+          14 |     // Add agent context if provided
+          15 |     const payload = agentContext ?
+
+      at executeMCPTool (providers/mcp.js:12:26)
+      at Object.executeMCPTool (tests/unit/providers-mcp.test.js:141:20)
+      at Object.toThrow (node_modules/expect/build/index.js:218:22)
+      at Object.toThrow (tests/unit/providers-mcp.test.js:145:10)
+
+  ● MCP Provider › accessMCPResource › should access a resource successfully
+
+    MCP endpoint not configured for test-server
+
+      50 |     const apiKey = providerConfig.key || process.env[`MCP_${serverName.toUpperCase()}_API_KEY`];
+      51 |
+    > 52 |     if (!endpoint) throw new Error(`MCP endpoint not configured for ${serverName}`);
+         |                          ^
+      53 |
+      54 |     try {
+      55 |         const response = await fetch(`${endpoint}/resources?uri=${encodeURIComponent(uri)}`, {
+
+      at accessMCPResource (providers/mcp.js:52:26)
+      at Object.accessMCPResource (tests/unit/providers-mcp.test.js:167:28)
+
+  ● MCP Provider › accessMCPResource › should use environment variables when config is not provided
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+    -   "content": "resource content",
+    +   "result": "success",
+      }
+
+      205 |         })
+      206 |       );
+    > 207 |       expect(result).toEqual({ content: 'resource content' });
+          |                      ^
+      208 |     });
+      209 |
+      210 |     it('should throw an error when endpoint is not configured', async () => {
+
+      at Object.toEqual (tests/unit/providers-mcp.test.js:207:22)
+
+  ● MCP Provider › accessMCPResource › should throw an error when endpoint is not configured
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected substring: "MCP server endpoint not configured for unknown-server"
+    Received message:   "MCP endpoint not configured for unknown-server"
+
+          50 |     const apiKey = providerConfig.key || process.env[`MCP_${serverName.toUpperCase()}_API_KEY`];
+          51 |
+        > 52 |     if (!endpoint) throw new Error(`MCP endpoint not configured for ${serverName}`);
+             |                          ^
+          53 |
+          54 |     try {
+          55 |         const response = await fetch(`${endpoint}/resources?uri=${encodeURIComponent(uri)}`, {
+
+      at accessMCPResource (providers/mcp.js:52:26)
+      at Object.accessMCPResource (tests/unit/providers-mcp.test.js:216:20)
+      at Object.toThrow (node_modules/expect/build/index.js:218:22)
+      at Object.toThrow (tests/unit/providers-mcp.test.js:218:10)
+
+  ● MCP Provider › accessMCPResource › should throw an error when the server returns an error
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected substring: "Server error"
+    Received message:   "MCP endpoint not configured for test-server"
+
+          50 |     const apiKey = providerConfig.key || process.env[`MCP_${serverName.toUpperCase()}_API_KEY`];
+          51 |
+        > 52 |     if (!endpoint) throw new Error(`MCP endpoint not configured for ${serverName}`);
+             |                          ^
+          53 |
+          54 |     try {
+          55 |         const response = await fetch(`${endpoint}/resources?uri=${encodeURIComponent(uri)}`, {
+
+      at accessMCPResource (providers/mcp.js:52:26)
+      at Object.accessMCPResource (tests/unit/providers-mcp.test.js:233:20)
+      at Object.toThrow (node_modules/expect/build/index.js:218:22)
+      at Object.toThrow (tests/unit/providers-mcp.test.js:237:10)
+
+  ● MCP Provider › accessMCPResource › should handle fetch errors
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected substring: "Failed to connect to MCP server test-server: Network error"
+    Received message:   "MCP endpoint not configured for test-server"
+
+          50 |     const apiKey = providerConfig.key || process.env[`MCP_${serverName.toUpperCase()}_API_KEY`];
+          51 |
+        > 52 |     if (!endpoint) throw new Error(`MCP endpoint not configured for ${serverName}`);
+             |                          ^
+          53 |
+          54 |     try {
+          55 |         const response = await fetch(`${endpoint}/resources?uri=${encodeURIComponent(uri)}`, {
+
+      at accessMCPResource (providers/mcp.js:52:26)
+      at Object.accessMCPResource (tests/unit/providers-mcp.test.js:250:20)
+      at Object.toThrow (node_modules/expect/build/index.js:218:22)
+      at Object.toThrow (tests/unit/providers-mcp.test.js:254:10)
+
+  ● MCP Provider › fetchMCPServers › should return an empty array by default
+
+    TypeError: fetchMCPServers is not a function
+
+      259 |     it('should return an empty array by default', async () => {
+      260 |       // Act
+    > 261 |       const result = await fetchMCPServers();
+          |                            ^
+      262 |
+      263 |       // Assert
+      264 |       expect(result).toEqual([]);
+
+      at Object.fetchMCPServers (tests/unit/providers-mcp.test.js:261:28)
+
+  ● MCP Provider › getMCPServerTools › should get server tools successfully
+
+    TypeError: getMCPServerTools is not a function
+
+      283 |
+      284 |       // Act
+    > 285 |       const result = await getMCPServerTools(serverName, providerConfig);
+          |                            ^
+      286 |
+      287 |       // Assert
+      288 |       expect(fetch).toHaveBeenCalledWith(
+
+      at Object.getMCPServerTools (tests/unit/providers-mcp.test.js:285:28)
+
+  ● MCP Provider › getMCPServerTools › should use environment variables when config is not provided
+
+    TypeError: getMCPServerTools is not a function
+
+      309 |
+      310 |       // Act
+    > 311 |       const result = await getMCPServerTools(serverName);
+          |                            ^
+      312 |
+      313 |       // Assert
+      314 |       expect(fetch).toHaveBeenCalledWith(
+
+      at Object.getMCPServerTools (tests/unit/providers-mcp.test.js:311:28)
+
+  ● MCP Provider › getMCPServerTools › should throw an error when endpoint is not configured
+
+    TypeError: getMCPServerTools is not a function
+
+      330 |
+      331 |       // Act & Assert
+    > 332 |       await expect(getMCPServerTools(serverName))
+          |                    ^
+      333 |         .rejects
+      334 |         .toThrow('MCP server endpoint not configured for unknown-server');
+      335 |     });
+
+      at Object.getMCPServerTools (tests/unit/providers-mcp.test.js:332:20)
+
+  ● MCP Provider › getMCPServerTools › should throw an error when the server returns an error
+
+    TypeError: getMCPServerTools is not a function
+
+      346 |
+      347 |       // Act & Assert
+    > 348 |       await expect(getMCPServerTools(serverName, {
+          |                    ^
+      349 |         'test-server': { endpoint: 'http://test-endpoint' }
+      350 |       }))
+      351 |         .rejects
+
+      at Object.getMCPServerTools (tests/unit/providers-mcp.test.js:348:20)
+
+  ● MCP Provider › getMCPServerTools › should handle fetch errors
+
+    TypeError: getMCPServerTools is not a function
+
+      362 |
+      363 |       // Act & Assert
+    > 364 |       await expect(getMCPServerTools(serverName, {
+          |                    ^
+      365 |         'test-server': { endpoint: 'http://test-endpoint' }
+      366 |       }))
+      367 |         .rejects
+
+      at Object.getMCPServerTools (tests/unit/providers-mcp.test.js:364:20)
+
+  ● MCP Provider › getMCPServerResources › should get server resources successfully
+
+    TypeError: getMCPServerResources is not a function
+
+      387 |
+      388 |       // Act
+    > 389 |       const result = await getMCPServerResources(serverName, providerConfig);
+          |                            ^
+      390 |
+      391 |       // Assert
+      392 |       expect(fetch).toHaveBeenCalledWith(
+
+      at Object.getMCPServerResources (tests/unit/providers-mcp.test.js:389:28)
+
+  ● MCP Provider › getMCPServerResources › should use environment variables when config is not provided
+
+    TypeError: getMCPServerResources is not a function
+
+      413 |
+      414 |       // Act
+    > 415 |       const result = await getMCPServerResources(serverName);
+          |                            ^
+      416 |
+      417 |       // Assert
+      418 |       expect(fetch).toHaveBeenCalledWith(
+
+      at Object.getMCPServerResources (tests/unit/providers-mcp.test.js:415:28)
+
+  ● MCP Provider › getMCPServerResources › should throw an error when endpoint is not configured
+
+    TypeError: getMCPServerResources is not a function
+
+      434 |
+      435 |       // Act & Assert
+    > 436 |       await expect(getMCPServerResources(serverName))
+          |                    ^
+      437 |         .rejects
+      438 |         .toThrow('MCP server endpoint not configured for unknown-server');
+      439 |     });
+
+      at Object.getMCPServerResources (tests/unit/providers-mcp.test.js:436:20)
+
+  ● MCP Provider › getMCPServerResources › should throw an error when the server returns an error
+
+    TypeError: getMCPServerResources is not a function
+
+      450 |
+      451 |       // Act & Assert
+    > 452 |       await expect(getMCPServerResources(serverName, {
+          |                    ^
+      453 |         'test-server': { endpoint: 'http://test-endpoint' }
+      454 |       }))
+      455 |         .rejects
+
+      at Object.getMCPServerResources (tests/unit/providers-mcp.test.js:452:20)
+
+  ● MCP Provider › getMCPServerResources › should handle fetch errors
+
+    TypeError: getMCPServerResources is not a function
+
+      466 |
+      467 |       // Act & Assert
+    > 468 |       await expect(getMCPServerResources(serverName, {
+          |                    ^
+      469 |         'test-server': { endpoint: 'http://test-endpoint' }
+      470 |       }))
+      471 |         .rejects
+
+      at Object.getMCPServerResources (tests/unit/providers-mcp.test.js:468:20)
+
+  ● MCP Provider › checkMCPServerStatus › should check server status successfully when connected
+
+    TypeError: checkMCPServerStatus is not a function
+
+      494 |
+      495 |       // Act
+    > 496 |       const result = await checkMCPServerStatus(serverName, providerConfig);
+          |                            ^
+      497 |
+      498 |       // Assert
+      499 |       expect(fetch).toHaveBeenCalledWith(
+
+      at Object.checkMCPServerStatus (tests/unit/providers-mcp.test.js:496:28)
+
+  ● MCP Provider › checkMCPServerStatus › should return unconfigured status when endpoint is not configured
+
+    TypeError: checkMCPServerStatus is not a function
+
+      522 |
+      523 |       // Act
+    > 524 |       const result = await checkMCPServerStatus(serverName);
+          |                            ^
+      525 |
+      526 |       // Assert
+      527 |       expect(result).toEqual({
+
+      at Object.checkMCPServerStatus (tests/unit/providers-mcp.test.js:524:28)
+
+  ● MCP Provider › checkMCPServerStatus › should return error status when the server returns an error
+
+    TypeError: checkMCPServerStatus is not a function
+
+      543 |
+      544 |       // Act
+    > 545 |       const result = await checkMCPServerStatus(serverName, {
+          |                            ^
+      546 |         'test-server': { endpoint: 'http://test-endpoint' }
+      547 |       });
+      548 |
+
+      at Object.checkMCPServerStatus (tests/unit/providers-mcp.test.js:545:28)
+
+  ● MCP Provider › checkMCPServerStatus › should return unreachable status when fetch fails
+
+    TypeError: checkMCPServerStatus is not a function
+
+      563 |
+      564 |       // Act
+    > 565 |       const result = await checkMCPServerStatus(serverName, {
+          |                            ^
+      566 |         'test-server': { endpoint: 'http://test-endpoint' }
+      567 |       });
+      568 |
+
+      at Object.checkMCPServerStatus (tests/unit/providers-mcp.test.js:565:28)
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 127.0.0.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 127.0.0.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 127.0.0.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 127.0.0.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 127.0.0.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 192.168.1.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 192.168.1.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'x-forwarded-for')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:24)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 127.0.0.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for /api/test was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for /api/test was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:59)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:59)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.xForwardedForHeader (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:186:59)
+        at Object.wrappedValidations.<computed> [as xForwardedForHeader] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:671:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as xForwardedForHeader] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:671:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 127.0.0.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    ValidationError: The hit count for 127.0.0.1 was incremented more than once for a single request. See https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/ for more information.
+        at Object.singleCount (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:242:13)
+        at Object.wrappedValidations.<computed> [as singleCount] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:743:26
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5 {
+      code: 'ERR_ERL_DOUBLE_COUNT',
+      help: 'https://express-rate-limit.github.io/ERR_ERL_DOUBLE_COUNT/'
+    }
+
+      at Object.wrappedValidations.<computed> [as singleCount] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at node_modules/express-rate-limit/dist/index.cjs:743:26
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+  console.error
+    TypeError: Cannot read properties of undefined (reading 'get')
+        at Object.trustProxy (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:168:21)
+        at Object.wrappedValidations.<computed> [as trustProxy] (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:398:22)
+        at Object.keyGenerator (/home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:670:20)
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:724:32
+        at /home/rucaradio/framework/node_modules/express-rate-limit/dist/index.cjs:704:5
+
+      at Object.wrappedValidations.<computed> [as trustProxy] (node_modules/express-rate-limit/dist/index.cjs:406:21)
+      at Object.keyGenerator (node_modules/express-rate-limit/dist/index.cjs:670:20)
+      at node_modules/express-rate-limit/dist/index.cjs:724:32
+      at node_modules/express-rate-limit/dist/index.cjs:704:5
+
+FAIL unit tests/unit/middleware-rateLimiter.test.js
+  Rate Limiter Middleware
+    createRateLimiter
+      ✕ should allow requests within the rate limit (4 ms)
+      ✕ should block requests exceeding the rate limit (5 ms)
+      ✕ should reset the limit after window expires (3 ms)
+      ✕ should track different IPs separately (3 ms)
+      ✕ should set appropriate headers (5 ms)
+      ✕ should use custom message when provided (3 ms)
+      ✕ should skip rate limiting when skip function returns true (1 ms)
+      ✕ should use custom key generator when provided (2 ms)
+      ✕ should handle x-forwarded-for header (4 ms)
+      ✕ should apply rate limiting to websocket upgrade requests (1 ms)
+    Predefined rate limiters
+      ✕ should export apiLimiter with correct configuration (1 ms)
+      ✕ should export authLimiter with correct configuration
+      ✕ should export uploadLimiter with correct configuration
+
+  ● Rate Limiter Middleware › createRateLimiter › should allow requests within the rate limit
+
+    expect(jest.fn()).toHaveBeenCalledTimes(expected)
+
+    Expected number of calls: 1
+    Received number of calls: 0
+
+      35 |       for (let i = 0; i < 5; i++) {
+      36 |         limiter(req, res, next);
+    > 37 |         expect(next).toHaveBeenCalledTimes(i + 1);
+         |                      ^
+      38 |         expect(res.status).not.toHaveBeenCalled();
+      39 |       }
+      40 |     });
+
+      at Object.toHaveBeenCalledTimes (tests/unit/middleware-rateLimiter.test.js:37:22)
+
+  ● Rate Limiter Middleware › createRateLimiter › should block requests exceeding the rate limit
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 429
+
+    Number of calls: 0
+
+      54 |       limiter(req, res, next);
+      55 |
+    > 56 |       expect(res.status).toHaveBeenCalledWith(429);
+         |                          ^
+      57 |       expect(res.json).toHaveBeenCalledWith({
+      58 |         error: 'Too many requests, please try again later.',
+      59 |         code: 'RATE_LIMIT_EXCEEDED'
+
+      at Object.toHaveBeenCalledWith (tests/unit/middleware-rateLimiter.test.js:56:26)
+
+  ● Rate Limiter Middleware › createRateLimiter › should reset the limit after window expires
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 429
+
+    Number of calls: 0
+
+      74 |       // 3rd request should be blocked
+      75 |       limiter(req, res, next);
+    > 76 |       expect(res.status).toHaveBeenCalledWith(429);
+         |                          ^
+      77 |
+      78 |       // Advance time past the window
+      79 |       jest.advanceTimersByTime(61000);
+
+      at Object.toHaveBeenCalledWith (tests/unit/middleware-rateLimiter.test.js:76:26)
+
+  ● Rate Limiter Middleware › createRateLimiter › should track different IPs separately
+
+    expect(jest.fn()).toHaveBeenCalledTimes(expected)
+
+    Expected number of calls: 3
+    Received number of calls: 0
+
+      105 |       // Request from new IP should be allowed
+      106 |       limiter(req, res, next);
+    > 107 |       expect(next).toHaveBeenCalledTimes(3);
+          |                    ^
+      108 |
+      109 |       // Change back to first IP
+      110 |       req.ip = '127.0.0.1';
+
+      at Object.toHaveBeenCalledTimes (tests/unit/middleware-rateLimiter.test.js:107:20)
+
+  ● Rate Limiter Middleware › createRateLimiter › should set appropriate headers
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"X-RateLimit-Limit": "5", "X-RateLimit-Remaining": "4"}
+
+    Number of calls: 0
+
+      124 |       limiter(req, res, next);
+      125 |
+    > 126 |       expect(res.set).toHaveBeenCalledWith(
+          |                       ^
+      127 |         expect.objectContaining({
+      128 |           'X-RateLimit-Limit': '5',
+      129 |           'X-RateLimit-Remaining': '4'
+
+      at Object.toHaveBeenCalledWith (tests/unit/middleware-rateLimiter.test.js:126:23)
+
+  ● Rate Limiter Middleware › createRateLimiter › should use custom message when provided
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: {"code": "RATE_LIMIT_EXCEEDED", "error": "Custom rate limit message"}
+
+    Number of calls: 0
+
+      146 |       limiter(req, res, next);
+      147 |
+    > 148 |       expect(res.json).toHaveBeenCalledWith({
+          |                        ^
+      149 |         error: customMessage,
+      150 |         code: 'RATE_LIMIT_EXCEEDED'
+      151 |       });
+
+      at Object.toHaveBeenCalledWith (tests/unit/middleware-rateLimiter.test.js:148:24)
+
+  ● Rate Limiter Middleware › createRateLimiter › should skip rate limiting when skip function returns true
+
+    expect(jest.fn()).toHaveBeenCalledTimes(expected)
+
+    Expected number of calls: 1
+    Received number of calls: 0
+
+      162 |       for (let i = 0; i < 5; i++) {
+      163 |         limiter(req, res, next);
+    > 164 |         expect(next).toHaveBeenCalledTimes(i + 1);
+          |                      ^
+      165 |       }
+      166 |
+      167 |       expect(res.status).not.toHaveBeenCalled();
+
+      at Object.toHaveBeenCalledTimes (tests/unit/middleware-rateLimiter.test.js:164:22)
+
+  ● Rate Limiter Middleware › createRateLimiter › should use custom key generator when provided
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 429
+
+    Number of calls: 0
+
+      181 |       // 3rd request to same path should be blocked
+      182 |       limiter(req, res, next);
+    > 183 |       expect(res.status).toHaveBeenCalledWith(429);
+          |                          ^
+      184 |
+      185 |       // Change path
+      186 |       req.path = '/api/other';
+
+      at Object.toHaveBeenCalledWith (tests/unit/middleware-rateLimiter.test.js:183:26)
+
+  ● Rate Limiter Middleware › createRateLimiter › should handle x-forwarded-for header
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 429
+
+    Number of calls: 0
+
+      209 |       // 3rd request should be blocked
+      210 |       limiter(req, res, next);
+    > 211 |       expect(res.status).toHaveBeenCalledWith(429);
+          |                          ^
+      212 |     });
+      213 |
+      214 |     it('should apply rate limiting to websocket upgrade requests', () => {
+
+      at Object.toHaveBeenCalledWith (tests/unit/middleware-rateLimiter.test.js:211:26)
+
+  ● Rate Limiter Middleware › createRateLimiter › should apply rate limiting to websocket upgrade requests
+
+    expect(jest.fn()).toHaveBeenCalled()
+
+    Expected number of calls: >= 1
+    Received number of calls:    0
+
+      223 |       // First websocket request passes
+      224 |       limiter(req, res, next);
+    > 225 |       expect(next).toHaveBeenCalled();
+          |                    ^
+      226 |
+      227 |       // Second websocket request should be blocked
+      228 |       limiter(req, res, next);
+
+      at Object.toHaveBeenCalled (tests/unit/middleware-rateLimiter.test.js:225:20)
+
+  ● Rate Limiter Middleware › Predefined rate limiters › should export apiLimiter with correct configuration
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      234 |     it('should export apiLimiter with correct configuration', () => {
+      235 |       const { apiLimiter } = require('../../middleware/rateLimiter');
+    > 236 |       expect(apiLimiter).toBeDefined();
+          |                          ^
+      237 |       expect(typeof apiLimiter).toBe('function');
+      238 |     });
+      239 |
+
+      at Object.toBeDefined (tests/unit/middleware-rateLimiter.test.js:236:26)
+
+  ● Rate Limiter Middleware › Predefined rate limiters › should export authLimiter with correct configuration
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      240 |     it('should export authLimiter with correct configuration', () => {
+      241 |       const { authLimiter } = require('../../middleware/rateLimiter');
+    > 242 |       expect(authLimiter).toBeDefined();
+          |                           ^
+      243 |       expect(typeof authLimiter).toBe('function');
+      244 |     });
+      245 |
+
+      at Object.toBeDefined (tests/unit/middleware-rateLimiter.test.js:242:27)
+
+  ● Rate Limiter Middleware › Predefined rate limiters › should export uploadLimiter with correct configuration
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      246 |     it('should export uploadLimiter with correct configuration', () => {
+      247 |       const { uploadLimiter } = require('../../middleware/rateLimiter');
+    > 248 |       expect(uploadLimiter).toBeDefined();
+          |                             ^
+      249 |       expect(typeof uploadLimiter).toBe('function');
+      250 |     });
+      251 |   });
+
+      at Object.toBeDefined (tests/unit/middleware-rateLimiter.test.js:248:29)
+
+FAIL unit tests/unit/middleware-auth.test.js
+  Auth Middleware
+    hashPassword
+      ✓ should hash a password using bcrypt
+    comparePassword
+      ✓ should return true for matching password
+      ✓ should return false for non-matching password (1 ms)
+    generateToken
+      ✓ should generate a JWT token for user
+    verifyToken
+      ✕ should return decoded token for valid token with active session (1 ms)
+      ✓ should return null for valid token without active session (1 ms)
+      ✓ should return null for invalid token
+    authenticate middleware
+      ✕ should call next() for valid token
+      ✓ should return 401 when authentication is required and no token provided (1 ms)
+      ✓ should call next() when authentication is not required and no token provided
+      ✕ should return 403 when user role does not match required roles
+      ✕ should call next() when user role matches required roles
+
+  ● Auth Middleware › verifyToken › should return decoded token for valid token with active session
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"id": 1, "role": "user", "username": "testuser"}
+    Received: null
+
+      122 |
+      123 |       expect(jwt.verify).toHaveBeenCalledWith(token, expect.any(String));
+    > 124 |       expect(result).toEqual(decoded);
+          |                      ^
+      125 |     });
+      126 |
+      127 |     it('should return null for valid token without active session', () => {
+
+      at Object.toEqual (tests/unit/middleware-auth.test.js:124:22)
+
+  ● Auth Middleware › authenticate middleware › should call next() for valid token
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"id": 1, "role": "user", "username": "testuser"}
+    Received: undefined
+
+      188 |       middleware(req, res, next);
+      189 |
+    > 190 |       expect(req.user).toEqual(decoded);
+          |                        ^
+      191 |       expect(req.authenticated).toBe(true);
+      192 |       expect(req.token).toBe(token);
+      193 |       expect(next).toHaveBeenCalled();
+
+      at Object.toEqual (tests/unit/middleware-auth.test.js:190:24)
+
+  ● Auth Middleware › authenticate middleware › should return 403 when user role does not match required roles
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: 403
+    Received: 401
+
+    Number of calls: 1
+
+      232 |       middleware(req, res, next);
+      233 |
+    > 234 |       expect(res.status).toHaveBeenCalledWith(403);
+          |                          ^
+      235 |       expect(res.json).toHaveBeenCalledWith({
+      236 |         error: 'Insufficient permissions',
+      237 |         code: 'FORBIDDEN',
+
+      at Object.toHaveBeenCalledWith (tests/unit/middleware-auth.test.js:234:26)
+
+  ● Auth Middleware › authenticate middleware › should call next() when user role matches required roles
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"id": 1, "role": "admin", "username": "testuser"}
+    Received: undefined
+
+      259 |       middleware(req, res, next);
+      260 |
+    > 261 |       expect(req.user).toEqual(decoded);
+          |                        ^
+      262 |       expect(next).toHaveBeenCalled();
+      263 |     });
+      264 |   });
+
+      at Object.toEqual (tests/unit/middleware-auth.test.js:261:24)
+
+FAIL ui tests/ui/mcp-manager.test.js
+  MCP Manager UI Component
+    init
+      ✕ should initialize the MCPManager
+    loadServers
+      ✕ should load servers from the backend
+      ✕ should handle errors when loading servers
+      ✕ should handle network errors
+    updateServerList
+      ✕ should update the server list in the UI
+      ✕ should show empty state when no servers are available
+    addServer
+      ✕ should show the server editor
+    showServerEditor
+      ✕ should show the server editor for a new server
+      ✕ should show the server editor for an existing server
+    cancelEdit
+      ✕ should hide the server editor
+    saveServer
+      ✕ should save a new server
+      ✕ should validate required fields
+      ✕ should validate server name format
+      ✕ should validate endpoint is required (1 ms)
+      ✕ should handle server errors
+    configureServer
+      ✕ should show the server editor for the specified server
+    connectServer
+      ✕ should connect to a server successfully
+      ✕ should handle connection failure (1 ms)
+      ✕ should handle server errors
+    removeServer
+      ✕ should remove a server after confirmation
+      ✕ should not remove a server if not confirmed
+      ✕ should handle server errors
+    refreshServers
+      ✕ should refresh all server statuses
+      ✕ should handle server errors
+
+  ● MCP Manager UI Component › init › should initialize the MCPManager
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › loadServers › should load servers from the backend
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › loadServers › should handle errors when loading servers
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › loadServers › should handle network errors
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › updateServerList › should update the server list in the UI
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › updateServerList › should show empty state when no servers are available
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › addServer › should show the server editor
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › showServerEditor › should show the server editor for a new server
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › showServerEditor › should show the server editor for an existing server
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › cancelEdit › should hide the server editor
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › saveServer › should save a new server
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › saveServer › should validate required fields
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › saveServer › should validate server name format
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › saveServer › should validate endpoint is required
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › saveServer › should handle server errors
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › configureServer › should show the server editor for the specified server
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › connectServer › should connect to a server successfully
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › connectServer › should handle connection failure
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › connectServer › should handle server errors
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › removeServer › should remove a server after confirmation
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › removeServer › should not remove a server if not confirmed
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › removeServer › should handle server errors
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › refreshServers › should refresh all server statuses
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+  ● MCP Manager UI Component › refreshServers › should handle server errors
+
+    TypeError: MCPManager.init is not a function
+
+      94 |
+      95 |     // Initialize MCPManager
+    > 96 |     MCPManager.init();
+         |                ^
+      97 |   });
+      98 |
+      99 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-manager.test.js:96:16)
+
+FAIL ui tests/ui/mcp-context-selector.test.js
+  MCP Context Selector UI Component
+    init
+      ✕ should initialize the MCPContextSelector
+    loadServers
+      ✕ should load servers from the backend
+      ✕ should handle errors when loading servers
+      ✕ should handle network errors
+    loadServerResources
+      ✕ should load resources for a server
+      ✕ should handle errors when loading resources
+    updateServerList
+      ✕ should update the server list in the UI
+      ✕ should show empty state when no servers are available
+    toggleServerResources
+      ✕ should toggle server resources visibility
+      ✕ should hide resources if already visible (1 ms)
+    addResourceToContext
+      ✕ should add a resource to the context
+      ✕ should not add duplicate resources
+    removeResourceFromContext
+      ✕ should remove a resource from the context
+    updateContextList
+      ✕ should update the context list in the UI (1 ms)
+      ✕ should show empty state when no context is selected
+    getSelectedContext
+      ✕ should return the selected context
+    clearContext
+      ✕ should clear the selected context
+    addCustomContext
+      ✕ should add a custom context URI
+      ✕ should validate the custom context URI format
+      ✕ should not add empty context
+
+  ● MCP Context Selector UI Component › init › should initialize the MCPContextSelector
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › loadServers › should load servers from the backend
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › loadServers › should handle errors when loading servers
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › loadServers › should handle network errors
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › loadServerResources › should load resources for a server
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › loadServerResources › should handle errors when loading resources
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › updateServerList › should update the server list in the UI
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › updateServerList › should show empty state when no servers are available
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › toggleServerResources › should toggle server resources visibility
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › toggleServerResources › should hide resources if already visible
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › addResourceToContext › should add a resource to the context
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › addResourceToContext › should not add duplicate resources
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › removeResourceFromContext › should remove a resource from the context
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › updateContextList › should update the context list in the UI
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › updateContextList › should show empty state when no context is selected
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › getSelectedContext › should return the selected context
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › clearContext › should clear the selected context
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › addCustomContext › should add a custom context URI
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › addCustomContext › should validate the custom context URI format
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+  ● MCP Context Selector UI Component › addCustomContext › should not add empty context
+
+    TypeError: MCPContextSelector.init is not a function
+
+      73 |
+      74 |     // Initialize MCPContextSelector
+    > 75 |     MCPContextSelector.init();
+         |                        ^
+      76 |   });
+      77 |
+      78 |   describe('init', () => {
+
+      at Object.init (tests/ui/mcp-context-selector.test.js:75:24)
+
+FAIL integration tests/integration/routes-mcp.test.js
+  ● Test suite failed to run
+
+    TypeError: Cannot read properties of undefined (reading 'prepare')
+
+      10 | // Prepared statements for database operations
+      11 | const statements = {
+    > 12 |   getUserByUsername: db.prepare('SELECT * FROM users WHERE username = ?'),
+         |                         ^
+      13 |   getUserById: db.prepare('SELECT * FROM users WHERE id = ?'),
+      14 |   createSession: db.prepare(`
+      15 |     INSERT INTO user_sessions (user_id, session_token, expires_at, ip_address, user_agent)
+
+      at Object.prepare (middleware/auth.js:12:25)
+      at Object.require (routes/mcp.js:5:26)
+      at Object.require (tests/integration/routes-mcp.test.js:18:19)
+
+  console.log
+    Chat request: 1 messages, model: gpt-4o
+
+      at log (routes/chat.js:34:13)
+
+  console.log
+    Using provider: openai
+
+      at log (routes/chat.js:36:13)
+
+  console.log
+    Chat request: 2 messages, model: gpt-4o
+
+      at log (routes/chat.js:34:13)
+
+  console.log
+    Using provider: openai
+
+      at log (routes/chat.js:36:13)
+
+  console.log
+    Chat request: 1 messages, model: gpt-4o
+
+      at log (routes/chat.js:34:13)
+
+  console.log
+    Using provider: openai
+
+      at log (routes/chat.js:36:13)
+
+  console.log
+    Chat request: 1 messages, model: gpt-4o
+
+      at log (routes/chat.js:34:13)
+
+  console.log
+    Using provider: openai
+
+      at log (routes/chat.js:36:13)
+
+  console.log
+    Chat request: 1 messages, model: gpt-4o
+
+      at log (routes/chat.js:34:13)
+
+  console.log
+    Using provider: openai
+
+      at log (routes/chat.js:36:13)
+
+  console.log
+    Chat request: 1 messages, model: gpt-4o
+
+      at log (routes/chat.js:154:13)
+
+  console.log
+    Using provider: openai
+
+      at log (routes/chat.js:156:13)
+
+FAIL integration tests/integration/routes-chat-mcp.test.js (180.187 s)
+  Chat Routes with MCP Context
+    POST /chat
+      ✕ should process chat request with MCP context (30001 ms)
+      ✕ should append MCP context to existing system message (30001 ms)
+      ✕ should continue without MCP context when resource access fails (30001 ms)
+      ✕ should handle invalid MCP context format (30001 ms)
+      ✕ should handle server not found (30001 ms)
+    POST /api/chat/completion
+      ✕ should process chat completion request with MCP context (30001 ms)
+
+  ● Chat Routes with MCP Context › POST /chat › should process chat request with MCP context
+
+    TypeError: database.getProviderSettings is not a function
+
+      36 |     console.log(`Using provider: ${provider}`);
+      37 |     // Merge persisted provider settings with client-supplied config
+    > 38 |     const dbSettings = database.getProviderSettings(provider) || {};
+         |                                 ^
+      39 |     const clientProviderConfig = config[provider] || {};
+      40 |     const providerConfig = { ...dbSettings, ...clientProviderConfig };
+      41 |     const endpointOverride = clientProviderConfig.endpoint || dbSettings.endpoint;
+
+      at getProviderSettings (routes/chat.js:38:33)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  ● Chat Routes with MCP Context › POST /chat › should process chat request with MCP context
+
+    thrown: "Exceeded timeout of 30000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+      33 |
+      34 |   describe('POST /chat', () => {
+    > 35 |     it('should process chat request with MCP context', async () => {
+         |     ^
+      36 |       // Arrange
+      37 |       const mcpContext = [
+      38 |         'test-server://test-resource',
+
+      at it (tests/integration/routes-chat-mcp.test.js:35:5)
+      at describe (tests/integration/routes-chat-mcp.test.js:34:3)
+      at Object.describe (tests/integration/routes-chat-mcp.test.js:28:1)
+
+  ● Chat Routes with MCP Context › POST /chat › should append MCP context to existing system message
+
+    TypeError: database.getProviderSettings is not a function
+
+      36 |     console.log(`Using provider: ${provider}`);
+      37 |     // Merge persisted provider settings with client-supplied config
+    > 38 |     const dbSettings = database.getProviderSettings(provider) || {};
+         |                                 ^
+      39 |     const clientProviderConfig = config[provider] || {};
+      40 |     const providerConfig = { ...dbSettings, ...clientProviderConfig };
+      41 |     const endpointOverride = clientProviderConfig.endpoint || dbSettings.endpoint;
+
+      at getProviderSettings (routes/chat.js:38:33)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  ● Chat Routes with MCP Context › POST /chat › should append MCP context to existing system message
+
+    thrown: "Exceeded timeout of 30000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+      124 |     });
+      125 |
+    > 126 |     it('should append MCP context to existing system message', async () => {
+          |     ^
+      127 |       // Arrange
+      128 |       const mcpContext = [
+      129 |         'test-server://test-resource'
+
+      at it (tests/integration/routes-chat-mcp.test.js:126:5)
+      at describe (tests/integration/routes-chat-mcp.test.js:34:3)
+      at Object.describe (tests/integration/routes-chat-mcp.test.js:28:1)
+
+  ● Chat Routes with MCP Context › POST /chat › should continue without MCP context when resource access fails
+
+    TypeError: database.getProviderSettings is not a function
+
+      36 |     console.log(`Using provider: ${provider}`);
+      37 |     // Merge persisted provider settings with client-supplied config
+    > 38 |     const dbSettings = database.getProviderSettings(provider) || {};
+         |                                 ^
+      39 |     const clientProviderConfig = config[provider] || {};
+      40 |     const providerConfig = { ...dbSettings, ...clientProviderConfig };
+      41 |     const endpointOverride = clientProviderConfig.endpoint || dbSettings.endpoint;
+
+      at getProviderSettings (routes/chat.js:38:33)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  ● Chat Routes with MCP Context › POST /chat › should continue without MCP context when resource access fails
+
+    thrown: "Exceeded timeout of 30000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+      194 |     });
+      195 |
+    > 196 |     it('should continue without MCP context when resource access fails', async () => {
+          |     ^
+      197 |       // Arrange
+      198 |       const mcpContext = [
+      199 |         'test-server://test-resource'
+
+      at it (tests/integration/routes-chat-mcp.test.js:196:5)
+      at describe (tests/integration/routes-chat-mcp.test.js:34:3)
+      at Object.describe (tests/integration/routes-chat-mcp.test.js:28:1)
+
+  ● Chat Routes with MCP Context › POST /chat › should handle invalid MCP context format
+
+    TypeError: database.getProviderSettings is not a function
+
+      36 |     console.log(`Using provider: ${provider}`);
+      37 |     // Merge persisted provider settings with client-supplied config
+    > 38 |     const dbSettings = database.getProviderSettings(provider) || {};
+         |                                 ^
+      39 |     const clientProviderConfig = config[provider] || {};
+      40 |     const providerConfig = { ...dbSettings, ...clientProviderConfig };
+      41 |     const endpointOverride = clientProviderConfig.endpoint || dbSettings.endpoint;
+
+      at getProviderSettings (routes/chat.js:38:33)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  ● Chat Routes with MCP Context › POST /chat › should handle invalid MCP context format
+
+    thrown: "Exceeded timeout of 30000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+      258 |     });
+      259 |
+    > 260 |     it('should handle invalid MCP context format', async () => {
+          |     ^
+      261 |       // Arrange
+      262 |       const mcpContext = [
+      263 |         'invalid-format'
+
+      at it (tests/integration/routes-chat-mcp.test.js:260:5)
+      at describe (tests/integration/routes-chat-mcp.test.js:34:3)
+      at Object.describe (tests/integration/routes-chat-mcp.test.js:28:1)
+
+  ● Chat Routes with MCP Context › POST /chat › should handle server not found
+
+    TypeError: database.getProviderSettings is not a function
+
+      36 |     console.log(`Using provider: ${provider}`);
+      37 |     // Merge persisted provider settings with client-supplied config
+    > 38 |     const dbSettings = database.getProviderSettings(provider) || {};
+         |                                 ^
+      39 |     const clientProviderConfig = config[provider] || {};
+      40 |     const providerConfig = { ...dbSettings, ...clientProviderConfig };
+      41 |     const endpointOverride = clientProviderConfig.endpoint || dbSettings.endpoint;
+
+      at getProviderSettings (routes/chat.js:38:33)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  ● Chat Routes with MCP Context › POST /chat › should handle server not found
+
+    thrown: "Exceeded timeout of 30000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+      314 |     });
+      315 |
+    > 316 |     it('should handle server not found', async () => {
+          |     ^
+      317 |       // Arrange
+      318 |       const mcpContext = [
+      319 |         'non-existent-server://test-resource'
+
+      at it (tests/integration/routes-chat-mcp.test.js:316:5)
+      at describe (tests/integration/routes-chat-mcp.test.js:34:3)
+      at Object.describe (tests/integration/routes-chat-mcp.test.js:28:1)
+
+  ● Chat Routes with MCP Context › POST /api/chat/completion › should process chat completion request with MCP context
+
+    TypeError: database.getProviderSettings is not a function
+
+      156 |     console.log(`Using provider: ${provider}`);
+      157 |     // Merge persisted provider settings with client-supplied config
+    > 158 |     const dbSettings = database.getProviderSettings(provider) || {};
+          |                                 ^
+      159 |     const clientProviderConfig = config[provider] || {};
+      160 |     const providerConfigMerged = { ...dbSettings, ...clientProviderConfig };
+      161 |     const endpointOverride = clientProviderConfig.endpoint || dbSettings.endpoint;
+
+      at getProviderSettings (routes/chat.js:158:33)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at next (node_modules/express/lib/router/route.js:149:13)
+      at Route.dispatch (node_modules/express/lib/router/route.js:119:3)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at node_modules/express/lib/router/index.js:284:15
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at Function.handle (node_modules/express/lib/router/index.js:175:3)
+      at router (node_modules/express/lib/router/index.js:47:12)
+      at Layer.handle [as handle_request] (node_modules/express/lib/router/layer.js:95:5)
+      at trim_prefix (node_modules/express/lib/router/index.js:328:13)
+      at node_modules/express/lib/router/index.js:286:9
+      at Function.process_params (node_modules/express/lib/router/index.js:346:12)
+      at next (node_modules/express/lib/router/index.js:280:10)
+      at node_modules/body-parser/lib/read.js:137:5
+      at invokeCallback (node_modules/raw-body/index.js:238:16)
+      at done (node_modules/raw-body/index.js:227:7)
+      at IncomingMessage.onEnd (node_modules/raw-body/index.js:287:7)
+
+  ● Chat Routes with MCP Context › POST /api/chat/completion › should process chat completion request with MCP context
+
+    thrown: "Exceeded timeout of 30000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+      374 |
+      375 |   describe('POST /api/chat/completion', () => {
+    > 376 |     it('should process chat completion request with MCP context', async () => {
+          |     ^
+      377 |       // Arrange
+      378 |       const mcpContext = [
+      379 |         'test-server://test-resource'
+
+      at it (tests/integration/routes-chat-mcp.test.js:376:5)
+      at describe (tests/integration/routes-chat-mcp.test.js:375:3)
+      at Object.describe (tests/integration/routes-chat-mcp.test.js:28:1)
+
+---------------------------------|---------|----------|---------|---------|-------------------------------------------
+File                             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                         
+---------------------------------|---------|----------|---------|---------|-------------------------------------------
+All files                        |    2.61 |     2.91 |    2.04 |    2.64 |                                           
+ middleware                      |   32.45 |    29.16 |   38.88 |   32.45 |                                           
+  auth.js                        |   31.63 |    34.42 |   46.15 |   31.63 | 74-77,101,117,155,164-166,179-346,352-355 
+  rateLimiter.js                 |    37.5 |        0 |      20 |    37.5 | 16,93-121                                 
+ providers                       |    9.83 |     6.25 |    4.22 |    9.82 |                                           
+  anthropic.js                   |    6.06 |        0 |       0 |    6.38 | 24-337                                    
+  mcp.js                         |   60.41 |    60.97 |    37.5 |    61.9 | 30-39,68-75,88-91,97-98                   
+  ollama.js                      |    5.82 |        0 |       0 |    6.06 | 24-344                                    
+  openai.js                      |       0 |        0 |       0 |       0 | 1-349                                     
+  openrouter.js                  |    5.76 |        0 |       0 |       6 | 24-335                                    
+ public/js                       |    0.04 |        0 |       0 |    0.04 |                                           
+  agent-manager.js               |       0 |        0 |       0 |       0 | 3-478                                     
+  ai-services.js                 |       0 |        0 |       0 |       0 | 3-460                                     
+  chat.js                        |       0 |        0 |       0 |       0 | 4-126                                     
+  collaboration.js               |       0 |        0 |       0 |       0 | 8-495                                     
+  enhanced-forms.js              |       0 |        0 |       0 |       0 | 8-553                                     
+  enhanced-settings-manager.js   |       0 |        0 |       0 |       0 | 9-523                                     
+  enhanced-widget-system.js      |       0 |        0 |       0 |       0 | 4-498                                     
+  global-settings.js             |       0 |        0 |       0 |       0 | 7-523                                     
+  knowledge-manager.js           |       0 |        0 |       0 |       0 | 7-490                                     
+  main.js                        |       0 |        0 |       0 |       0 | 4-606                                     
+  mcp-context-selector.js        |    0.75 |        0 |       0 |    0.78 | 7-448,456                                 
+  mcp-manager.js                 |    3.44 |        0 |       0 |    3.57 | 7-80,86                                   
+  qa-framework.js                |       0 |        0 |       0 |       0 | 9-679                                     
+  quick-config.js                |       0 |        0 |       0 |       0 | 4-263                                     
+  settings-modal.js              |       0 |        0 |       0 |       0 | 4-1125                                    
+  testbench-manager.js           |       0 |        0 |       0 |       0 | 4-898                                     
+  testbench-tools-tester.js      |       0 |        0 |       0 |       0 | 9-579                                     
+  tool-builder.js                |       0 |        0 |       0 |       0 | 4-1261                                    
+  tool-manager.js                |       0 |        0 |       0 |       0 | 7-1057                                    
+  utils.js                       |       0 |        0 |       0 |       0 | 14-687                                    
+  widget-factory.js              |       0 |        0 |       0 |       0 | 3-351                                     
+  widget-system.js               |       0 |        0 |       0 |       0 | 4-762                                     
+  workspace-manager.js           |       0 |        0 |       0 |       0 | 7-478                                     
+  workspace-types.js             |       0 |        0 |       0 |       0 | 3-240                                     
+ public/js/widgets               |       0 |        0 |       0 |       0 |                                           
+  agent-orchestrator-widget.js   |       0 |        0 |       0 |       0 | 4-589                                     
+  agent-status-widget.js         |       0 |        0 |       0 |       0 | 4-353                                     
+  base-widget.js                 |       0 |        0 |       0 |       0 | 4-473                                     
+  chat-widget.js                 |       0 |        0 |       0 |       0 | 4-256                                     
+  conversation-history-widget.js |       0 |        0 |       0 |       0 | 4-518                                     
+  model-comparison-widget.js     |       0 |        0 |       0 |       0 | 4-643                                     
+  quick-config-widget.js         |       0 |        0 |       0 |       0 | 4-521                                     
+  shared-chat-widget.js          |       0 |        0 |       0 |       0 | 4-768                                     
+  system-monitor-widget.js       |       0 |        0 |       0 |       0 | 4-442                                     
+ routes                          |    1.41 |     0.46 |    1.09 |    1.43 |                                           
+  agents.js                      |       0 |        0 |       0 |       0 | 1-988                                     
+  chat.js                        |   20.27 |     6.97 |   33.33 |   20.56 | 31,39-125,151,159-232,241-323             
+  collaboration.js               |       0 |        0 |       0 |       0 | 6-537                                     
+  health.js                      |       0 |        0 |       0 |       0 | 6-456                                     
+  knowledge.js                   |       0 |        0 |       0 |       0 | 1-355                                     
+  mcp.js                         |       0 |        0 |       0 |       0 | 1-167                                     
+  models.js                      |       0 |        0 |       0 |       0 | 1-302                                     
+  settings.js                    |       0 |        0 |       0 |       0 | 1-546                                     
+  testbench.js                   |       0 |        0 |       0 |       0 | 1-1255                                    
+  tools.js                       |       0 |        0 |       0 |       0 | 1-791                                     
+ services                        |       0 |        0 |       0 |       0 |                                           
+  collaborationEngine.js         |       0 |        0 |       0 |       0 | 6-154                                     
+ utils                           |    43.5 |     38.7 |   47.22 |   43.43 |                                           
+  helpers.js                     |    23.4 |    17.94 |      50 |    23.8 | 12-13,23,27,32,35,48-104                  
+  mcp-health-check.js            |       0 |        0 |       0 |       0 | 17-236                                    
+  responseHelpers.js             |       0 |        0 |       0 |       0 | 15-161                                    
+  security.js                    |   93.38 |     90.1 |     100 |   93.96 | 52-53,69,77,176,197,204                   
+---------------------------------|---------|----------|---------|---------|-------------------------------------------
+Jest: "global" coverage threshold for statements (70%) not met: 2.61%
+Jest: "global" coverage threshold for branches (70%) not met: 2.91%
+Jest: "global" coverage threshold for lines (70%) not met: 2.64%
+Jest: "global" coverage threshold for functions (70%) not met: 2.04%
+Test Suites: 8 failed, 8 total
+Tests:       94 failed, 41 passed, 135 total
+Snapshots:   0 total
+Time:        183.315 s
+Ran all test suites in 3 projects.
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.
+  console.error
+    Error cleaning up sessions: TypeError: db.prepare(...).run is not a function
+        at Timeout._onTimeout (/home/rucaradio/framework/middleware/auth.js:3165:80)
+        at listOnTimeout (node:internal/timers:608:17)
+        at processTimers (node:internal/timers:543:7)
+
+
+
+      at Timeout._onTimeout (middleware/auth.js:3169:13)
+
+  console.error
+    Error cleaning up sessions: TypeError: db.prepare(...).run is not a function
+        at Timeout._onTimeout (/home/rucaradio/framework/middleware/auth.js:3165:80)
+        at listOnTimeout (node:internal/timers:608:17)
+        at processTimers (node:internal/timers:543:7)
+
+
+
+      at Timeout._onTimeout (middleware/auth.js:3169:13)
+

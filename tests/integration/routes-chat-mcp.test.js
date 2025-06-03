@@ -1,7 +1,12 @@
 const request = require('supertest');
 const express = require('express');
-const chatRoutes = require('../../routes/chat');
 const { mockDatabase, resetMocks } = require('../test-helpers');
+
+// Mock database - must be done before requiring routes
+jest.mock('../../database', () => require('../test-helpers').mockDatabase);
+
+// Now require the routes after mocking
+const chatRoutes = require('../../routes/chat');
 
 // Mock MCP provider functions
 jest.mock('../../providers/mcp', () => ({
@@ -14,9 +19,6 @@ jest.mock('../../providers/openai', () => ({
   handleOpenAI: jest.fn()
 }));
 const openaiProvider = require('../../providers/openai');
-
-// Mock database
-jest.mock('../../database', () => mockDatabase);
 
 // Create Express app for testing
 const app = express();
@@ -36,29 +38,29 @@ describe('Chat Routes with MCP Context', () => {
         'test-server://test-resource',
         'another-server://another-resource'
       ];
-      
+
       const messages = [
         { role: 'user', content: 'Hello' }
       ];
-      
+
       const mockServer1 = {
         name: 'test-server',
         endpoint: 'http://localhost:3001',
         apiKey: 'test-key'
       };
-      
+
       const mockServer2 = {
         name: 'another-server',
         endpoint: 'http://localhost:3002',
         apiKey: null
       };
-      
+
       mockDatabase.getMCPServer.mockImplementation((serverName) => {
         if (serverName === 'test-server') return mockServer1;
         if (serverName === 'another-server') return mockServer2;
         return null;
       });
-      
+
       mcpProvider.accessMCPResource.mockImplementation((serverName, uri) => {
         if (serverName === 'test-server' && uri === 'test-resource') {
           return Promise.resolve({ content: 'Test resource content' });
@@ -68,7 +70,7 @@ describe('Chat Routes with MCP Context', () => {
         }
         return Promise.reject(new Error('Resource not found'));
       });
-      
+
       openaiProvider.handleOpenAI.mockResolvedValue({
         choices: [
           {
@@ -94,7 +96,7 @@ describe('Chat Routes with MCP Context', () => {
       expect(mcpProvider.accessMCPResource).toHaveBeenCalledTimes(2);
       expect(mcpProvider.accessMCPResource).toHaveBeenCalledWith('test-server', 'test-resource', {});
       expect(mcpProvider.accessMCPResource).toHaveBeenCalledWith('another-server', 'another-resource', {});
-      
+
       // Check that the MCP context was added to the messages
       expect(openaiProvider.handleOpenAI).toHaveBeenCalledWith(
         expect.arrayContaining([
@@ -112,7 +114,7 @@ describe('Chat Routes with MCP Context', () => {
         {},
         undefined
       );
-      
+
       expect(response.body).toEqual({
         response: 'Hello, I can help you with that.',
         model: 'gpt-4o',
@@ -126,22 +128,22 @@ describe('Chat Routes with MCP Context', () => {
       const mcpContext = [
         'test-server://test-resource'
       ];
-      
+
       const messages = [
         { role: 'system', content: 'You are a helpful assistant.' },
         { role: 'user', content: 'Hello' }
       ];
-      
+
       mockDatabase.getMCPServer.mockReturnValue({
         name: 'test-server',
         endpoint: 'http://localhost:3001',
         apiKey: 'test-key'
       });
-      
+
       mcpProvider.accessMCPResource.mockResolvedValue({
         content: 'Test resource content'
       });
-      
+
       openaiProvider.handleOpenAI.mockResolvedValue({
         choices: [
           {
@@ -165,7 +167,7 @@ describe('Chat Routes with MCP Context', () => {
 
       // Assert
       expect(mcpProvider.accessMCPResource).toHaveBeenCalledTimes(1);
-      
+
       // Check that the MCP context was appended to the existing system message
       expect(openaiProvider.handleOpenAI).toHaveBeenCalledWith(
         expect.arrayContaining([
@@ -183,7 +185,7 @@ describe('Chat Routes with MCP Context', () => {
         {},
         undefined
       );
-      
+
       // Check that the system message contains both the original content and the MCP context
       const systemMessage = openaiProvider.handleOpenAI.mock.calls[0][0][0];
       expect(systemMessage.content).toContain('You are a helpful assistant.');
@@ -196,19 +198,19 @@ describe('Chat Routes with MCP Context', () => {
       const mcpContext = [
         'test-server://test-resource'
       ];
-      
+
       const messages = [
         { role: 'user', content: 'Hello' }
       ];
-      
+
       mockDatabase.getMCPServer.mockReturnValue({
         name: 'test-server',
         endpoint: 'http://localhost:3001',
         apiKey: 'test-key'
       });
-      
+
       mcpProvider.accessMCPResource.mockRejectedValue(new Error('Resource access failed'));
-      
+
       openaiProvider.handleOpenAI.mockResolvedValue({
         choices: [
           {
@@ -232,7 +234,7 @@ describe('Chat Routes with MCP Context', () => {
 
       // Assert
       expect(mcpProvider.accessMCPResource).toHaveBeenCalledTimes(1);
-      
+
       // Check that the original messages were passed without MCP context
       expect(openaiProvider.handleOpenAI).toHaveBeenCalledWith(
         expect.arrayContaining([
@@ -246,7 +248,7 @@ describe('Chat Routes with MCP Context', () => {
         {},
         undefined
       );
-      
+
       expect(response.body).toEqual({
         response: 'Hello, I can help you with that.',
         model: 'gpt-4o',
@@ -260,11 +262,11 @@ describe('Chat Routes with MCP Context', () => {
       const mcpContext = [
         'invalid-format'
       ];
-      
+
       const messages = [
         { role: 'user', content: 'Hello' }
       ];
-      
+
       openaiProvider.handleOpenAI.mockResolvedValue({
         choices: [
           {
@@ -288,7 +290,7 @@ describe('Chat Routes with MCP Context', () => {
 
       // Assert
       expect(mcpProvider.accessMCPResource).not.toHaveBeenCalled();
-      
+
       // Check that the original messages were passed without MCP context
       expect(openaiProvider.handleOpenAI).toHaveBeenCalledWith(
         expect.arrayContaining([
@@ -302,7 +304,7 @@ describe('Chat Routes with MCP Context', () => {
         {},
         undefined
       );
-      
+
       expect(response.body).toEqual({
         response: 'Hello, I can help you with that.',
         model: 'gpt-4o',
@@ -316,13 +318,13 @@ describe('Chat Routes with MCP Context', () => {
       const mcpContext = [
         'non-existent-server://test-resource'
       ];
-      
+
       const messages = [
         { role: 'user', content: 'Hello' }
       ];
-      
+
       mockDatabase.getMCPServer.mockReturnValue(null);
-      
+
       openaiProvider.handleOpenAI.mockResolvedValue({
         choices: [
           {
@@ -346,7 +348,7 @@ describe('Chat Routes with MCP Context', () => {
 
       // Assert
       expect(mcpProvider.accessMCPResource).not.toHaveBeenCalled();
-      
+
       // Check that the original messages were passed without MCP context
       expect(openaiProvider.handleOpenAI).toHaveBeenCalledWith(
         expect.arrayContaining([
@@ -360,7 +362,7 @@ describe('Chat Routes with MCP Context', () => {
         {},
         undefined
       );
-      
+
       expect(response.body).toEqual({
         response: 'Hello, I can help you with that.',
         model: 'gpt-4o',
@@ -376,21 +378,21 @@ describe('Chat Routes with MCP Context', () => {
       const mcpContext = [
         'test-server://test-resource'
       ];
-      
+
       const messages = [
         { role: 'user', content: 'Hello' }
       ];
-      
+
       mockDatabase.getMCPServer.mockReturnValue({
         name: 'test-server',
         endpoint: 'http://localhost:3001',
         apiKey: 'test-key'
       });
-      
+
       mcpProvider.accessMCPResource.mockResolvedValue({
         content: 'Test resource content'
       });
-      
+
       const completionResponse = {
         choices: [
           {
@@ -400,7 +402,7 @@ describe('Chat Routes with MCP Context', () => {
           }
         ]
       };
-      
+
       openaiProvider.handleOpenAI.mockResolvedValue(completionResponse);
 
       // Act
@@ -416,7 +418,7 @@ describe('Chat Routes with MCP Context', () => {
 
       // Assert
       expect(mcpProvider.accessMCPResource).toHaveBeenCalledTimes(1);
-      
+
       // Check that the MCP context was added to the messages
       expect(openaiProvider.handleOpenAI).toHaveBeenCalledWith(
         expect.arrayContaining([
@@ -434,7 +436,7 @@ describe('Chat Routes with MCP Context', () => {
         {},
         undefined
       );
-      
+
       expect(response.body).toEqual(completionResponse);
     });
   });

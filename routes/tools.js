@@ -451,4 +451,341 @@ async function performBingSearch(apiKey, query, maxResults) {
     };
 }
 
+// ===== TESTBENCH AGENT TOOLS =====
+
+// Agent Management Tool Implementation
+router.post('/api/tools/agent_management', async (req, res) => {
+    const { action, agentId, config, filters } = req.body;
+
+    try {
+        let result;
+
+        switch (action) {
+            case 'create':
+                if (!config || !config.name || !config.model) {
+                    return res.status(400).json({
+                        error: 'Agent config with name and model is required'
+                    });
+                }
+
+                const newAgent = {
+                    name: config.name,
+                    provider: config.provider || 'openai',
+                    model: config.model,
+                    settings: {
+                        systemMessage: config.systemMessage || 'You are a helpful assistant.',
+                        temperature: config.temperature || 0.7,
+                        maxTokens: config.maxTokens || 4000,
+                        ...config.settings
+                    },
+                    role: config.role || 'assistant',
+                    capabilities: config.capabilities || ['messaging'],
+                    enabled: config.enabled !== false,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+
+                const createResult = database.saveAgentEnhanced(newAgent);
+                result = {
+                    success: true,
+                    agentId: createResult.lastInsertRowid,
+                    agent: { ...newAgent, id: createResult.lastInsertRowid }
+                };
+                break;
+
+            case 'update':
+                if (!agentId) {
+                    return res.status(400).json({ error: 'Agent ID is required for update' });
+                }
+
+                const existingAgent = database.getAgentEnhanced(agentId);
+                if (!existingAgent) {
+                    return res.status(404).json({ error: 'Agent not found' });
+                }
+
+                const updatedAgent = {
+                    ...existingAgent,
+                    ...config,
+                    id: agentId,
+                    updatedAt: new Date().toISOString()
+                };
+                database.saveAgentEnhanced(updatedAgent);
+
+                result = {
+                    success: true,
+                    agentId,
+                    agent: updatedAgent
+                };
+                break;
+
+            case 'delete':
+                if (!agentId) {
+                    return res.status(400).json({ error: 'Agent ID is required for delete' });
+                }
+
+                const agentToDelete = database.getAgentEnhanced(agentId);
+                if (!agentToDelete) {
+                    return res.status(404).json({ error: 'Agent not found' });
+                }
+
+                database.deleteAgent(agentId);
+                result = {
+                    success: true,
+                    agentId,
+                    message: 'Agent deleted successfully'
+                };
+                break;
+
+            case 'list':
+                const agents = database.listAgentsEnhanced(filters) || [];
+                result = {
+                    success: true,
+                    agents,
+                    count: agents.length
+                };
+                break;
+
+            case 'test':
+                if (!agentId) {
+                    return res.status(400).json({ error: 'Agent ID is required for test' });
+                }
+
+                const testAgent = database.getAgentEnhanced(agentId);
+                if (!testAgent) {
+                    return res.status(404).json({ error: 'Agent not found' });
+                }
+
+                // Test agent with a simple prompt
+                const testPrompt = config?.testPrompt || 'Hello, please introduce yourself briefly.';
+                const testResult = await testAgentResponse(testAgent, testPrompt);
+
+                result = {
+                    success: testResult.success,
+                    agentId,
+                    testPrompt,
+                    response: testResult.response,
+                    latency: testResult.latency,
+                    error: testResult.error
+                };
+                break;
+
+            default:
+                return res.status(400).json({ error: `Unknown action: ${action}` });
+        }
+
+        res.json(result);
+
+    } catch (error) {
+        console.error('Agent management tool error:', error);
+        res.status(500).json({
+            error: 'Agent management operation failed',
+            details: error.message
+        });
+    }
+});
+
+// Workspace Operations Tool Implementation
+router.post('/api/tools/workspace_ops', async (req, res) => {
+    const { action, workspaceId, config, agentId, role } = req.body;
+
+    try {
+        let result;
+
+        switch (action) {
+            case 'create':
+                if (!config || !config.name) {
+                    return res.status(400).json({
+                        error: 'Workspace config with name is required'
+                    });
+                }
+
+                const newWorkspace = {
+                    name: config.name,
+                    description: config.description || '',
+                    config: {
+                        maxAgents: config.maxAgents || 10,
+                        allowCollaboration: config.allowCollaboration !== false,
+                        autoSave: config.autoSave !== false,
+                        contextLimit: config.contextLimit || 50,
+                        ...config.workspaceConfig
+                    },
+                    isDefault: config.isDefault || false,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+
+                const createResult = database.createWorkspace(newWorkspace);
+                result = {
+                    success: true,
+                    workspaceId: createResult.lastInsertRowid,
+                    workspace: { ...newWorkspace, id: createResult.lastInsertRowid }
+                };
+                break;
+
+            case 'configure':
+                if (!workspaceId) {
+                    return res.status(400).json({ error: 'Workspace ID is required' });
+                }
+
+                const existingWorkspace = database.getWorkspace(workspaceId);
+                if (!existingWorkspace) {
+                    return res.status(404).json({ error: 'Workspace not found' });
+                }
+
+                const updatedConfig = {
+                    ...existingWorkspace.config,
+                    ...config,
+                    updatedAt: new Date().toISOString()
+                };
+                database.updateWorkspace(workspaceId, { config: updatedConfig });
+
+                result = {
+                    success: true,
+                    workspaceId,
+                    config: updatedConfig
+                };
+                break;
+
+            case 'add_agent':
+                if (!workspaceId || !agentId) {
+                    return res.status(400).json({
+                        error: 'Workspace ID and Agent ID are required'
+                    });
+                }
+
+                // Verify both workspace and agent exist
+                const workspace = database.getWorkspace(workspaceId);
+                const agent = database.getAgentEnhanced(agentId);
+
+                if (!workspace) {
+                    return res.status(404).json({ error: 'Workspace not found' });
+                }
+                if (!agent) {
+                    return res.status(404).json({ error: 'Agent not found' });
+                }
+
+                database.addAgentToWorkspace(workspaceId, agentId, role || 'participant');
+                result = {
+                    success: true,
+                    workspaceId,
+                    agentId,
+                    role: role || 'participant',
+                    message: 'Agent added to workspace'
+                };
+                break;
+
+            case 'remove_agent':
+                if (!workspaceId || !agentId) {
+                    return res.status(400).json({
+                        error: 'Workspace ID and Agent ID are required'
+                    });
+                }
+
+                database.removeAgentFromWorkspace(workspaceId, agentId);
+                result = {
+                    success: true,
+                    workspaceId,
+                    agentId,
+                    message: 'Agent removed from workspace'
+                };
+                break;
+
+            case 'status':
+                if (!workspaceId) {
+                    return res.status(400).json({ error: 'Workspace ID is required' });
+                }
+
+                const workspaceStatus = database.getWorkspace(workspaceId);
+                if (!workspaceStatus) {
+                    return res.status(404).json({ error: 'Workspace not found' });
+                }
+
+                const workspaceAgents = database.getWorkspaceAgents ?
+                    database.getWorkspaceAgents(workspaceId) : [];
+                const activeConversations = database.getWorkspaceConversations ?
+                    database.getWorkspaceConversations(workspaceId) : [];
+
+                result = {
+                    success: true,
+                    workspaceId,
+                    workspace: workspaceStatus,
+                    agents: workspaceAgents,
+                    stats: {
+                        agentCount: workspaceAgents.length,
+                        activeConversations: activeConversations.length,
+                        lastActivity: workspaceStatus.updatedAt || workspaceStatus.createdAt
+                    }
+                };
+                break;
+
+            case 'list':
+                const workspaces = database.listWorkspaces ? database.listWorkspaces() : [];
+                result = {
+                    success: true,
+                    workspaces,
+                    count: workspaces.length
+                };
+                break;
+
+            default:
+                return res.status(400).json({ error: `Unknown action: ${action}` });
+        }
+
+        res.json(result);
+
+    } catch (error) {
+        console.error('Workspace operations tool error:', error);
+        res.status(500).json({
+            error: 'Workspace operation failed',
+            details: error.message
+        });
+    }
+});
+
+// Helper function to test agent response
+async function testAgentResponse(agent, prompt) {
+    const startTime = Date.now();
+
+    try {
+        // Use the existing chat endpoint to test the agent
+        const response = await axios.post('http://localhost:3000/chat', {
+            model: agent.model,
+            messages: [
+                { role: 'system', content: agent.settings.systemMessage },
+                { role: 'user', content: prompt }
+            ],
+            temperature: agent.settings.temperature,
+            max_tokens: Math.min(agent.settings.maxTokens, 500) // Limit for testing
+        }, {
+            timeout: 30000 // 30 second timeout
+        });
+
+        const latency = Date.now() - startTime;
+
+        if (response.status === 200) {
+            const responseText = response.data.choices?.[0]?.message?.content ||
+                               response.data.response ||
+                               'No response received';
+
+            return {
+                success: true,
+                response: responseText,
+                latency
+            };
+        } else {
+            return {
+                success: false,
+                error: `HTTP ${response.status}: ${response.statusText}`,
+                latency
+            };
+        }
+    } catch (error) {
+        return {
+            success: false,
+            error: error.message,
+            latency: Date.now() - startTime
+        };
+    }
+}
+
 module.exports = router;

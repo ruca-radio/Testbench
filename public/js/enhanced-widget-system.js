@@ -13,21 +13,21 @@ class EnhancedWidgetSystem {
 
     async init() {
         if (this.initialized) return;
-        
+
         console.log('Initializing Enhanced Widget System...');
-        
+
         // Load required scripts
         await this.loadDependencies();
-        
+
         // Setup UI
         this.setupUI();
-        
+
         // Load saved workspace or create default
         await this.loadWorkspace();
-        
+
         // Setup event listeners
         this.setupEventListeners();
-        
+
         this.initialized = true;
         console.log('Enhanced Widget System initialized');
     }
@@ -76,7 +76,7 @@ class EnhancedWidgetSystem {
             this.widgetContainer = document.createElement('div');
             this.widgetContainer.id = 'widget-container';
             this.widgetContainer.className = 'widget-container';
-            
+
             // Find main content area
             const mainContent = document.querySelector('.chat-main') || document.body;
             mainContent.appendChild(this.widgetContainer);
@@ -84,7 +84,7 @@ class EnhancedWidgetSystem {
 
         // Add workspace selector
         this.addWorkspaceSelector();
-        
+
         // Add widget mode toggle
         this.addWidgetModeToggle();
     }
@@ -159,7 +159,7 @@ class EnhancedWidgetSystem {
         try {
             // Load from localStorage or create new
             const savedWorkspace = localStorage.getItem('current_workspace');
-            
+
             if (savedWorkspace) {
                 this.currentWorkspace = JSON.parse(savedWorkspace);
                 // Migrate old format if needed
@@ -194,7 +194,7 @@ class EnhancedWidgetSystem {
 
         // Load widgets from workspace
         const widgets = this.currentWorkspace.layout?.widgets || [];
-        
+
         for (const widgetData of widgets) {
             await this.addWidget(widgetData.type, widgetData);
         }
@@ -220,23 +220,23 @@ class EnhancedWidgetSystem {
 
             // Get widget component
             const WidgetComponent = WidgetFactory.getWidgetComponent(widgetData.component);
-            
+
             // Create widget instance
             const widget = new WidgetComponent(widgetData);
-            
+
             // Create DOM element
             const element = widget.createElement();
             this.widgetContainer.appendChild(element);
-            
+
             // Initialize widget
             await widget.init();
-            
+
             // Store widget
             this.widgets.set(widgetData.id, widget);
-            
+
             // Update workspace
             this.updateWorkspaceLayout();
-            
+
             return widget;
         } catch (error) {
             console.error('Error adding widget:', error);
@@ -251,15 +251,15 @@ class EnhancedWidgetSystem {
 
         // Call cleanup
         widget.onDestroy();
-        
+
         // Remove from DOM
         if (widget.element) {
             widget.element.remove();
         }
-        
+
         // Remove from map
         this.widgets.delete(widgetId);
-        
+
         // Update workspace
         this.updateWorkspaceLayout();
     }
@@ -292,7 +292,7 @@ class EnhancedWidgetSystem {
 
     saveWorkspace() {
         if (!this.currentWorkspace) return;
-        
+
         this.currentWorkspace.modified = new Date().toISOString();
         localStorage.setItem('current_workspace', JSON.stringify(this.currentWorkspace));
     }
@@ -304,7 +304,7 @@ class EnhancedWidgetSystem {
             // Create new workspace of selected type
             const newWorkspace = WorkspaceTypes.createWorkspace(typeId, this.currentWorkspace.name);
             this.currentWorkspace = newWorkspace;
-            
+
             // Reload widgets
             this.loadWidgets();
         }
@@ -312,16 +312,16 @@ class EnhancedWidgetSystem {
 
     toggleEditMode() {
         this.isEditMode = !this.isEditMode;
-        
+
         // Update UI
         this.updateContainerLayout();
-        
+
         // Update toolbar
         const toolbar = document.getElementById('widget-toolbar');
         if (toolbar) {
             toolbar.style.display = this.isEditMode ? 'block' : 'none';
         }
-        
+
         // Update widgets
         this.widgets.forEach(widget => {
             widget.element.classList.toggle('edit-mode', this.isEditMode);
@@ -330,7 +330,7 @@ class EnhancedWidgetSystem {
         // Update button text
         const editBtn = document.querySelector('.workspace-type-selector button');
         if (editBtn) {
-            editBtn.innerHTML = this.isEditMode ? 
+            editBtn.innerHTML = this.isEditMode ?
                 '<svg width="16" height="16" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg> Exit Edit' :
                 '<svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" fill="currentColor"/></svg> Edit Layout';
         }
@@ -342,7 +342,7 @@ class EnhancedWidgetSystem {
         modal.style.display = 'flex';
 
         const categories = WidgetFactory.getAllCategories();
-        
+
         modal.innerHTML = `
             <div class="modal-content">
                 <div class="modal-header">
@@ -375,15 +375,15 @@ class EnhancedWidgetSystem {
     async addWidgetFromDialog(type) {
         // Close dialog
         document.querySelector('.widget-add-modal')?.remove();
-        
+
         // Find free position
         const position = WidgetFactory.findFreePosition(type, Array.from(this.widgets.values()));
-        
+
         if (!position) {
             Utils.showError('No free space for widget. Please remove or rearrange existing widgets.');
             return;
         }
-        
+
         // Add widget
         await this.addWidget(type, { position });
     }
@@ -396,10 +396,10 @@ class EnhancedWidgetSystem {
         const containerRect = this.widgetContainer.getBoundingClientRect();
         const relX = clientX - containerRect.left;
         const relY = clientY - containerRect.top;
-        
+
         const newX = Math.floor(relX / (containerRect.width / this.gridCols));
         const newY = Math.floor(relY / this.gridSize);
-        
+
         // Validate and update position
         const newPosition = {
             x: Math.max(0, Math.min(newX, this.gridCols - widget.position.w)),
@@ -407,9 +407,9 @@ class EnhancedWidgetSystem {
             w: widget.position.w,
             h: widget.position.h
         };
-        
+
         // Check if position is valid
-        if (WidgetFactory.canPlaceWidget({ ...widget, position: newPosition }, 
+        if (WidgetFactory.canPlaceWidget({ ...widget, position: newPosition },
             Array.from(this.widgets.values()).filter(w => w.id !== widgetId))) {
             widget.position = newPosition;
             widget.updatePosition();
@@ -420,7 +420,7 @@ class EnhancedWidgetSystem {
     updateWidgetPosition(widgetId, position) {
         const widget = this.widgets.get(widgetId);
         if (!widget) return;
-        
+
         widget.position = position;
         this.updateWorkspaceLayout();
     }
@@ -428,16 +428,16 @@ class EnhancedWidgetSystem {
     saveWidgetSettings(widgetId) {
         const widget = this.widgets.get(widgetId);
         if (!widget) return;
-        
+
         // Get settings from modal
         const titleInput = document.getElementById('widget-title');
         if (titleInput) {
             widget.updateConfig({ title: titleInput.value });
         }
-        
+
         // Close modal
         document.querySelector('.widget-settings-modal')?.remove();
-        
+
         // Save workspace
         this.updateWorkspaceLayout();
     }
@@ -445,13 +445,13 @@ class EnhancedWidgetSystem {
     saveLayout() {
         const layoutName = prompt('Enter layout name:');
         if (!layoutName) return;
-        
+
         const layouts = JSON.parse(localStorage.getItem('saved_layouts') || '{}');
         layouts[layoutName] = {
             workspace: this.currentWorkspace,
             saved: new Date().toISOString()
         };
-        
+
         localStorage.setItem('saved_layouts', JSON.stringify(layouts));
         Utils.showSuccess(`Layout "${layoutName}" saved`);
     }
@@ -459,15 +459,15 @@ class EnhancedWidgetSystem {
     loadLayout() {
         const layouts = JSON.parse(localStorage.getItem('saved_layouts') || '{}');
         const layoutNames = Object.keys(layouts);
-        
+
         if (layoutNames.length === 0) {
             Utils.showInfo('No saved layouts found');
             return;
         }
-        
+
         const layoutName = prompt(`Select layout:\n${layoutNames.join('\n')}`);
         if (!layoutName || !layouts[layoutName]) return;
-        
+
         this.currentWorkspace = layouts[layoutName].workspace;
         this.loadWidgets();
         Utils.showSuccess(`Layout "${layoutName}" loaded`);
@@ -475,7 +475,7 @@ class EnhancedWidgetSystem {
 
     resetLayout() {
         if (!confirm('Reset to default layout for this workspace type?')) return;
-        
+
         const type = this.currentWorkspace.type;
         this.currentWorkspace = WorkspaceTypes.createWorkspace(type, this.currentWorkspace.name);
         this.loadWidgets();
@@ -485,13 +485,13 @@ class EnhancedWidgetSystem {
 // Initialize when document is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.enhancedWidgetSystem = new EnhancedWidgetSystem();
-    
-    // Auto-initialize if widget container exists
-    setTimeout(() => {
-        if (document.querySelector('.chat-main') || document.getElementById('widget-container')) {
-            window.enhancedWidgetSystem.init();
-        }
-    }, 1000);
+
+    // Auto-initialize only if explicitly enabled (opt-in only)
+    // setTimeout(() => {
+    //     if (document.querySelector('.chat-main') || document.getElementById('widget-container')) {
+    //         window.enhancedWidgetSystem.init();
+    //     }
+    // }, 1000);
 });
 
 // Export for global access

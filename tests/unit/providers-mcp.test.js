@@ -1,20 +1,20 @@
-const { 
-  executeMCPTool, 
-  accessMCPResource, 
-  fetchMCPServers, 
-  getMCPServerTools, 
-  getMCPServerResources, 
-  checkMCPServerStatus 
+const {
+  executeMCPTool,
+  accessMCPResource,
+  fetchMCPServers,
+  getMCPServerTools,
+  getMCPServerResources,
+  checkMCPServerStatus
 } = require('../../providers/mcp');
 
 const { createError } = require('../../utils/helpers');
-const { 
-  mockDatabase, 
-  mockFetchResponses, 
-  mockServers, 
-  mockTools, 
-  mockResources, 
-  resetMocks 
+const {
+  mockDatabase,
+  mockFetchResponses,
+  mockServers,
+  mockTools,
+  mockResources,
+  resetMocks
 } = require('../test-helpers');
 
 // Mock node-fetch
@@ -35,21 +35,21 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'test-server';
       const toolName = 'test-tool';
-      const arguments = { param: 'value' };
+      const args = { param: 'value' };
       const providerConfig = {
         'test-server': {
           endpoint: 'http://test-endpoint',
           key: 'test-key'
         }
       };
-      
+
       fetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ result: 'success' })
       });
 
       // Act
-      const result = await executeMCPTool(serverName, toolName, arguments, providerConfig);
+      const result = await executeMCPTool(serverName, toolName, args, providerConfig);
 
       // Assert
       expect(fetch).toHaveBeenCalledWith(
@@ -60,7 +60,7 @@ describe('MCP Provider', () => {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer test-key'
           }),
-          body: JSON.stringify(arguments)
+          body: JSON.stringify(args)
         })
       );
       expect(result).toEqual({ result: 'success' });
@@ -70,8 +70,8 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'test_server';
       const toolName = 'test-tool';
-      const arguments = { param: 'value' };
-      
+      const args = { param: 'value' };
+
       fetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ result: 'success' })
@@ -89,7 +89,7 @@ describe('MCP Provider', () => {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer test-api-key'
           }),
-          body: JSON.stringify(arguments)
+          body: JSON.stringify(args)
         })
       );
       expect(result).toEqual({ result: 'success' });
@@ -99,8 +99,8 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'unknown-server';
       const toolName = 'test-tool';
-      const arguments = { param: 'value' };
-      
+      const args = { param: 'value' };
+
       // Act & Assert
       await expect(executeMCPTool(serverName, toolName, arguments))
         .rejects
@@ -111,8 +111,8 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'test-server';
       const toolName = 'test-tool';
-      const arguments = { param: 'value' };
-      
+      const args = { param: 'value' };
+
       fetch.mockResolvedValueOnce({
         ok: false,
         status: 500,
@@ -131,8 +131,8 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'test-server';
       const toolName = 'test-tool';
-      const arguments = { param: 'value' };
-      
+      const args = { param: 'value' };
+
       const fetchError = new Error('Network error');
       fetchError.name = 'FetchError';
       fetch.mockRejectedValueOnce(fetchError);
@@ -157,7 +157,7 @@ describe('MCP Provider', () => {
           key: 'test-key'
         }
       };
-      
+
       fetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ content: 'resource content' })
@@ -184,7 +184,7 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'test_server';
       const uri = 'test://resource';
-      
+
       fetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ content: 'resource content' })
@@ -211,7 +211,7 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'unknown-server';
       const uri = 'test://resource';
-      
+
       // Act & Assert
       await expect(accessMCPResource(serverName, uri))
         .rejects
@@ -222,7 +222,7 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'test-server';
       const uri = 'test://resource';
-      
+
       fetch.mockResolvedValueOnce({
         ok: false,
         status: 500,
@@ -241,7 +241,7 @@ describe('MCP Provider', () => {
       // Arrange
       const serverName = 'test-server';
       const uri = 'test://resource';
-      
+
       const fetchError = new Error('Network error');
       fetchError.name = 'FetchError';
       fetch.mockRejectedValueOnce(fetchError);
@@ -275,7 +275,7 @@ describe('MCP Provider', () => {
           key: 'test-key'
         }
       };
-      
+
       fetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ tools: mockTools })
@@ -301,7 +301,7 @@ describe('MCP Provider', () => {
     it('should use environment variables when config is not provided', async () => {
       // Arrange
       const serverName = 'test_server';
-      
+
       fetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ tools: mockTools })
@@ -327,7 +327,7 @@ describe('MCP Provider', () => {
     it('should throw an error when endpoint is not configured', async () => {
       // Arrange
       const serverName = 'unknown-server';
-      
+
       // Act & Assert
       await expect(getMCPServerTools(serverName))
         .rejects
@@ -337,7 +337,7 @@ describe('MCP Provider', () => {
     it('should throw an error when the server returns an error', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       fetch.mockResolvedValueOnce({
         ok: false,
         status: 500,
@@ -355,7 +355,7 @@ describe('MCP Provider', () => {
     it('should handle fetch errors', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       const fetchError = new Error('Network error');
       fetchError.name = 'FetchError';
       fetch.mockRejectedValueOnce(fetchError);
@@ -379,7 +379,7 @@ describe('MCP Provider', () => {
           key: 'test-key'
         }
       };
-      
+
       fetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ resources: mockResources })
@@ -405,7 +405,7 @@ describe('MCP Provider', () => {
     it('should use environment variables when config is not provided', async () => {
       // Arrange
       const serverName = 'test_server';
-      
+
       fetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ resources: mockResources })
@@ -431,7 +431,7 @@ describe('MCP Provider', () => {
     it('should throw an error when endpoint is not configured', async () => {
       // Arrange
       const serverName = 'unknown-server';
-      
+
       // Act & Assert
       await expect(getMCPServerResources(serverName))
         .rejects
@@ -441,7 +441,7 @@ describe('MCP Provider', () => {
     it('should throw an error when the server returns an error', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       fetch.mockResolvedValueOnce({
         ok: false,
         status: 500,
@@ -459,7 +459,7 @@ describe('MCP Provider', () => {
     it('should handle fetch errors', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       const fetchError = new Error('Network error');
       fetchError.name = 'FetchError';
       fetch.mockRejectedValueOnce(fetchError);
@@ -483,10 +483,10 @@ describe('MCP Provider', () => {
           key: 'test-key'
         }
       };
-      
+
       fetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => ({ 
+        json: async () => ({
           version: '1.0.0',
           capabilities: ['tools', 'resources']
         })
@@ -519,7 +519,7 @@ describe('MCP Provider', () => {
     it('should return unconfigured status when endpoint is not configured', async () => {
       // Arrange
       const serverName = 'unknown-server';
-      
+
       // Act
       const result = await checkMCPServerStatus(serverName);
 
@@ -534,7 +534,7 @@ describe('MCP Provider', () => {
     it('should return error status when the server returns an error', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       fetch.mockResolvedValueOnce({
         ok: false,
         status: 500,
@@ -557,7 +557,7 @@ describe('MCP Provider', () => {
     it('should return unreachable status when fetch fails', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       const fetchError = new Error('Network error');
       fetch.mockRejectedValueOnce(fetchError);
 

@@ -8,6 +8,13 @@ services:
       target: production
     ports:
       - "${PORT:-3000}:3000"
+    # SECURITY FIX: Add memory limits to prevent DoS
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 512M
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -22,7 +29,10 @@ services:
       - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:3000}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
       # Redis settings
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?Redis password is required}
+      # Additional security settings
+      - SESSION_SECRET=${SESSION_SECRET:?Session secret is required}
+      - JWT_SECRET=${JWT_SECRET:?JWT secret is required}
     volumes:
       - app_data:/app/data
       - app_logs:/app/logs
@@ -42,13 +52,14 @@ services:
   # Redis for collaboration engine
   redis:
     image: redis:7-alpine
-    ports:
-      - "6379:6379"
+    # SECURITY FIX: Remove port exposure - Redis should only be accessible within Docker network
+    # ports:
+    #   - "6379:6379"
     environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?Redis password is required}
     command: >
       redis-server
-      --requirepass ${REDIS_PASSWORD:-defaultpassword}
+      --requirepass ${REDIS_PASSWORD}
       --appendonly yes
       --appendfsync everysec
       --maxmemory 256mb

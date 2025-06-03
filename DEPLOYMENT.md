@@ -26,12 +26,15 @@ OPENROUTER_API_KEY=your_openrouter_api_key
 # Database
 DATABASE_PATH=./data/workspace.db
 
-# Redis Configuration (Optional but recommended)
+# Redis Configuration (REQUIRED for collaboration features)
 REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_PASSWORD=your_secure_redis_password
 
-# Security Settings
+# Security Settings (REQUIRED)
+SESSION_SECRET=your_secure_session_secret
+JWT_SECRET=your_secure_jwt_secret
+CSRF_SECRET=your_secure_csrf_secret
 CORS_ORIGIN=https://yourdomain.com
 ALLOWED_ORIGINS=https://yourdomain.com,https://app.yourdomain.com
 

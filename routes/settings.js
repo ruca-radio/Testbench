@@ -60,7 +60,8 @@ router.get('/api/settings/list/all', async (req, res) => {
             allSettings[provider] = database.getProviderSettings(provider);
         }
 
-        res.json({ settings: allSettings });
+        // FIXED: Return settings directly, not wrapped in { settings: }
+        res.json(allSettings);
     } catch (error) {
         console.error('Error getting all settings:', error.message);
         res.status(500).json({ error: error.message });

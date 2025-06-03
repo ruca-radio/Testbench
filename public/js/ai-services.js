@@ -1,23 +1,21 @@
 // AI Services Manager for provider configuration with enhanced connection testing
 class AIServicesManager {
     static connectionStatus = {};
+    static connectionValidated = {}; // Track which connections have been validated
     static loadingStates = {};
 
     static async loadProviderSettings() {
         try {
-            // Load settings from the correct backend endpoint
-            const response = await fetch('/api/settings/list/all');
-            if (response.ok) {
-                const settings = await response.json();
-                this.populateProviderSettings(settings);
-                await this.loadAllModels();
-                await this.testAllConnections(); // Test connections on load
-            } else {
-                console.warn('Settings endpoint not available, using empty settings');
-                await this.loadAllModels();
-            }
+            // Use the new Utils.apiCall for standardized error handling
+            const settings = await Utils.apiCall('/api/settings/list/all');
+            this.populateProviderSettings(settings);
+            await this.loadAllModels();
+            
+            // Only test connections that haven't been validated yet
+            await this.testConnectionsIfNeeded();
         } catch (error) {
             console.error('Error loading provider settings:', error);
+            Utils.showError('Failed to load provider settings', error.message);
             // Try to load models anyway
             await this.loadAllModels();
         }
@@ -36,8 +34,14 @@ class AIServicesManager {
             }
 
             const endpointInput = document.getElementById(`${provider}-endpoint`);
-            if (endpointInput && config.endpoint) {
-                endpointInput.value = config.endpoint;
+            if (endpointInput) {
+                // For Ollama, use saved setting or env fallback
+                if (provider === 'ollama' && !config.endpoint) {
+                    // Use the default from env if no setting is saved
+                    endpointInput.value = 'http://10.27.27.10:11434';
+                } else if (config.endpoint) {
+                    endpointInput.value = config.endpoint;
+                }
             }
 
             // Update connection status display
@@ -71,13 +75,12 @@ class AIServicesManager {
                 config.endpoint = endpointInput.value.trim();
             }
 
-            const response = await fetch(`/api/models/test-connection/${provider}`, {
+            // Use new standardized API call
+            const result = await Utils.apiCall(`/api/models/test-connection/${provider}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ config: { [provider]: config } })
             });
 
-            const result = await response.json();
             this.connectionStatus[provider] = result;
             this.updateConnectionStatusDisplay(provider, result);
 
@@ -86,15 +89,19 @@ class AIServicesManager {
                 // Refresh models after successful connection
                 await this.refreshProviderModels(provider);
             } else {
-                Utils.showError(`${provider} connection failed: ${result.error || 'Unknown error'}`);
+                Utils.showError(`${provider} connection failed`, result.message || result.error);
             }
 
         } catch (error) {
             console.error(`Error testing ${provider} connection:`, error);
-            const result = { connected: false, error: error.message, message: `Connection test failed: ${error.message}` };
+            const result = {
+                connected: false,
+                error: error.message,
+                message: `Connection test failed: ${error.message}`
+            };
             this.connectionStatus[provider] = result;
             this.updateConnectionStatusDisplay(provider, result);
-            Utils.showError(`${provider} connection test failed`);
+            Utils.showError(`${provider} connection test failed`, error.message);
         } finally {
             if (testBtn) {
                 testBtn.disabled = false;
@@ -103,14 +110,59 @@ class AIServicesManager {
         }
     }
 
-    // Test all provider connections
+    // Test connections only if they haven't been validated yet
+    static async testConnectionsIfNeeded() {
+        const providers = ['openai', 'anthropic', 'openrouter', 'ollama'];
+
+        for (const provider of providers) {
+            // Check if this provider connection has already been validated
+            const keyInput = document.getElementById(`${provider}-api-key`);
+            const endpointInput = document.getElementById(`${provider}-endpoint`);
+            
+            const currentKey = keyInput?.value?.trim();
+            const currentEndpoint = endpointInput?.value?.trim();
+            
+            // Create a hash of the current configuration
+            const configHash = this.createConfigHash(provider, currentKey, currentEndpoint);
+            
+            // Only test if we haven't validated this exact configuration before
+            if (!this.connectionValidated[provider] || this.connectionValidated[provider] !== configHash) {
+                await this.testConnectionSilent(provider);
+                // Store the validated configuration hash
+                if (this.connectionStatus[provider]?.connected) {
+                    this.connectionValidated[provider] = configHash;
+                }
+            } else {
+                // Use cached status
+                this.updateConnectionStatusDisplay(provider, { connected: true, message: 'Connection verified' });
+            }
+        }
+    }
+
+    // Test all provider connections (forced)
     static async testAllConnections() {
         const providers = ['openai', 'anthropic', 'openrouter', 'ollama'];
+        
+        // Clear validation cache to force retesting
+        this.connectionValidated = {};
 
         for (const provider of providers) {
             // Don't show individual success/error messages for bulk test
             await this.testConnectionSilent(provider);
         }
+    }
+
+    // Create a hash of the configuration for caching purposes
+    static createConfigHash(provider, key, endpoint) {
+        const config = `${provider}:${key || ''}:${endpoint || ''}`;
+        // Simple hash function
+        let hash = 0;
+        for (let i = 0; i < config.length; i++) {
+            const char = config.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32-bit integer
+        }
+        return hash.toString();
     }
 
     // Silent connection test (no UI notifications)
@@ -170,10 +222,19 @@ class AIServicesManager {
         }
     }
 
-    static async loadProviderModels(provider) {
+    static async loadProviderModels(provider, page = 1, pageSize = 20, search = '') {
         try {
+            // Build query parameters for pagination and search
+            const params = new URLSearchParams({
+                page: page.toString(),
+                pageSize: pageSize.toString()
+            });
+            if (search) {
+                params.append('search', search);
+            }
+
             // Use the correct backend endpoint
-            const response = await fetch(`/api/models/list/${provider}`);
+            const response = await fetch(`/api/models/list/${provider}?${params}`);
             const modelGrid = document.getElementById(`${provider}-model-grid`);
 
             if (!modelGrid) return;
@@ -181,7 +242,8 @@ class AIServicesManager {
             if (response.ok) {
                 const data = await response.json();
                 const models = data.models || [];
-                this.renderModelGrid(modelGrid, models, provider);
+                const pagination = data.pagination || {};
+                this.renderModelGrid(modelGrid, models, provider, pagination, search);
             } else {
                 modelGrid.innerHTML = '<p class="error">Failed to load models</p>';
             }
@@ -303,37 +365,127 @@ class AIServicesManager {
         }
     }
 
-    static renderModelGrid(container, models, provider) {
+    static renderModelGrid(container, models, provider, pagination = {}, currentSearch = '') {
+        // Create stats display (search is now inline with API key)
+        const statsHTML = `
+            <div class="model-stats-header">
+                <div class="model-stats">
+                    ${pagination.total ? `Showing ${pagination.startIndex || 1}-${pagination.endIndex || models.length} of ${pagination.total}` : `${models.length} models`}
+                </div>
+            </div>
+        `;
+
         if (models.length === 0) {
-            container.innerHTML = '<p class="no-models">No models available</p>';
+            container.innerHTML = statsHTML + '<p class="no-models">No models available</p>';
             return;
         }
 
-        const modelHTML = models.map(model => `
-            <div class="model-item" data-model-id="${model.id}" data-provider="${provider}">
-                <div class="model-info">
-                    <h6>${model.name || model.id}</h6>
-                    <span class="model-id">${model.id}</span>
-                </div>
-                <div class="model-controls">
-                    <label class="switch">
-                        <input type="checkbox" ${model.enabled !== false ? 'checked' : ''}
-                               onchange="AIServicesManager.toggleModel('${provider}', '${model.id}', this.checked)">
-                        <span class="slider"></span>
-                    </label>
+        const modelHTML = models.map(model => {
+            const modelData = model.data || {};
+            const modelType = modelData.type || 'Text';
+            
+            return `
+            <div class="model-tile-compact" data-model-id="${model.id}" data-provider="${provider}">
+                <div class="model-compact-header">
+                    <div class="model-compact-info">
+                        <span class="model-compact-name" title="${model.id}">${model.name || model.id}</span>
+                        <span class="model-compact-type">${modelType}</span>
+                    </div>
+                    <div class="model-toggle">
+                        <label class="switch">
+                            <input type="checkbox" ${model.enabled === true ? 'checked' : ''}
+                                   onchange="AIServicesManager.toggleModel('${provider}', '${model.id}', this.checked)">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        `).join('');
+        `;
+        }).join('');
 
-        container.innerHTML = modelHTML;
-        // Add click handler for model introspection
-        container.querySelectorAll('.model-item').forEach(item => {
+        // Create pagination controls
+        const paginationHTML = this.createPaginationControls(provider, pagination, currentSearch);
+
+        container.innerHTML = statsHTML + '<div class="model-grid">' + modelHTML + '</div>' + paginationHTML;
+
+        // Add click handler for model introspection (excluding the toggle switch)
+        container.querySelectorAll('.model-tile-compact').forEach(item => {
             const modelId = item.getAttribute('data-model-id');
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', () => {
-                AIServicesManager.introspectModel(provider, modelId);
+            item.addEventListener('click', (e) => {
+                // Don't trigger on switch clicks
+                if (!e.target.closest('.model-toggle')) {
+                    AIServicesManager.introspectModel(provider, modelId);
+                }
             });
         });
+    }
+
+    static createPaginationControls(provider, pagination, currentSearch) {
+        if (!pagination.totalPages || pagination.totalPages <= 1) {
+            return '';
+        }
+
+        const currentPage = pagination.currentPage || 1;
+        const totalPages = pagination.totalPages;
+        
+        let paginationHTML = '<div class="pagination-controls">';
+        
+        // Previous button
+        if (currentPage > 1) {
+            paginationHTML += `<button class="btn small" onclick="AIServicesManager.loadProviderModels('${provider}', ${currentPage - 1}, 20, '${currentSearch}')">← Previous</button>`;
+        }
+        
+        // Page numbers
+        const startPage = Math.max(1, currentPage - 2);
+        const endPage = Math.min(totalPages, currentPage + 2);
+        
+        if (startPage > 1) {
+            paginationHTML += `<button class="btn small" onclick="AIServicesManager.loadProviderModels('${provider}', 1, 20, '${currentSearch}')">1</button>`;
+            if (startPage > 2) {
+                paginationHTML += '<span class="pagination-ellipsis">...</span>';
+            }
+        }
+        
+        for (let i = startPage; i <= endPage; i++) {
+            const isActive = i === currentPage ? 'active' : '';
+            paginationHTML += `<button class="btn small ${isActive}" onclick="AIServicesManager.loadProviderModels('${provider}', ${i}, 20, '${currentSearch}')">${i}</button>`;
+        }
+        
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                paginationHTML += '<span class="pagination-ellipsis">...</span>';
+            }
+            paginationHTML += `<button class="btn small" onclick="AIServicesManager.loadProviderModels('${provider}', ${totalPages}, 20, '${currentSearch}')">${totalPages}</button>`;
+        }
+        
+        // Next button
+        if (currentPage < totalPages) {
+            paginationHTML += `<button class="btn small" onclick="AIServicesManager.loadProviderModels('${provider}', ${currentPage + 1}, 20, '${currentSearch}')">Next →</button>`;
+        }
+        
+        paginationHTML += '</div>';
+        return paginationHTML;
+    }
+
+    // Search handling with debounce
+    static handleModelSearch(provider, searchTerm) {
+        // Clear existing timeout
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+        
+        // Set new timeout for debounced search
+        this.searchTimeout = setTimeout(() => {
+            this.loadProviderModels(provider, 1, 20, searchTerm);
+        }, 300);
+    }
+
+    static clearModelSearch(provider) {
+        const searchInput = document.getElementById(`${provider}-model-search`);
+        if (searchInput) {
+            searchInput.value = '';
+            this.loadProviderModels(provider, 1, 20, '');
+        }
     }
 
     static async toggleModel(provider, modelId, enabled) {
@@ -382,17 +534,11 @@ class AIServicesManager {
         });
 
         try {
-            // Use the correct backend endpoint
-            const response = await fetch('/api/settings/action/bulk-update', {
+            // Use standardized API call
+            await Utils.apiCall('/api/settings/action/bulk-update', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ settings })
             });
-
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.error || 'Failed to save settings');
-            }
 
             Utils.showSuccess('AI service settings saved successfully');
 
@@ -401,13 +547,16 @@ class AIServicesManager {
 
         } catch (error) {
             console.error('Error saving AI service settings:', error);
-            Utils.showError(`Failed to save settings: ${error.message}`);
+            Utils.showError('Failed to save settings', error.message);
             throw error;
         }
     }
 
     // Real-time API key validation
     static onApiKeyChange(provider) {
+        // Clear cached validation when API key changes
+        delete this.connectionValidated[provider];
+        
         // Clear previous connection status when API key changes
         this.updateConnectionStatusDisplay(provider, { connected: false, message: 'API key changed - test connection' });
 
@@ -420,47 +569,73 @@ class AIServicesManager {
     }
     // Generate brief introduction for a model
     static async introspectModel(provider, modelId) {
-        const inferenceEl = document.getElementById('inference-box');
-        if (!inferenceEl) return;
+        const descriptionDisplay = document.getElementById('model-description-display');
+        const descriptionText = document.getElementById('description-text');
+        
+        if (!descriptionDisplay || !descriptionText) return;
 
-        // Show the inference box and add loading state
-        inferenceEl.style.display = 'block';
-        inferenceEl.innerHTML = `
-            <div class="loading-content">
-                <div class="loading-indicator"></div>
-                <span>Loading introduction for ${modelId}...</span>
-            </div>
-        `;
+        // Show the description display with loading state
+        descriptionDisplay.style.display = 'block';
+        descriptionText.textContent = `Getting introduction from ${modelId}...`;
+        descriptionText.className = 'loading';
+        
+        // Reset any previous typewriter state
+        const descriptionContent = descriptionText.parentElement;
+        descriptionContent.classList.remove('typewriter');
 
         try {
+            // Use the current provider configuration for the API call
+            const keyInput = document.getElementById(`${provider}-api-key`);
+            const endpointInput = document.getElementById(`${provider}-endpoint`);
+            
+            const config = {};
+            if (keyInput && keyInput.value.trim()) {
+                config.key = keyInput.value.trim();
+            }
+            if (endpointInput && endpointInput.value.trim()) {
+                config.endpoint = endpointInput.value.trim();
+            }
+
+            // Get the configurable prompt from Global Settings
+            const promptField = document.getElementById('model-description-prompt');
+            const prompt = promptField?.value?.trim() || 'In 10 words or less, tell me who you are and what you can do.';
+
             const resp = await fetch('/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     model: modelId,
+                    provider: provider,
+                    config: { [provider]: config },
                     messages: [
-                        { role: 'system', content: `You are the AI model ${modelId}.` },
-                        { role: 'user', content: 'Introduce yourself and state what you are good at in 15 words max.' }
+                        { role: 'user', content: prompt }
                     ]
                 })
             });
+            
+            if (!resp.ok) {
+                throw new Error(`API error: ${resp.status}`);
+            }
+            
             const data = await resp.json();
-            const introduction = data.choices?.[0]?.message?.content || data.response || 'No introduction available';
+            const introduction = data.choices?.[0]?.message?.content || data.response || 'I am an AI model ready to help you.';
 
-            inferenceEl.innerHTML = `
-                <div class="model-intro">
-                    <h5>${modelId}</h5>
-                    <p>${introduction}</p>
-                </div>
-            `;
+            // Remove loading class and show description with typewriter effect
+            descriptionText.className = 'scrolling';
+            descriptionText.textContent = `${modelId}: ${introduction}`;
+            
+            // Add typewriter class to parent for cursor effect
+            const descriptionContent = descriptionText.parentElement;
+            descriptionContent.classList.add('typewriter');
+
         } catch (error) {
-            console.error('Error introspecting model:', error);
-            inferenceEl.innerHTML = `
-                <div class="model-intro error">
-                    <h5>${modelId}</h5>
-                    <p>Failed to load introduction: ${error.message}</p>
-                </div>
-            `;
+            console.error('Error getting model introduction:', error);
+            descriptionText.className = 'error';
+            descriptionText.textContent = `${modelId}: Unable to get introduction - ${error.message}`;
+            
+            // Remove typewriter class on error
+            const descriptionContent = descriptionText.parentElement;
+            descriptionContent.classList.remove('typewriter');
         }
     }
 }

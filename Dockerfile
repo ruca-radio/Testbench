@@ -1,5 +1,5 @@
 # Multi-stage build for production optimization
-FROM node:18-alpine AS base
+FROM node:18.20-alpine AS base
 
 # Install system dependencies
 RUN apk add --no-cache \

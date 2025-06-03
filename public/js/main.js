@@ -25,7 +25,7 @@ class ChatApp {
 
         // Setup event listeners
         this.setupEventListeners();
-        
+
         // Setup drag and drop
         this.setupDragAndDrop();
 
@@ -48,11 +48,11 @@ class ChatApp {
             console.log('TestBench Agent Manager initialized');
         }
 
-        // Initialize Widget System
-        if (typeof WidgetSystem !== 'undefined') {
-            WidgetSystem.init();
-            console.log('Widget System initialized');
-        }
+        // Initialize Widget System (commented out for opt-in only)
+        // if (typeof WidgetSystem !== 'undefined') {
+        //     WidgetSystem.init();
+        //     console.log('Widget System initialized');
+        // }
     }
 
     setupEventListeners() {
@@ -82,50 +82,62 @@ class ChatApp {
 
     async loadModels() {
         try {
-            const response = await fetch('/api/models/refresh');
-            if (response.ok) {
-                const data = await response.json();
-                const models = data.models || {};
-                
-                // Convert grouped models to flat array
-                this.models = [];
-                Object.entries(models).forEach(([provider, providerModels]) => {
-                    if (Array.isArray(providerModels)) {
-                        providerModels.forEach(model => {
-                            this.models.push({
-                                id: model.id,
-                                name: model.name || model.id,
-                                provider: provider,
-                                data: model.data
-                            });
+            const response = await Utils.apiCall('/api/models/refresh', {
+                method: 'GET',
+                headers: this.getAuthHeaders()
+            });
+
+            const models = response.models || {};
+
+            // Convert grouped models to flat array
+            this.models = [];
+            Object.entries(models).forEach(([provider, providerModels]) => {
+                if (Array.isArray(providerModels)) {
+                    providerModels.forEach(model => {
+                        this.models.push({
+                            id: model.id,
+                            name: model.name || model.id,
+                            provider: provider,
+                            data: model.data
                         });
-                    }
-                });
-                
-                // Update both dropdowns
-                this.updateMainModelDropdown(this.models);
-                QuickConfig.updateModelList(this.models);
-                console.log('Models loaded:', this.models.length);
-            }
+                    });
+                }
+            });
+
+            // Update both dropdowns
+            this.updateMainModelDropdown(this.models);
+            QuickConfig.updateModelList(this.models);
+            console.log(`Models loaded: ${this.models.length}`);
         } catch (error) {
             console.error('Error loading models:', error);
-            Utils.showError('Failed to load models');
+            if (error.statusCode === 401) {
+                Utils.showError('Authentication required. Please log in.');
+                this.redirectToLogin();
+            } else {
+                Utils.showError('Failed to load models');
+            }
         }
     }
 
     async loadAgents() {
         try {
-            const response = await fetch('/api/agents/list/all');
-            if (response.ok) {
-                const data = await response.json();
-                const agents = data.agents || [];
-                QuickConfig.updateAgentList(agents);
-                AgentManager.updateAgentList(agents);
-                console.log('Agents loaded:', agents.length);
-            }
+            const response = await Utils.apiCall('/api/agents/list/all', {
+                method: 'GET',
+                headers: this.getAuthHeaders()
+            });
+
+            const agents = response.agents || [];
+            QuickConfig.updateAgentList(agents);
+            AgentManager.updateAgentList(agents);
+            console.log(`Agents loaded: ${agents.length}`);
         } catch (error) {
             console.error('Error loading agents:', error);
-            Utils.showError('Failed to load agents');
+            if (error.statusCode === 401) {
+                Utils.showError('Authentication required. Please log in.');
+                this.redirectToLogin();
+            } else {
+                Utils.showError('Failed to load agents');
+            }
         }
     }
 
@@ -166,17 +178,15 @@ class ChatApp {
             // Get provider from model for correct config
             const provider = this.getProviderFromModel(this.settings.model);
             const config = {};
-            
+
             // Add provider-specific configuration
             if (provider) {
                 config[provider] = {}; // Will be filled from saved settings on backend
             }
 
-            const response = await fetch('/chat', {
+            const response = await Utils.apiCall('/chat', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: this.getAuthHeaders(),
                 body: JSON.stringify({
                     messages: messages,
                     model: this.settings.model,
@@ -194,13 +204,7 @@ class ChatApp {
             // Remove typing indicator
             ChatInterface.hideTyping(typingId);
 
-            if (response.ok) {
-                const data = await response.json();
-                ChatInterface.addMessage('assistant', data.response);
-            } else {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to get response');
-            }
+            ChatInterface.addMessage('assistant', response.response);
         } catch (error) {
             ChatInterface.hideTyping(typingId);
             console.error('Error sending message:', error);
@@ -236,7 +240,8 @@ class ChatApp {
 
     updateSettings(newSettings) {
         this.settings = { ...this.settings, ...newSettings };
-        console.log('Settings updated:', this.settings);
+        // Don't log sensitive settings data
+        console.log('Settings updated');
     }
 
     updateMainModelDropdown(models) {
@@ -287,7 +292,7 @@ class ChatApp {
 
     setCurrentAgent(agentId) {
         this.currentAgent = agentId;
-        console.log('Current agent set to:', agentId);
+        console.log('Current agent updated');
     }
 
     /**
@@ -342,7 +347,7 @@ class ChatApp {
     setupDragAndDrop() {
         const chatContainer = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
-        
+
         if (!chatContainer || !messageInput) return;
 
         // Prevent default drag behaviors
@@ -381,7 +386,7 @@ class ChatApp {
         messageInput.addEventListener('drop', handleDrop, false);
 
         const self = this;
-        
+
         function handleDrop(e) {
             const dt = e.dataTransfer;
             const files = dt.files;
@@ -395,9 +400,9 @@ class ChatApp {
 
         async function uploadFile(file) {
             // Handle text files
-            if (file.type.startsWith('text/') || 
-                file.name.endsWith('.txt') || 
-                file.name.endsWith('.md') || 
+            if (file.type.startsWith('text/') ||
+                file.name.endsWith('.txt') ||
+                file.name.endsWith('.md') ||
                 file.name.endsWith('.json') ||
                 file.name.endsWith('.js') ||
                 file.name.endsWith('.py') ||
@@ -410,7 +415,7 @@ class ChatApp {
                 file.name.endsWith('.xml') ||
                 file.name.endsWith('.yaml') ||
                 file.name.endsWith('.yml')) {
-                
+
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const content = e.target.result;
@@ -419,9 +424,16 @@ class ChatApp {
                     Utils.showInfo(`Added ${file.name} to message`);
                 };
                 reader.readAsText(file);
-            } 
+            }
             // Handle image files
             else if (file.type.startsWith('image/')) {
+                // Validate image file size
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                if (file.size > maxSize) {
+                    Utils.showError(`Image file too large. Maximum size is 5MB.`);
+                    return;
+                }
+
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const dataUrl = e.target.result;
@@ -441,6 +453,118 @@ class ChatApp {
 
 // Global app instance
 let app;
+
+// Widget mode state
+window.widgetModeEnabled = false;
+
+// Widget mode toggle function
+window.toggleWidgetMode = function() {
+    const toggleBtn = document.getElementById('toggle-widget-mode');
+    const widgetToolbar = document.getElementById('widget-toolbar');
+
+    if (!window.widgetModeEnabled) {
+        // Enable widget mode
+        window.widgetModeEnabled = true;
+
+        // Update button
+        if (toggleBtn) {
+            toggleBtn.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                </svg>
+                Exit Widgets
+            `;
+            toggleBtn.classList.add('danger');
+            toggleBtn.title = 'Disable widget mode';
+        }
+
+        // Show widget toolbar
+        if (widgetToolbar) {
+            widgetToolbar.style.display = 'block';
+        }
+
+        // Initialize widget systems
+        if (typeof WidgetSystem !== 'undefined') {
+            WidgetSystem.init();
+            console.log('Widget System enabled');
+        }
+
+        if (typeof window.enhancedWidgetSystem !== 'undefined') {
+            window.enhancedWidgetSystem.init();
+            console.log('Enhanced Widget System enabled');
+        }
+
+        Utils.showInfo('Widget mode enabled! You can now add and arrange widgets.');
+
+    } else {
+        // Disable widget mode
+        window.widgetModeEnabled = false;
+
+        // Update button
+        if (toggleBtn) {
+            toggleBtn.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A0.5,0.5 0 0,0 7,13.5A0.5,0.5 0 0,0 7.5,14A0.5,0.5 0 0,0 8,13.5A0.5,0.5 0 0,0 7.5,13M16.5,13A0.5,0.5 0 0,0 16,13.5A0.5,0.5 0 0,0 16.5,14A0.5,0.5 0 0,0 17,13.5A0.5,0.5 0 0,0 16.5,13Z"/>
+                </svg>
+                🧩 Widgets
+            `;
+            toggleBtn.classList.remove('danger');
+            toggleBtn.title = 'Enable widget mode (experimental)';
+        }
+
+        // Hide widget toolbar
+        if (widgetToolbar) {
+            widgetToolbar.style.display = 'none';
+        }
+
+        // Clear any widgets and restore original content
+        if (window.widgetSystem) {
+            window.widgetSystem.widgets.clear();
+
+            // Restore original content by removing widget wrappers
+            document.querySelectorAll('.widget-area').forEach(area => {
+                if (!area.getAttribute('data-preserve-content')) {
+                    // Reset widget areas that were modified
+                    const widgets = area.querySelectorAll('.widget-container');
+                    widgets.forEach(widget => widget.remove());
+
+                    const dropZones = area.querySelectorAll('.widget-drop-zone');
+                    dropZones.forEach(zone => zone.style.display = 'none');
+                }
+            });
+        }
+
+        Utils.showInfo('Widget mode disabled. Chat interface restored.');
+    }
+};
+
+// Add authentication helper methods
+ChatApp.prototype.getAuthHeaders = function() {
+    const token = this.getAuthToken();
+    return {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+    };
+};
+
+ChatApp.prototype.getAuthToken = function() {
+    // Get token from secure storage (cookie or sessionStorage)
+    return this.getCookie('auth_token') || sessionStorage.getItem('auth_token');
+};
+
+ChatApp.prototype.getCookie = function(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+};
+
+ChatApp.prototype.redirectToLogin = function() {
+    // Redirect to login page after a short delay
+    setTimeout(() => {
+        window.location.href = '/login';
+    }, 2000);
+};
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -474,7 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.newWorkspace();
         });
     }
-    
+
     const newChatBtn = document.getElementById('new-chat');
     if (newChatBtn && !newChatBtn.hasAttribute('data-initialized')) {
         newChatBtn.setAttribute('data-initialized', 'true');

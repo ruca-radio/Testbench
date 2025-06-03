@@ -5,7 +5,7 @@ const { createError } = require('./helpers');
  * Encryption key management
  * Uses environment variables for the encryption key or generates a secure one
  */
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY ||
                        crypto.randomBytes(32).toString('hex');
 const IV_LENGTH = 16; // For AES, this is always 16 bytes
 
@@ -16,13 +16,13 @@ const IV_LENGTH = 16; // For AES, this is always 16 bytes
  */
 function encrypt(text) {
   if (!text) return null;
-  
+
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY, 'hex'), iv);
-  
+
   let encrypted = cipher.update(text, 'utf8', 'hex');
   encrypted += cipher.final('hex');
-  
+
   // Return IV and encrypted data
   return `${iv.toString('hex')}:${encrypted}`;
 }
@@ -34,19 +34,19 @@ function encrypt(text) {
  */
 function decrypt(encryptedText) {
   if (!encryptedText) return null;
-  
+
   const parts = encryptedText.split(':');
   if (parts.length !== 2) return null;
-  
+
   const iv = Buffer.from(parts[0], 'hex');
   const encrypted = parts[1];
-  
+
   try {
     const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY, 'hex'), iv);
-    
+
     let decrypted = decipher.update(encrypted, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
-    
+
     return decrypted;
   } catch (error) {
     console.error('Decryption error:', error.message);
@@ -63,17 +63,17 @@ function validateApiKey(apiKey) {
   if (!apiKey) {
     return { valid: false, error: 'API key is required' };
   }
-  
+
   // Check minimum length (32 characters is a common minimum for secure API keys)
   if (apiKey.length < 32) {
     return { valid: false, error: 'API key must be at least 32 characters long' };
   }
-  
+
   // Check for sufficient complexity (must contain letters and numbers)
   if (!/[a-zA-Z]/.test(apiKey) || !/[0-9]/.test(apiKey)) {
     return { valid: false, error: 'API key must contain both letters and numbers' };
   }
-  
+
   return { valid: true };
 }
 
@@ -95,15 +95,15 @@ function validateServerName(name) {
   if (!name) {
     return { valid: false, error: 'Server name is required' };
   }
-  
+
   // Alphanumeric, dashes, and underscores only
   if (!/^[a-zA-Z0-9_-]+$/.test(name)) {
-    return { 
-      valid: false, 
-      error: 'Server name must contain only letters, numbers, dashes, and underscores' 
+    return {
+      valid: false,
+      error: 'Server name must contain only letters, numbers, dashes, and underscores'
     };
   }
-  
+
   return { valid: true };
 }
 
@@ -116,19 +116,19 @@ function validateEndpoint(endpoint) {
   if (!endpoint) {
     return { valid: false, error: 'Server endpoint is required' };
   }
-  
+
   try {
     const url = new URL(endpoint);
-    
+
     // Ensure protocol is https (except for localhost or 127.0.0.1 for development)
     const isLocalhost = url.hostname === 'localhost' || url.hostname === '127.0.0.1';
     if (url.protocol !== 'https:' && !isLocalhost) {
-      return { 
-        valid: false, 
-        error: 'Server endpoint must use HTTPS for security (except localhost)' 
+      return {
+        valid: false,
+        error: 'Server endpoint must use HTTPS for security (except localhost)'
       };
     }
-    
+
     return { valid: true };
   } catch (error) {
     return { valid: false, error: 'Invalid URL format for server endpoint' };
@@ -137,39 +137,39 @@ function validateEndpoint(endpoint) {
 
 /**
  * Validate and sanitize MCP tool arguments
- * @param {Object} arguments - Tool arguments to validate
+ * @param {Object} args - Tool arguments to validate
  * @param {Object} inputSchema - Tool input schema
  * @returns {Object} - Validated and sanitized arguments
  */
-function validateToolArguments(arguments, inputSchema) {
-  if (!arguments) {
+function validateToolArguments(args, inputSchema) {
+  if (!args) {
     return { valid: false, error: 'Tool arguments are required' };
   }
-  
+
   if (!inputSchema || typeof inputSchema !== 'object') {
     return { valid: false, error: 'Input schema is required for validation' };
   }
-  
+
   // Basic validation based on schema type
   const properties = inputSchema.properties || {};
   const required = inputSchema.required || [];
   const sanitizedArgs = {};
   const errors = [];
-  
+
   // Check required properties
   for (const prop of required) {
-    if (arguments[prop] === undefined) {
+    if (args[prop] === undefined) {
       errors.push(`Missing required argument: ${prop}`);
     }
   }
-  
+
   // Validate and sanitize each property
-  for (const [key, value] of Object.entries(arguments)) {
+  for (const [key, value] of Object.entries(args)) {
     const propSchema = properties[key];
-    
+
     // Skip if property is not in schema
     if (!propSchema) continue;
-    
+
     // Validate based on type
     if (propSchema.type === 'string') {
       if (typeof value !== 'string') {
@@ -205,11 +205,11 @@ function validateToolArguments(arguments, inputSchema) {
       }
     }
   }
-  
+
   if (errors.length > 0) {
     return { valid: false, error: errors.join('; ') };
   }
-  
+
   return { valid: true, sanitized: sanitizedArgs };
 }
 
@@ -222,19 +222,19 @@ function validateResourceUri(uri) {
   if (!uri) {
     return { valid: false, error: 'Resource URI is required' };
   }
-  
+
   // Basic URI format validation
   // Allow custom schemes like weather://city/forecast
   if (!/^[a-zA-Z0-9_-]+:\/\/[^\s]+$/.test(uri)) {
-    return { 
-      valid: false, 
-      error: 'Invalid URI format. Must follow scheme://path pattern' 
+    return {
+      valid: false,
+      error: 'Invalid URI format. Must follow scheme://path pattern'
     };
   }
-  
+
   // Sanitize URI by removing control characters
   const sanitizedUri = uri.replace(/[\x00-\x1F\x7F]/g, '');
-  
+
   return { valid: true, sanitized: sanitizedUri };
 }
 
@@ -248,16 +248,16 @@ function validateContentType(contentType, allowedTypes = ['application/json', 't
   if (!contentType) {
     return { valid: false, error: 'Content type is required' };
   }
-  
+
   // Check if content type is allowed
   const baseType = contentType.split(';')[0].trim().toLowerCase();
   if (!allowedTypes.includes(baseType)) {
-    return { 
-      valid: false, 
-      error: `Content type ${baseType} is not allowed. Allowed types: ${allowedTypes.join(', ')}` 
+    return {
+      valid: false,
+      error: `Content type ${baseType} is not allowed. Allowed types: ${allowedTypes.join(', ')}`
     };
   }
-  
+
   return { valid: true };
 }
 
@@ -276,10 +276,10 @@ function sanitizeErrorMessage(error) {
     500: 'Internal server error: Something went wrong on the server',
     503: 'Service unavailable: The server is temporarily unavailable'
   };
-  
+
   const status = error.status || 500;
   const genericMessage = genericMessages[status] || 'An error occurred';
-  
+
   // Log the detailed error for debugging
   console.error('Detailed error:', {
     message: error.message,
@@ -287,7 +287,7 @@ function sanitizeErrorMessage(error) {
     details: error.details || '',
     stack: error.stack
   });
-  
+
   // Return sanitized error for external consumption
   return {
     error: genericMessage,
@@ -305,22 +305,22 @@ function sanitizeErrorMessage(error) {
 function verifyTls(options = {}) {
   // In Node.js, TLS verification is enabled by default
   // This function ensures it's not disabled and adds additional security options
-  
+
   // Create a new options object to avoid modifying the original
   const secureOptions = { ...options };
-  
+
   // Ensure agent options exist
   secureOptions.agent = secureOptions.agent || {};
-  
+
   // Force TLS verification (prevent rejectUnauthorized: false)
   secureOptions.agent.rejectUnauthorized = true;
-  
+
   // Set secure TLS options
-  secureOptions.agent.secureOptions = crypto.constants.SSL_OP_NO_SSLv2 | 
-                                     crypto.constants.SSL_OP_NO_SSLv3 | 
+  secureOptions.agent.secureOptions = crypto.constants.SSL_OP_NO_SSLv2 |
+                                     crypto.constants.SSL_OP_NO_SSLv3 |
                                      crypto.constants.SSL_OP_NO_TLSv1 |
                                      crypto.constants.SSL_OP_NO_TLSv1_1;
-  
+
   return secureOptions;
 }
 
@@ -335,25 +335,25 @@ function isIpAllowed(ip, allowlist = []) {
   if (!allowlist || allowlist.length === 0) {
     return true;
   }
-  
+
   // Check if IP is in allowlist
   return allowlist.some(allowed => {
     // Exact match
     if (allowed === ip) return true;
-    
+
     // CIDR match (simplified implementation)
     if (allowed.includes('/')) {
       const [network, bits] = allowed.split('/');
       const mask = ~(2 ** (32 - parseInt(bits)) - 1);
-      
+
       // Convert IP addresses to integers for comparison
       const ipInt = ipToInt(ip);
       const networkInt = ipToInt(network);
-      
+
       // Check if IP is in network range
       return (ipInt & mask) === (networkInt & mask);
     }
-    
+
     return false;
   });
 }

@@ -1,13 +1,8 @@
 const request = require('supertest');
 const express = require('express');
-const mcpRoutes = require('../../routes/mcp');
-const { 
-  mockDatabase, 
-  mockServers, 
-  mockTools, 
-  mockResources, 
-  resetMocks 
-} = require('../test-helpers');
+
+// Mock database - must be done before requiring routes
+jest.mock('../../database', () => require('../test-helpers').mockDatabase);
 
 // Mock MCP provider functions
 jest.mock('../../providers/mcp', () => ({
@@ -18,10 +13,17 @@ jest.mock('../../providers/mcp', () => ({
   getMCPServerResources: jest.fn(),
   checkMCPServerStatus: jest.fn()
 }));
-const mcpProvider = require('../../providers/mcp');
 
-// Mock database
-jest.mock('../../database', () => mockDatabase);
+// Now require everything after mocks are set up
+const mcpRoutes = require('../../routes/mcp');
+const mcpProvider = require('../../providers/mcp');
+const {
+  mockDatabase,
+  mockServers,
+  mockTools,
+  mockResources,
+  resetMocks
+} = require('../test-helpers');
 
 // Create Express app for testing
 const app = express();
@@ -49,7 +51,7 @@ describe('MCP Routes', () => {
       expect(mockDatabase.getAllMCPServers).toHaveBeenCalled();
       expect(response.body).toHaveProperty('servers');
       expect(response.body.servers).toHaveLength(mockServers.length);
-      
+
       // Check that API keys are masked
       response.body.servers.forEach(server => {
         if (server.apiKey) {
@@ -92,7 +94,7 @@ describe('MCP Routes', () => {
       expect(mockDatabase.getMCPServer).toHaveBeenCalledWith(serverName);
       expect(response.body).toHaveProperty('server');
       expect(response.body.server.name).toBe(serverName);
-      
+
       // Check that API key is masked
       if (response.body.server.apiKey) {
         expect(response.body.server.apiKey).toBe('••••••');
@@ -160,11 +162,11 @@ describe('MCP Routes', () => {
         serverType: newServer.serverType,
         status: 'disconnected'
       }));
-      
+
       expect(response.body).toHaveProperty('message', `MCP server '${newServer.name}' saved successfully`);
       expect(response.body).toHaveProperty('server');
       expect(response.body.server.name).toBe(newServer.name);
-      
+
       // Check that API key is masked in response
       expect(response.body.server.apiKey).toBe('••••••');
     });
@@ -220,7 +222,7 @@ describe('MCP Routes', () => {
         apiKey: 'new-api-key',
         serverType: 'http'
       };
-      
+
       const errorMessage = 'Database error';
       mockDatabase.saveMCPServer.mockImplementation(() => {
         throw new Error(errorMessage);
@@ -276,7 +278,7 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
-      
+
       const errorMessage = 'Database error';
       mockDatabase.deleteMCPServer.mockImplementation(() => {
         throw new Error(errorMessage);
@@ -298,7 +300,7 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
-      
+
       const statusResponse = {
         connected: true,
         status: 'connected',
@@ -306,7 +308,7 @@ describe('MCP Routes', () => {
         version: '1.0.0',
         capabilities: ['tools', 'resources']
       };
-      
+
       mcpProvider.checkMCPServerStatus.mockResolvedValue(statusResponse);
 
       // Act
@@ -319,8 +321,8 @@ describe('MCP Routes', () => {
       // Assert
       expect(mcpProvider.checkMCPServerStatus).toHaveBeenCalledWith(serverName, {});
       expect(mockDatabase.updateMCPServerStatus).toHaveBeenCalledWith(
-        serverName, 
-        'connected', 
+        serverName,
+        'connected',
         statusResponse.capabilities
       );
       expect(response.body).toHaveProperty('status', statusResponse);
@@ -330,13 +332,13 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
-      
+
       const statusResponse = {
         connected: false,
         status: 'error',
         message: 'Server error'
       };
-      
+
       mcpProvider.checkMCPServerStatus.mockResolvedValue(statusResponse);
 
       // Act
@@ -349,7 +351,7 @@ describe('MCP Routes', () => {
       // Assert
       expect(mcpProvider.checkMCPServerStatus).toHaveBeenCalledWith(serverName, {});
       expect(mockDatabase.updateMCPServerStatus).toHaveBeenCalledWith(
-        serverName, 
+        serverName,
         'error'
       );
       expect(response.body).toHaveProperty('status', statusResponse);
@@ -377,7 +379,7 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
-      
+
       const errorMessage = 'Provider error';
       mcpProvider.checkMCPServerStatus.mockRejectedValue(new Error(errorMessage));
 
@@ -436,7 +438,7 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
-      
+
       const errorMessage = 'Provider error';
       mcpProvider.getMCPServerTools.mockRejectedValue(new Error(errorMessage));
 
@@ -495,7 +497,7 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
-      
+
       const errorMessage = 'Provider error';
       mcpProvider.getMCPServerResources.mockRejectedValue(new Error(errorMessage));
 
@@ -517,22 +519,22 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       const toolName = 'test-tool';
-      const arguments = { param: 'value' };
+      const args = { param: 'value' };
       const config = {};
-      
+
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
       mcpProvider.executeMCPTool.mockResolvedValue({ result: 'success' });
 
       // Act
       const response = await request(app)
         .post(`/api/mcp/execute/${serverName}/${toolName}`)
-        .send({ arguments, config })
+        .send({ arguments: args, config })
         .expect('Content-Type', /json/)
         .expect(200);
 
       // Assert
       expect(mockDatabase.getMCPServer).toHaveBeenCalledWith(serverName);
-      expect(mcpProvider.executeMCPTool).toHaveBeenCalledWith(serverName, toolName, arguments, config);
+      expect(mcpProvider.executeMCPTool).toHaveBeenCalledWith(serverName, toolName, args, config);
       expect(response.body).toEqual({ result: 'success' });
     });
 
@@ -540,7 +542,7 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'non-existent-server';
       const toolName = 'test-tool';
-      
+
       mockDatabase.getMCPServer.mockReturnValue(null);
 
       // Act
@@ -559,14 +561,14 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       const toolName = 'test-tool';
-      
+
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
-      
+
       const errorMessage = 'Provider error';
       const error = new Error(errorMessage);
       error.status = 400;
       error.details = 'Invalid arguments';
-      
+
       mcpProvider.executeMCPTool.mockRejectedValue(error);
 
       // Act
@@ -588,7 +590,7 @@ describe('MCP Routes', () => {
       const serverName = 'test-server';
       const uri = 'test://resource';
       const config = {};
-      
+
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
       mcpProvider.accessMCPResource.mockResolvedValue({ content: 'resource content' });
 
@@ -608,7 +610,7 @@ describe('MCP Routes', () => {
     it('should return 400 when URI is missing', async () => {
       // Arrange
       const serverName = 'test-server';
-      
+
       // Act
       const response = await request(app)
         .post(`/api/mcp/access/${serverName}`)
@@ -626,7 +628,7 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'non-existent-server';
       const uri = 'test://resource';
-      
+
       mockDatabase.getMCPServer.mockReturnValue(null);
 
       // Act
@@ -645,14 +647,14 @@ describe('MCP Routes', () => {
       // Arrange
       const serverName = 'test-server';
       const uri = 'test://resource';
-      
+
       mockDatabase.getMCPServer.mockReturnValue(mockServers[0]);
-      
+
       const errorMessage = 'Provider error';
       const error = new Error(errorMessage);
       error.status = 400;
       error.details = 'Invalid URI';
-      
+
       mcpProvider.accessMCPResource.mockRejectedValue(error);
 
       // Act
@@ -672,7 +674,7 @@ describe('MCP Routes', () => {
     it('should refresh all server statuses', async () => {
       // Arrange
       mockDatabase.getAllMCPServers.mockReturnValue(mockServers);
-      
+
       const statusResponses = {
         'test-server': {
           connected: true,
@@ -687,7 +689,7 @@ describe('MCP Routes', () => {
           message: 'Server error'
         }
       };
-      
+
       mcpProvider.checkMCPServerStatus.mockImplementation((serverName) => {
         return Promise.resolve(statusResponses[serverName]);
       });
@@ -702,18 +704,18 @@ describe('MCP Routes', () => {
       // Assert
       expect(mockDatabase.getAllMCPServers).toHaveBeenCalled();
       expect(mcpProvider.checkMCPServerStatus).toHaveBeenCalledTimes(mockServers.length);
-      
+
       // Check that statuses were updated
       expect(mockDatabase.updateMCPServerStatus).toHaveBeenCalledWith(
-        'test-server', 
-        'connected', 
+        'test-server',
+        'connected',
         statusResponses['test-server'].capabilities
       );
       expect(mockDatabase.updateMCPServerStatus).toHaveBeenCalledWith(
-        'another-server', 
+        'another-server',
         'error'
       );
-      
+
       expect(response.body).toHaveProperty('results');
       expect(response.body.results).toHaveProperty('test-server', statusResponses['test-server']);
       expect(response.body.results).toHaveProperty('another-server', statusResponses['another-server']);
@@ -722,7 +724,7 @@ describe('MCP Routes', () => {
     it('should handle errors for individual servers', async () => {
       // Arrange
       mockDatabase.getAllMCPServers.mockReturnValue(mockServers);
-      
+
       // First server succeeds, second fails
       mcpProvider.checkMCPServerStatus.mockImplementation((serverName) => {
         if (serverName === 'test-server') {
@@ -746,14 +748,14 @@ describe('MCP Routes', () => {
       // Assert
       expect(mockDatabase.getAllMCPServers).toHaveBeenCalled();
       expect(mcpProvider.checkMCPServerStatus).toHaveBeenCalledTimes(mockServers.length);
-      
+
       // Check that status was updated for the successful server
       expect(mockDatabase.updateMCPServerStatus).toHaveBeenCalledWith(
-        'test-server', 
-        'connected', 
+        'test-server',
+        'connected',
         undefined
       );
-      
+
       // Check that results include both success and error
       expect(response.body).toHaveProperty('results');
       expect(response.body.results).toHaveProperty('test-server');
