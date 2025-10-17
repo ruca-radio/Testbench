@@ -52,7 +52,7 @@ router.post('/api/agent-swarm/swarms', authenticate({ required: false }), async 
             return res.status(400).json({ error: 'Swarm name is required' });
         }
         
-        const swarmId = `swarm-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const swarmId = `swarm-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
         const now = new Date().toISOString();
         const userId = req.user?.id || null;
         
@@ -212,7 +212,7 @@ router.post('/api/agent-swarm/spawn', authenticate({ required: false }), async (
             return res.status(400).json({ error: 'Swarm has reached maximum agent capacity' });
         }
         
-        const agentId = `agent-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const agentId = `agent-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
         const now = new Date().toISOString();
         
         const spawnAgent = db.prepare(`
@@ -358,7 +358,7 @@ router.post('/api/agent-swarm/tasks', authenticate({ required: false }), async (
             return res.status(400).json({ error: 'Missing required fields' });
         }
         
-        const taskId = `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const taskId = `task-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
         const now = new Date().toISOString();
         
         const createTask = db.prepare(`

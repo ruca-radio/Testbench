@@ -276,7 +276,7 @@ async function attemptFailover(messages, model, providerConfig, modelParams, end
             ...agentContext,
             failover: true,
             originalError: originalError.message,
-            responseTime: Date.now() - Date.now() // Will be overwritten by caller
+            responseTime: 0 // Will be overwritten by caller
         };
 
         return response;
