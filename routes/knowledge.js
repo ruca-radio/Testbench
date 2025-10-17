@@ -95,7 +95,7 @@ router.post('/api/knowledge/bases', async (req, res) => {
 
     try {
         const knowledgeBase = {
-            id: `kb_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            id: `kb_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
             name,
             description,
             type,
@@ -160,12 +160,26 @@ router.delete('/api/knowledge/bases/:id', async (req, res) => {
             return res.status(404).json({ error: 'Knowledge base not found' });
         }
 
-        // TODO: Delete associated documents and vector embeddings
+        // Delete associated documents and their files
+        const documents = database.getKnowledgeBaseDocuments(id);
+        for (const doc of documents) {
+            // Delete physical file if it exists
+            if (doc.filepath) {
+                try {
+                    await fs.unlink(doc.filepath);
+                } catch (fileError) {
+                    console.error(`Warning: Could not delete file ${doc.filepath}:`, fileError.message);
+                }
+            }
+        }
+
+        // Delete knowledge base (cascade will delete documents from database)
         database.deleteKnowledgeBase(id);
 
         res.json({
-            message: `Knowledge base '${knowledgeBase.name}' deleted successfully`,
-            deletedId: id
+            message: `Knowledge base '${knowledgeBase.name}' and ${documents.length} associated documents deleted successfully`,
+            deletedId: id,
+            documentsDeleted: documents.length
         });
     } catch (error) {
         console.error(`Error deleting knowledge base ${id}:`, error.message);
@@ -190,7 +204,7 @@ router.post('/api/knowledge/bases/:id/documents', upload.array('documents', 10),
         const uploadedDocuments = [];
         for (const file of req.files) {
             const document = {
-                id: `doc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                id: `doc_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
                 filename: file.originalname,
                 filepath: file.path,
                 mimetype: file.mimetype,
@@ -240,7 +254,7 @@ router.post('/api/knowledge/import', async (req, res) => {
                 // Generate new ID to avoid conflicts
                 const newKB = {
                     ...kb,
-                    id: `kb_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                    id: `kb_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
                     createdAt: new Date().toISOString(),
                     updatedAt: new Date().toISOString()
                 };
